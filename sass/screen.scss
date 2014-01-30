@@ -14,8 +14,14 @@ body {
 }
 
 header{
+    position:fixed;
+    top:0px;
+    width:100%;
+    box-sizing:border-box;
     background: $tMain;
-    padding:0 20px 20px 20px;
+    padding:5px 15px 15px 15px;
+    border-top: 3px solid $highlight;
+    border-bottom:3px solid $highlight;
     h1{
         color:#fff;
         font-size:50px;
@@ -28,6 +34,17 @@ header{
         color:white;
         float:right;
     }
+}
+@media(max-width:500px){
+    header > h1::after{
+        content:"SmallScreen";
+        color:white;
+        float:right;
+    }
+    header > h1{
+        font-size:30px;
+    }
+    
 }
 
 
