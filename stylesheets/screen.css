@@ -160,7 +160,8 @@ main {
 .item > * {
   min-height: 10px;
   max-width: 1000px;
-  margin: 0 auto;
+  margin: 5px auto;
+  display: block;
   text-align: center;
   position: relative;
   top: 50%;
@@ -168,12 +169,13 @@ main {
   transform: translateY(-50%);
 }
 
-/* line 93, ../sass/screen.scss */
-body, .item:nth-child(odd) {
+/* line 95, ../sass/screen.scss */
+body,
+.item:nth-child(odd) {
   background-color: #f8f8f8;
 }
 
-/* line 96, ../sass/screen.scss */
+/* line 98, ../sass/screen.scss */
 .spaced {
   letter-spacing: 100px;
 }

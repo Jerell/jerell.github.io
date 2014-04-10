@@ -83,7 +83,8 @@ header > h1::after {
 .item > * {
     min-height:10px;
     max-width:1000px;
-    margin:0 auto;
+    margin:5px auto;
+    display:block;
     text-align:center;
     position:relative;
     top:50%;
