@@ -1,1 +1,2 @@
 <p>Not sure if this counts as AJAX.</p>
+<button> this is a button </button>
