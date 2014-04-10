@@ -1,1 +1,1 @@
-This text was successfully loaded from another file using Javascript.
+<p>Not sure if this counts as AJAX.</p>

@@ -21,13 +21,13 @@ function loadText(elem) {
     textFile.open("GET", "../assets/load.txt", true);
     textFile.onreadystatechange = function () {
         if (textFile.readyState === 4 && textFile.status === 200) {
+            fileContent = textFile.responseText;
             window.setTimeout(function () {
-                fileContent = textFile.responseText;
-            }, 3000);
+                elem.innerHTML = fileContent;
+            }, 50);
         }
     };
     textFile.send();
-    elem.innerHTML = fileContent;
 }
 
 function spaceChars() {
@@ -35,6 +35,8 @@ function spaceChars() {
     hHeight = hHeight.substring(0, hHeight.length - 2);
     if (document.body.scrollTop > hHeight) {
         header.children[0].children[0].style.letterSpacing = "100px";
+    } else {
+        header.children[0].children[0].style.letterSpacing = "initial";
     }
     return hHeight < document.body.scrollTop ? true : false;
 }
