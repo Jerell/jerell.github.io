@@ -11,6 +11,20 @@ function clearHeader() {
 }
 clearHeader();
 
+function toggleClass(element, className) {
+    if (!element || !className) {
+        return;
+    }
+    var classString = element.className,
+        nameIndex = classString.indexOf(className);
+    if (nameIndex == -1) {
+        classString += ' ' + className;
+    } else {
+        classString = classString.substr(0, nameIndex) + classString.substr(nameIndex + className.length);
+    }
+    element.className = classString;
+}
+
 var fileContent;
 document.getElementById("loadText").addEventListener("click", function () {
     loadText(this);
@@ -32,11 +46,14 @@ function loadText(elem) {
 
 function spaceChars() {
     var hHeight = window.getComputedStyle(header).height;
-    hHeight = hHeight.substring(0, hHeight.length - 2);
-    if (document.body.scrollTop > hHeight) {
-        header.children[0].children[0].style.letterSpacing = "100px";
-    } else {
-        header.children[0].children[0].style.letterSpacing = "initial";
+    hHeight = hHeight.substring(0, hHeight.length - 2); // Remove px
+    var hSpan = document.querySelector("header h1 span"),
+        shouldSpace = document.body.scrollTop > hHeight ? true : false,
+        isSpaced = hSpan.className.indexOf("spaced");
+    if (shouldSpace && isSpaced == -1) {
+        hSpan.className += " spaced";
+    } else if (!shouldSpace && isSpaced > -1) {
+        hSpan.className = hSpan.className.substr(0, isSpaced) + hSpan.className.substr(isSpaced + hSpan.className.length);
     }
     return hHeight < document.body.scrollTop ? true : false;
 }

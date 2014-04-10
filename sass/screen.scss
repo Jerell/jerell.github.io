@@ -48,6 +48,7 @@ header {
 main {
     z-index: -1;
 }
+// Media Queries ---------------------------------------------
 @media(max-width:900px){
 
 header > h1::after {
@@ -63,7 +64,8 @@ header > h1::after {
     color: white;
     float: right;
 }
-header > h1 {
+//End Media Queries -----------------------------------------
+ header > h1 {
     font-size: 40px;
 }
 }
@@ -90,4 +92,7 @@ header > h1 {
 }
 .item:nth-child(odd) {
     background-color:#f8f8f8;
+}
+.spaced {
+    letter-spacing:100px;
 }
