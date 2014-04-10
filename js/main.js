@@ -25,24 +25,29 @@ function toggleClass(element, className) {
     element.className = classString;
 }
 
-var fileContent;
+var fileContent,
+    loadedText = false;
+
+function loadText(elem) {
+    if (loadedText === false) {
+        var textFile = new XMLHttpRequest();
+        textFile.open("GET", "../assets/load.txt", true);
+        textFile.onreadystatechange = function () {
+            if (textFile.readyState === 4 && textFile.status === 200) {
+                fileContent = textFile.responseText;
+                window.setTimeout(function () {
+                    elem.innerHTML = fileContent;
+                }, 50);
+            }
+        };
+        textFile.send();
+    }
+    loadedText = true;
+}
+
 document.getElementById("loadText").addEventListener("click", function () {
     loadText(this);
 });
-
-function loadText(elem) {
-    var textFile = new XMLHttpRequest();
-    textFile.open("GET", "../assets/load.txt", true);
-    textFile.onreadystatechange = function () {
-        if (textFile.readyState === 4 && textFile.status === 200) {
-            fileContent = textFile.responseText;
-            window.setTimeout(function () {
-                elem.innerHTML = fileContent;
-            }, 50);
-        }
-    };
-    textFile.send();
-}
 
 function spaceChars() {
     var hHeight = window.getComputedStyle(header).height;
@@ -58,6 +63,8 @@ function spaceChars() {
     return hHeight < document.body.scrollTop ? true : false;
 }
 
-window.addEventListener("scroll", function () {
-    spaceChars();
-});
+window.addEventListener("scroll", spaceChars);
+
+function toTop() {
+
+}
