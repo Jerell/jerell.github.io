@@ -1,76 +1,76 @@
-$display-font: "League Gothic";
-$font-stack: Arial;
-$primary-color: #333;
-$highlight: orange;
-$main: #444;
-$tMain: transparentize($main, 0.2);
-
+$display-font:league-gothic;
+ $font-stack:open-sans, actor, arial;
+ $primary-color:#333;
+ $highlight:orange;
+ $main:#444;
+ $tMain:transparentize($main,
+0.2);
 @mixin border-radius($radius) {
-  -webkit-border-radius: $radius;
-     -moz-border-radius: $radius;
-      -ms-border-radius: $radius;
-       -o-border-radius: $radius;
-          border-radius: $radius;
+    -webkit-border-radius: $radius;
+    -moz-border-radius: $radius;
+    -ms-border-radius: $radius;
+    -o-border-radius: $radius;
+    border-radius: $radius;
 }
-
 @function calculateRem($size) {
-  $remSize: $size / 16px;
-  @return $remSize * 1rem;
+    $remSize: $size / 16px;
+    @return $remSize * 1rem;
 }
-
 @mixin font-size($size) {
-  font-size: $size;
-  font-size: calculateRem($size);
+    font-size: $size;
+    font-size: calculateRem($size);
 }
-
 @mixin bp-large {
-  @media only screen and (max-width: 60em) {
-    @content;
-  }
-}
+    @media only screen and (max-width: 60em) {
+        @content;
 
+    }
+}
 @mixin bp-medium {
-  @media only screen and (max-width: 40em) {
-    @content;
-  }
-}
+    @media only screen and (max-width: 40em) {
+        @content;
 
+    }
+}
 @mixin bp-small {
-  @media only screen and (max-width: 30em) {
-    @content;
-  }
-}
+    @media only screen and (max-width: 30em) {
+        @content;
 
+    }
+}
 @mixin keyframes($animation-name) {
-  @-webkit-keyframes $animation-name {
-    @content;
-  }
-  @-moz-keyframes $animation-name {
-    @content;
-  }  
-  @-ms-keyframes $animation-name {
-    @content;
-  }
-  @-o-keyframes $animation-name {
-    @content;
-  }  
-  @keyframes $animation-name {
-    @content;
-  }
-}
+    @-webkit-keyframes $animation-name {
+        @content;
 
+    }
+    @-moz-keyframes $animation-name {
+        @content;
+
+    }
+    @-ms-keyframes $animation-name {
+        @content;
+
+    }
+    @-o-keyframes $animation-name {
+        @content;
+
+    }
+    @keyframes $animation-name {
+        @content;
+
+    }
+}
 @mixin animation($str) {
-  -webkit-animation: #{$str};
-  -moz-animation: #{$str};
-  -ms-animation: #{$str};
-  -o-animation: #{$str};
-  animation: #{$str};      
+    -webkit-animation: $str;
+    -moz-animation: $str;
+    -ms-animation: $str;
+    -o-animation: $str;
+    animation: $str;
 }
-
 @mixin transition($args...) {
-  -webkit-transition: $args;
-  -moz-transition: $args;
-  -ms-transition: $args;
-  -o-transition: $args;
-  transition: $args;
+    -webkit-transition: $args;
+    -moz-transition: $args;
+    -ms-transition: $args;
+    -o-transition: $args;
+    transition: $args;
 }

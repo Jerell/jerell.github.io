@@ -64,7 +64,3 @@ function spaceChars() {
 }
 
 window.addEventListener("scroll", spaceChars);
-
-function toTop() {
-
-}

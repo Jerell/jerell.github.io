@@ -67,31 +67,23 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
-@font-face {
-  font-family: 'League Gothic';
-  src: url("../assets/fonts/webfontkit/leaguegothic-regular-webfont.eot");
-  src: url("../assets/fonts/webfontkit/leaguegothic-regular-webfont.eot?#iefix") format("embedded-opentype"), url("../assets/fonts/webfontkit/leaguegothic-regular-webfont.woff") format("woff"), url("../assets/fonts/webfontkit/leaguegothic-regular-webfont.ttf") format("truetype"), url("../assets/fonts/webfontkit/leaguegothic-regular-webfont.svg#league_gothicregular") format("svg");
-  font-weight: normal;
-  font-style: normal;
-}
-
-/* line 16, ../sass/screen.scss */
+/* line 9, ../sass/screen.scss */
 body {
-  font-family: Arial;
+  font-family: open-sans, actor, arial;
   color: #333333;
 }
 
-/* line 25, ../sass/screen.scss */
+/* line 18, ../sass/screen.scss */
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-family: "League Gothic";
+  font-family: league-gothic;
 }
 
-/* line 28, ../sass/screen.scss */
+/* line 21, ../sass/screen.scss */
 header {
   z-index: 1;
   position: fixed;
@@ -104,50 +96,66 @@ header {
   border-bottom: 3px solid orange;
   text-align: center;
 }
-/* line 39, ../sass/screen.scss */
+/* line 32, ../sass/screen.scss */
 header h1 {
   display: inline-block;
   color: #fff;
   font-size: 50px;
 }
-/* line 43, ../sass/screen.scss */
+/* line 36, ../sass/screen.scss */
 header h1 span {
   transition: all .4s;
 }
 
-/* line 48, ../sass/screen.scss */
+/* line 41, ../sass/screen.scss */
 main {
   z-index: -1;
 }
 
 @media (max-width: 900px) {
-  /* line 54, ../sass/screen.scss */
+  /* line 47, ../sass/screen.scss */
   header > h1::after {
     content: "HalfScreen";
     color: white;
     float: right;
   }
+
+  /* line 52, ../sass/screen.scss */
+  .spaced {
+    letter-spacing: 50px;
+  }
 }
 @media (max-width: 500px) {
-  /* line 62, ../sass/screen.scss */
+  /* line 57, ../sass/screen.scss */
   header > h1::after {
     content: "SmallScreen";
     color: white;
     float: right;
   }
 
-  /* line 68, ../sass/screen.scss */
-  header > h1 {
-    font-size: 40px;
+  /* line 62, ../sass/screen.scss */
+  .spaced {
+    letter-spacing: 30px;
   }
 }
-/* line 72, ../sass/screen.scss */
+/* line 67, ../sass/screen.scss */
+header > h1 {
+  font-size: 40px;
+}
+
+/* line 70, ../sass/screen.scss */
+.spaced {
+  letter-spacing: 100px;
+}
+
+/* line 73, ../sass/screen.scss */
 #intro {
   margin-bottom: 10px;
   display: block;
+  font-family: open-sans, actor, arial;
 }
 
-/* line 76, ../sass/screen.scss */
+/* line 78, ../sass/screen.scss */
 .item {
   width: 100%;
   height: 300px;
@@ -156,7 +164,7 @@ main {
   background-color: #eee;
 }
 
-/* line 83, ../sass/screen.scss */
+/* line 85, ../sass/screen.scss */
 .item > * {
   min-height: 10px;
   max-width: 1000px;
@@ -169,13 +177,19 @@ main {
   transform: translateY(-50%);
 }
 
-/* line 95, ../sass/screen.scss */
+/* line 97, ../sass/screen.scss */
 body,
 .item:nth-child(odd) {
   background-color: #f8f8f8;
 }
 
-/* line 98, ../sass/screen.scss */
-.spaced {
-  letter-spacing: 100px;
+/* line 101, ../sass/screen.scss */
+#three {
+  box-shadow: 0 0 100px rgba(0, 0, 0, 0.4) inset;
+}
+/* line 106, ../sass/screen.scss */
+#three canvas {
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
 }
