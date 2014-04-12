@@ -4,7 +4,7 @@ var header = document.getElementsByTagName("header")[0];
 
 function clearHeader() {
     var height = window.getComputedStyle(header).height;
-    document.getElementsByClassName("main")[0].style.marginTop = height;
+    document.getElementsByTagName("main")[0].style.marginTop = height;
     if (height) {
         return "Pushed by" + height;
     }
@@ -53,14 +53,15 @@ function spaceChars() {
     var hHeight = window.getComputedStyle(header).height;
     hHeight = hHeight.substring(0, hHeight.length - 2); // Remove px
     var hSpan = document.querySelector("header h1 span"),
-        shouldSpace = document.body.scrollTop > hHeight ? true : false,
+        shouldSpace = window.pageYOffset > hHeight ? true : false,
         isSpaced = hSpan.className.indexOf("spaced");
     if (shouldSpace && isSpaced == -1) {
         hSpan.className += " spaced";
     } else if (!shouldSpace && isSpaced > -1) {
         hSpan.className = hSpan.className.substr(0, isSpaced) + hSpan.className.substr(isSpaced + hSpan.className.length);
     }
-    return hHeight < document.body.scrollTop ? true : false;
+    header.children[0].blur();
+    return shouldSpace;
 }
 
 window.addEventListener("scroll", spaceChars);

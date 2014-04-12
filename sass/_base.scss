@@ -1,76 +1,78 @@
 $display-font:league-gothic;
- $font-stack:open-sans, actor, arial;
+ $font-stack:open-sans,
+actor,
+arial,
+sans-serif;
  $primary-color:#333;
  $highlight:orange;
  $main:#444;
- $tMain:transparentize($main,
-0.2);
+$tTime: .4s;
+
+@mixin centred {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
 @mixin border-radius($radius) {
-    -webkit-border-radius: $radius;
-    -moz-border-radius: $radius;
-    -ms-border-radius: $radius;
-    -o-border-radius: $radius;
-    border-radius: $radius;
-}
-@function calculateRem($size) {
-    $remSize: $size / 16px;
-    @return $remSize * 1rem;
-}
-@mixin font-size($size) {
-    font-size: $size;
-    font-size: calculateRem($size);
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  -o-border-radius: $radius;
+  border-radius: $radius;
 }
 @mixin bp-large {
-    @media only screen and (max-width: 60em) {
-        @content;
+  @media only screen and (max-width: 60em) {
+    @content;
 
-    }
+  }
 }
 @mixin bp-medium {
-    @media only screen and (max-width: 40em) {
-        @content;
+  @media only screen and (max-width: 40em) {
+    @content;
 
-    }
+  }
 }
 @mixin bp-small {
-    @media only screen and (max-width: 30em) {
-        @content;
+  @media only screen and (max-width: 550px) {
+    @content;
 
-    }
+  }
 }
 @mixin keyframes($animation-name) {
-    @-webkit-keyframes $animation-name {
-        @content;
+  @-webkit-keyframes $animation-name {
+    @content;
 
-    }
-    @-moz-keyframes $animation-name {
-        @content;
+  }
+  @-moz-keyframes $animation-name {
+    @content;
 
-    }
-    @-ms-keyframes $animation-name {
-        @content;
+  }
+  @-ms-keyframes $animation-name {
+    @content;
 
-    }
-    @-o-keyframes $animation-name {
-        @content;
+  }
+  @-o-keyframes $animation-name {
+    @content;
 
-    }
-    @keyframes $animation-name {
-        @content;
+  }
+  @keyframes $animation-name {
+    @content;
 
-    }
+  }
 }
 @mixin animation($str) {
-    -webkit-animation: $str;
-    -moz-animation: $str;
-    -ms-animation: $str;
-    -o-animation: $str;
-    animation: $str;
+  -webkit-animation: $str;
+  -moz-animation: $str;
+  -ms-animation: $str;
+  -o-animation: $str;
+  animation: $str;
 }
 @mixin transition($args...) {
-    -webkit-transition: $args;
-    -moz-transition: $args;
-    -ms-transition: $args;
-    -o-transition: $args;
-    transition: $args;
+  -webkit-transition: $args;
+  -moz-transition: $args;
+  -ms-transition: $args;
+  -o-transition: $args;
+  transition: $args;
 }

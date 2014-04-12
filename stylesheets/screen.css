@@ -69,7 +69,7 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 
 /* line 9, ../sass/screen.scss */
 body {
-  font-family: open-sans, actor, arial;
+  font-family: open-sans, actor, arial, sans-serif;
   color: #333333;
 }
 
@@ -83,7 +83,7 @@ h6 {
   font-family: league-gothic;
 }
 
-/* line 21, ../sass/screen.scss */
+/* line 22, ../sass/screen.scss */
 header {
   z-index: 1;
   position: fixed;
@@ -95,77 +95,131 @@ header {
   border-top: 3px solid orange;
   border-bottom: 3px solid orange;
   text-align: center;
+  transition: all 0.4s;
 }
-/* line 32, ../sass/screen.scss */
-header h1 {
-  display: inline-block;
-  color: #fff;
-  font-size: 50px;
-}
-/* line 36, ../sass/screen.scss */
-header h1 span {
-  transition: all .4s;
-}
-
-/* line 41, ../sass/screen.scss */
-main {
-  z-index: -1;
-}
-
-@media (max-width: 900px) {
-  /* line 47, ../sass/screen.scss */
-  header > h1::after {
-    content: "HalfScreen";
-    color: white;
-    float: right;
+@media only screen and (max-width: 550px) {
+  /* line 22, ../sass/screen.scss */
+  header {
+    border-color: #c00;
   }
+}
 
-  /* line 52, ../sass/screen.scss */
+/* line 38, ../sass/screen.scss */
+.title {
+  background: none;
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+/* line 43, ../sass/screen.scss */
+.title:hover {
+  cursor: pointer;
+}
+/* line 46, ../sass/screen.scss */
+.title:focus {
+  outline: none;
+}
+
+/* line 50, ../sass/screen.scss */
+.spaced {
+  letter-spacing: 100px;
+}
+@media only screen and (max-width: 550px) {
+  /* line 50, ../sass/screen.scss */
   .spaced {
     letter-spacing: 50px;
   }
 }
-@media (max-width: 500px) {
-  /* line 57, ../sass/screen.scss */
-  header > h1::after {
-    content: "SmallScreen";
-    color: white;
-    float: right;
-  }
 
-  /* line 62, ../sass/screen.scss */
-  .spaced {
-    letter-spacing: 30px;
-  }
+/* line 56, ../sass/screen.scss */
+nav {
+  position: absolute;
+  top: -100%;
+  width: 100%;
+  height: 100%;
+  transition: all 0.4s;
+  left: 0;
+  right: 0;
+  z-index: -1;
+}
+/* line 65, ../sass/screen.scss */
+nav ul {
+  height: 100%;
 }
 /* line 67, ../sass/screen.scss */
-header > h1 {
-  font-size: 40px;
+nav ul li {
+  margin: 0 5px;
 }
 
-/* line 70, ../sass/screen.scss */
-.spaced {
-  letter-spacing: 100px;
+/* line 72, ../sass/screen.scss */
+.title:focus ~ nav {
+  top: 0;
 }
 
-/* line 73, ../sass/screen.scss */
+/* line 75, ../sass/screen.scss */
+.navItem {
+  display: inline;
+  height: 50px;
+  position: relative;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+/* line 81, ../sass/screen.scss */
+.navItem * {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  height: 50px;
+  display: inline-block;
+}
+
+/* line 87, ../sass/screen.scss */
+.topList, .leftLinks {
+  width: 25%;
+  margin: 0 calc(100% / 6);
+}
+
+/* line 91, ../sass/screen.scss */
+.leftLinks {
+  float: left;
+}
+
+/* line 97, ../sass/screen.scss */
+main {
+  z-index: -1;
+}
+
+/* line 100, ../sass/screen.scss */
+h1 {
+  display: inline-block;
+  color: #fff;
+  font-size: 50px;
+}
+/* line 104, ../sass/screen.scss */
+h1 span {
+  letter-spacing: 0;
+  transition: all 0.4s;
+}
+
+/* line 109, ../sass/screen.scss */
 #intro {
   margin-bottom: 10px;
   display: block;
-  font-family: open-sans, actor, arial;
+  font-family: open-sans, actor, arial, sans-serif;
 }
 
-/* line 78, ../sass/screen.scss */
+/* line 114, ../sass/screen.scss */
 .item {
   width: 100%;
   height: 300px;
   float: left;
   clear: left;
   background-color: #eee;
+  box-sizing: border-box;
 }
-
-/* line 85, ../sass/screen.scss */
-.item > * {
+/* line 121, ../sass/screen.scss */
+.item * {
   min-height: 10px;
   max-width: 1000px;
   margin: 5px auto;
@@ -176,20 +230,37 @@ header > h1 {
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
 }
+/* line 128, ../sass/screen.scss */
+.item * h2 {
+  top: 20px;
+}
+@media only screen and (max-width: 550px) {
+  /* line 121, ../sass/screen.scss */
+  .item * {
+    padding: 0 15px;
+    font-size: 14px;
+  }
+}
 
-/* line 97, ../sass/screen.scss */
+/* line 138, ../sass/screen.scss */
 body,
 .item:nth-child(odd) {
   background-color: #f8f8f8;
 }
 
-/* line 101, ../sass/screen.scss */
+/* line 142, ../sass/screen.scss */
 #three {
   box-shadow: 0 0 100px rgba(0, 0, 0, 0.4) inset;
 }
-/* line 106, ../sass/screen.scss */
+/* line 144, ../sass/screen.scss */
 #three canvas {
   height: 100%;
   width: 100%;
   max-width: 100%;
+}
+
+/* line 151, ../sass/screen.scss */
+h2 {
+  font-size: 40px;
+  color: #333333;
 }

@@ -7,8 +7,8 @@
 @import "compass";
 @import "base";
  body {
-    font-family: $font-stack;
-    color: $primary-color;
+  font-family: $font-stack;
+  color: $primary-color;
 }
 h1,
 h2,
@@ -16,96 +16,139 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: $display-font;
+  font-family: $display-font;
 }
-header {
-    z-index: 1;
-    position: fixed;
-    top: 0px;
-    width: 100%;
-    box-sizing: border-box;
-    background: rgba(0, 0, 0, 0.15);
-    padding: 5px 15px 15px 15px;
-    border-top: 3px solid $highlight;
-    border-bottom: 3px solid $highlight;
-    text-align: center;
-    h1 {
-        display: inline-block;
-        color: #fff;
-        font-size: 50px;
-        span {
-            transition: all .4s;
-        }
-    }
-}
-main {
-    z-index: -1;
-}
-// Media Queries ---------------------------------------------
-@media(max-width:900px){
 
-header > h1::after {
-    content: "HalfScreen";
-    color: white;
-    float: right;
+header {
+  z-index: 1;
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.15);
+  padding: 5px 15px 15px 15px;
+  border-top: 3px solid $highlight;
+  border-bottom: 3px solid $highlight;
+  text-align: center;
+  transition: all $tTime;
+  @include bp-small {
+    border-color: #c00;
+  }
+}
+.title {
+  background: none;
+  padding: 0;
+  margin: 0;
+  border: none;
+  &:hover {
+    cursor: pointer;
+  }
+  &:focus {
+    outline: none;
+  }
 }
 .spaced {
+  letter-spacing: 100px;
+  @include bp-small {
     letter-spacing: 50px;
+  }
 }
+nav {
+  position: absolute;
+  top: -100%;
+  width: 100%;
+  height: 100%;
+  transition: all $tTime;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  ul {
+    height: 100%;
+    li{
+      margin: 0 5px;
+    }
+  }
 }
-@media(max-width:500px){ //  - - - - - - - - - - - - - - - -
- header > h1::after {
-    content: "SmallScreen";
-    color: white;
-    float: right;
+.title:focus ~ nav {
+  top: 0;
 }
-.spaced {
-    letter-spacing: 30px;
+.navItem {
+  display: inline;
+  height: 50px;
+  position:relative;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  * {
+    @include centred;
+    height:50px;
+    display: inline-block;
+  }
 }
+.topList{
+  width:25%;
+  margin: 0 calc(100% / 6);
 }
-//End Media Queries -----------------------------------------
- header > h1 {
-    font-size:40px;
+.leftLinks{
+  @extend .topList;
+  float:left;
 }
-.spaced {
-    letter-spacing:100px;
+
+
+main {
+  z-index: -1;
+}
+h1 {
+  display: inline-block;
+  color: #fff;
+  font-size: 50px;
+  span {
+    letter-spacing: 0;
+    transition: all $tTime;
+  }
 }
 #intro {
-    margin-bottom:10px;
-    display:block;
-    font-family:$font-stack;
+  margin-bottom: 10px;
+  display: block;
+  font-family: $font-stack;
 }
 .item {
-    width:100%;
-    height:300px;
-    float:left;
-    clear:left;
-    background-color:#eee;
-}
-.item > * {
-    min-height:10px;
-    max-width:1000px;
-    margin:5px auto;
-    display:block;
-    text-align:center;
-    position:relative;
-    top:50%;
-    -webkit-transform:translateY(-50%);
-    transform:translateY(-50%);
+  width: 100%;
+  height: 300px;
+  float: left;
+  clear: left;
+  background-color: #eee;
+  box-sizing: border-box;
+  * {
+    min-height: 10px;
+    max-width: 1000px;
+    margin: 5px auto;
+    display: block;
+    text-align: center;
+    @include centred;
+    h2 {
+      top: 20px;
+    }
+    @include bp-small {
+      padding: 0 15px;
+      font-size: 14px;
+    }
+  }
 }
 body,
 .item:nth-child(odd) {
-    background-color:#f8f8f8;
+  background-color: #f8f8f8;
 }
-//Three ----------------------------------------------------
-#three {
-    box-shadow:0 0 100px rgba(0,
-    0,
-    0,
-    .4) inset;
-    canvas {
-        height: 100%;
-        width: 100%;
-        max-width: 100%;
-    }
+//Three.js Cube ----------------------------------------------
+ #three {
+  box-shadow: 0 0 100px rgba(0, 0, 0, .4) inset;
+  canvas {
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+// -----------------------------------------------------------
+ h2 {
+  font-size: 40px;
+  color: $primary-color;
 }

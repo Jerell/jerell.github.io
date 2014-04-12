@@ -3,7 +3,7 @@ var container = document.getElementById("three"),
     cHeight = window.getComputedStyle(container).height;
 cHeight = cHeight.substring(0, cHeight.length - 2);
 
-var viewAngle = 60,
+var viewAngle = 45,
     aspect = window.innerWidth / cHeight,
     near = 0.1,
     far = 1000;
@@ -73,9 +73,10 @@ var particleSystem = new THREE.ParticleSystem(
 
 particleSystem.sortParticles = true;
 
-
 scene.add(particleSystem);
-cube.addEventListener("click", cube.mToggle);
+
+container.addEventListener("mouseover", function(){cube.mToggle();});
+container.addEventListener("mouseout", function(){cube.mToggle();});
 
 function render() {
     requestAnimationFrame(render);
