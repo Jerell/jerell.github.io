@@ -65,3 +65,4 @@ function spaceChars() {
 }
 
 window.addEventListener("scroll", spaceChars);
+//Safari's being a pleb
