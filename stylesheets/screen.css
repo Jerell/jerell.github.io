@@ -67,6 +67,14 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
+@font-face {
+  font-family: 'league gothic';
+  src: url("assets/leaguegothic-regular-webfont.eot");
+  src: url("assets/leaguegothic-regular-webfont.eot?#iefix") format("embedded-opentype"), url("assets/leaguegothic-regular-webfont.woff") format("woff"), url("assets/leaguegothic-regular-webfont.ttf") format("truetype"), url("assets/leaguegothic-regular-webfont.svg#league_gothicregular") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* line 9, ../sass/screen.scss */
 body {
   font-family: open-sans, actor, arial, sans-serif;
