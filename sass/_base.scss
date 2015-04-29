@@ -34,6 +34,11 @@ $tTime: .4s;
   -o-border-radius: $radius;
   border-radius: $radius;
 }
+
+@mixin inset-shadow($size, $opacity){
+  box-shadow: 0 0 $size rgba(0, 0, 0, $opacity) inset;
+}
+
 @mixin bp-large {
   @media only screen and (max-width: 60em) {
     @content;
@@ -52,35 +57,22 @@ $tTime: .4s;
 
   }
 }
-@mixin keyframes($animation-name) {
-  @-webkit-keyframes $animation-name {
-    @content;
 
+@mixin keyframes($name) {
+  @-webkit-keyframes $name {
+    @content;
   }
-  @-moz-keyframes $animation-name {
+  @-moz-keyframes $name {
     @content;
-
   }
-  @-ms-keyframes $animation-name {
+  @keyframes $name {
     @content;
-
-  }
-  @-o-keyframes $animation-name {
-    @content;
-
-  }
-  @keyframes $animation-name {
-    @content;
-
   }
 }
 @mixin animation($str) {
   -webkit-animation: $str;
-  -moz-animation: $str;
-  -ms-animation: $str;
-  -o-animation: $str;
-  animation: $str;
 }
+
 @mixin transition($args...) {
   -webkit-transition: $args;
   -moz-transition: $args;

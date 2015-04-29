@@ -1,12 +1,10 @@
-/*global document, window, XMLHttpRequest, console */
-
-
 //  I've been told having global variables is bad but it's useful to be able to call these functions from the console as I work on them so I'll leave the globals for now and wrap them up in a function or something later.
 
 
+// -- here I add space to the first .item so none of it is hidden behind the header -- //
 var header = document.getElementsByTagName("header")[0];
 
-function clearHeader() { // this function adds space to the first .item so none of it is hidden behind the header
+function clearHeader() {
     var height = window.getComputedStyle(header).height;
     document.getElementsByTagName("main")[0].style.marginTop = height;
     if (height) {
@@ -14,7 +12,10 @@ function clearHeader() { // this function adds space to the first .item so none 
     }
 }
 clearHeader();
+// -- End header spacing -- //
 
+
+// -- AJAX -- //
 var fileContent,
     loadedText = false;
 
@@ -38,8 +39,11 @@ function loadText(elem) {
 document.getElementById("loadText").addEventListener("click", function () {
     loadText(this);
 });
+// -- End AJAX -- //
 
-function spaceChars() { // this function does the flashy text spacing
+
+// -- flashy text spacing -- //
+function spaceChars() {
     var hHeight = window.getComputedStyle(header).height;  // grab the height of the header element
     hHeight = hHeight.substring(0, hHeight.length - 2); // Remove 'px' from the value
     var hSpan = document.querySelector("header h1 span"),  //select the span tag in the header
@@ -56,3 +60,15 @@ function spaceChars() { // this function does the flashy text spacing
 
 window.addEventListener("scroll", spaceChars);
 //Safari's being a pleb
+// -- End flashy text spacing -- //
+
+
+// -- Info tabs (jQuery)-- //
+$('.info').click(function(event){
+    $(this).toggleClass('open');
+    setTimeout(function(){
+        $(event.target).children().toggleClass('show')
+        console.log("tada");
+    }, 200);
+});
+// -- End info tabs -- //
