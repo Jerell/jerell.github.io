@@ -97,7 +97,7 @@ function render() {
 
         // update the velocity with
         // a splat of randomniz
-        // particle.velocity.x -= Math.random() * 0.1;
+        particle.velocity.x -= Math.random() * 0.1;
 
         // and the position
         particle.add(particle.velocity);

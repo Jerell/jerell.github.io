@@ -1,8 +1,12 @@
 /*global document, window, XMLHttpRequest, console */
 
+
+//  I've been told having global variables is bad but it's useful to be able to call these functions from the console as I work on them so I'll leave the globals for now and wrap them up in a function or something later.
+
+
 var header = document.getElementsByTagName("header")[0];
 
-function clearHeader() {
+function clearHeader() { // this function adds space to the first .item so none of it is hidden behind the header
     var height = window.getComputedStyle(header).height;
     document.getElementsByTagName("main")[0].style.marginTop = height;
     if (height) {
@@ -11,27 +15,13 @@ function clearHeader() {
 }
 clearHeader();
 
-function toggleClass(element, className) {
-    if (!element || !className) {
-        return;
-    }
-    var classString = element.className,
-        nameIndex = classString.indexOf(className);
-    if (nameIndex == -1) {
-        classString += ' ' + className;
-    } else {
-        classString = classString.substr(0, nameIndex) + classString.substr(nameIndex + className.length);
-    }
-    element.className = classString;
-}
-
 var fileContent,
     loadedText = false;
 
 function loadText(elem) {
     if (loadedText === false) {
         var textFile = new XMLHttpRequest();
-        textFile.open("GET", "../assets/load.txt", true);
+        textFile.open("GET", "assets/load.txt", true);
         textFile.onreadystatechange = function () {
             if (textFile.readyState === 4 && textFile.status === 200) {
                 fileContent = textFile.responseText;
@@ -49,12 +39,12 @@ document.getElementById("loadText").addEventListener("click", function () {
     loadText(this);
 });
 
-function spaceChars() {
-    var hHeight = window.getComputedStyle(header).height;
-    hHeight = hHeight.substring(0, hHeight.length - 2); // Remove px
-    var hSpan = document.querySelector("header h1 span"),
-        shouldSpace = window.pageYOffset > hHeight ? true : false,
-        isSpaced = hSpan.className.indexOf("spaced");
+function spaceChars() { // this function does the flashy text spacing
+    var hHeight = window.getComputedStyle(header).height;  // grab the height of the header element
+    hHeight = hHeight.substring(0, hHeight.length - 2); // Remove 'px' from the value
+    var hSpan = document.querySelector("header h1 span"),  //select the span tag in the header
+        shouldSpace = window.pageYOffset > hHeight ? true : false,  // shouldSpace if window scrolls further than header height
+        isSpaced = hSpan.className.indexOf("spaced");  // check if the letters are already spaced
     if (shouldSpace && isSpaced == -1) {
         hSpan.className += " spaced";
     } else if (!shouldSpace && isSpaced > -1) {

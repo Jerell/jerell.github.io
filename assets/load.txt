@@ -1,1 +1,2 @@
-<p>Not sure if this counts as AJAX.</p>
+<p>There we go!</p>
+<p>I know it's basic but this was my first attempt at AJAX.</p>
