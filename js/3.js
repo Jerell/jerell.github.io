@@ -48,7 +48,7 @@ var particleCount = 100,
         color: 0xFFFFFF,
         size: 20,
         map: THREE.ImageUtils.loadTexture(
-            "assets/images/particle.png"
+            "../assets/images/particle.png"
         ),
         blending: THREE.AdditiveBlending,
         transparent: true
