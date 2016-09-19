@@ -1,82 +1,73 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>A Playground for Web Technologies</title>
-  <meta name="description" content="A collection of new things I try with HTML, CSS and Javascript. There is no aim here, I'm just trying things out." />
-  <link href="stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
-  <link href="stylesheets/print.css" media="print" rel="stylesheet" type="text/css" />
-  <!--[if IE]>
-      <link href="/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
-  <![endif]-->
-  <script src="https://use.edgefonts.net/open-sans:n7,i7,n8,i8,i4,n3,i3,n4,n6,i6:all.js"></script>
-  <script src="https://use.edgefonts.net/league-gothic:n4:all.js"></script>
-</head>
 
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Sudoku Solver</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.png">
+
+</head>
 <body>
 
-    <header>
-      <button class="title">
-        <h1>
-          <span>JEREL</span>L
-        </h1>
-      </button>
-      <nav>
-        <ul class="topList leftLinks">
-          <li class="navItem">
-            <a href="http://codepen.io/Jerell/"><img src="assets/images/codepenwhite.png" /></a>
-          </li>
-          <li class="navItem">
-            <a href="https://github.com/Jerell">
-              <img src="assets/images/githubwhite.png" />
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </header>
-
-    <main>
-      <div class="item">
-        <p>
-          <span id="intro">This page is going to be where I try new things and showcase what I've learned.</span>
-          I guess I'll list projects I work on and document my attempts at different technologies.
-          <br>Honestly I don't know what my goal is here.
-          <br>I'll just make stuff and see what happens.
-        </p>
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+    <div class="title row">
+      <div class="column">
+        <h4>Sudoku Solver</h4></div>
       </div>
-      
-      <div class="item" id="three">
-        <div class="info">
-          <p>I have a very basic knowledge of Three.js.</p>
-          <p>This was created with the help of a tutorial that I lost the link to.</p>
-        </div>
+    <div class="row">
+      <div class="one-half column">
+          <p>My idea for a programming project is to make a website that solves sudoku puzzles.</p>
+          <p>It would mean making an algorithm to take the initial puzzle as an input, process the current state of the puzzle and loop until it is complete.</p>
+          <p>I think this makes a good project because it has a clear use and end state and is easier to verify than something like a crossword.</p>
+          <p>I have a basic idea of how to create the program but I haven't worked out the details and I'm a bit out of practice so I imagine it would take a significant amount of time.</p>
+          <p>I could create the program as its own thing but I think it needs to be paired with a website so I can have an interface that's easier to use than a command line.</p>
       </div>
-
-      <div id="loadText" class="item">
-        <p>
-          In this box, I'll try to load content from another file with an XMLHttpRequest.
-        </p>
-        <div class="info">
-          <p>I'm not sure why but this never works offline.</p>
-        </div>
+      <div class="one-half column">
+        <img src="images/sudoku image.png" class="centre-block h300"/>
+          <aside>The process would start by ruling out numbers in rows and columns.</aside>
+          <!-- I initially used divs to highlight the rows because I was going to make them appear when a button was pressed but then I resized the window and saw I would have to make their positioning relative to the image which was more work.
+          <div id="solve">
+            <div class="sudoku-block" id="blockA"></div>
+            <div class="sudoku-block" id="blockB"></div>
+            <div class="sudoku-block" id="blockC"></div>
+            <div class="sudoku-block" id="mid-bot"></div>
+            <div class="sudoku-block" id="answer"></div>
+          </div>
+          -->
       </div>
-      <div class="item">
-        <h2>TO-DO</h2>
-        <div class="info">
-          <p>Each row will have an info box like this one on the side.</p>
-        </div>
+    </div>
+    <div class="row">
+      <div class="one-half column">
+        <p>I could write it in C but that makes input and output more difficult so I think javascript is the way to go.</p>
+        <p>I only know how to create menu based command line interfaces using C and javascript allows me to input all the numbers into a grid of text boxes on a webpage and have a separate submit button.</p>
+        <p>This is important because it means each number can be edited individually without starting the input again if a mistake is made.</p>
       </div>
+    </div>
+  </div>
 
-      <div class="item"></div>
-      <div class="item"></div>
-    </main>
-
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
-  <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
-  <script src="js/main.js" async></script>
-  <script src="js/three.min.js"></script>
-  <script src='js/THREEx.WindowResize.js'></script>
-  <script src="js/3.js"></script> 
-
 </html>

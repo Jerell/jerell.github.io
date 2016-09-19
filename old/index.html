@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>A Playground for Web Technologies</title>
+  <meta name="description" content="A collection of new things I try with HTML, CSS and Javascript. There is no aim here, I'm just trying things out." />
+  <link href="stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <link href="stylesheets/print.css" media="print" rel="stylesheet" type="text/css" />
+  <!--[if IE]>
+      <link href="/stylesheets/ie.css" media="screen, projection" rel="stylesheet" type="text/css" />
+  <![endif]-->
+  <script src="https://use.edgefonts.net/open-sans:n7,i7,n8,i8,i4,n3,i3,n4,n6,i6:all.js"></script>
+  <script src="https://use.edgefonts.net/league-gothic:n4:all.js"></script>
+</head>
+
+<body>
+
+    <header>
+      <button class="title">
+        <h1>
+          <span>JEREL</span>L
+        </h1>
+      </button>
+      <nav>
+        <ul class="topList leftLinks">
+          <li class="navItem">
+            <a href="http://codepen.io/Jerell/"><img src="assets/images/codepenwhite.png" /></a>
+          </li>
+          <li class="navItem">
+            <a href="https://github.com/Jerell">
+              <img src="assets/images/githubwhite.png" />
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <div class="item">
+        <p>
+          <span id="intro">This page is going to be where I try new things and showcase what I've learned.</span>
+          I guess I'll list projects I work on and document my attempts at different technologies.
+          <br>Honestly I don't know what my goal is here.
+          <br>I'll just make stuff and see what happens.
+        </p>
+      </div>
+      
+      <div class="item" id="three">
+        <div class="info">
+          <p>I have a very basic knowledge of Three.js.</p>
+          <p>This was created with the help of a tutorial that I lost the link to.</p>
+        </div>
+      </div>
+
+      <div id="loadText" class="item">
+        <p>
+          In this box, I'll try to load content from another file with an XMLHttpRequest.
+        </p>
+        <div class="info">
+          <p>I'm not sure why but this never works offline.</p>
+        </div>
+      </div>
+      <div class="item">
+        <h2>TO-DO</h2>
+        <div class="info">
+          <p>Each row will have an info box like this one on the side.</p>
+        </div>
+      </div>
+
+      <div class="item"></div>
+      <div class="item"></div>
+    </main>
+
+</body>
+  <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
+  <script src="js/main.js" async></script>
+  <script src="js/three.min.js"></script>
+  <script src='js/THREEx.WindowResize.js'></script>
+  <script src="js/3.js"></script> 
+
+</html>
