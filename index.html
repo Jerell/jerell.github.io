@@ -34,7 +34,7 @@
   <div class="container">
     <div class="title row">
       <div class="column">
-        <h4>Sudoku Solver</h4></div>
+        <h3>Sudoku Solver</h3></div>
       </div>
     <div class="row">
       <div class="one-half column">
@@ -47,15 +47,6 @@
       <div class="one-half column">
         <img src="images/sudoku image.png" class="centre-block h300"/>
           <aside>The process would start by ruling out numbers in rows and columns.</aside>
-          <!-- I initially used divs to highlight the rows because I was going to make them appear when a button was pressed but then I resized the window and saw I would have to make their positioning relative to the image which was more work.
-          <div id="solve">
-            <div class="sudoku-block" id="blockA"></div>
-            <div class="sudoku-block" id="blockB"></div>
-            <div class="sudoku-block" id="blockC"></div>
-            <div class="sudoku-block" id="mid-bot"></div>
-            <div class="sudoku-block" id="answer"></div>
-          </div>
-          -->
       </div>
     </div>
     <div class="row">
@@ -64,6 +55,35 @@
         <p>I only know how to create menu based command line interfaces using C and javascript allows me to input all the numbers into a grid of text boxes on a webpage and have a separate submit button.</p>
         <p>This is important because it means each number can be edited individually without starting the input again if a mistake is made.</p>
       </div>
+    </div>
+    <div class="row origin">
+        <h4>Research</h4>
+        <h5>Origin</h5>
+        <p>
+          Versions of the puzzle have been around since st least 1783, when Leaonhard Euler created 'Latin Squares,' but it wasn't until the late 1970s that Dell Puzzle Magazines created basis for the version arount today. Previously called 'Number Place,' it was published for years alongside crossowords and other puzzles before it was discovered and gained traction in Japan.
+        </p>
+        <p>
+          Japanese publisher Nikoli made a couple of improvements to the puzzle and gave it the name 'Sudoku,' publishing it in 1984. It spread quickly, becoming very popular, but never really left the country until 20 years later, after Wayne Gould saw the puzzle in a bookstore and spent 6 years creating a computer program to generate the puzzles.
+        </p>
+        <aside>Some people attribute the success of Sudoku in Japan to the fact that the language doesnt lend itself well to crossword puzzles
+        </aside>
+        <p>
+           He had one printed in a local newspaper before his wife showed up unannounced at The Times to pitch the idea. The Times published it the following month and it became a worldwide phenomenon.
+        </p>
+        <h5>Existing Solutions</h5>
+        <p>
+          <a href="http://www.sudoku-solutions.com/">Sudoku-Solutions.com</a> is a good example of something to work towards. It has a simple interface for inputting data and selecting what you would like to do with it. It goes beyond just solving the puzzles and allows the user to try random puzzles of varying difficulty and have a go at them, with buttons to check, undo, save and load their attempt, before using the solve function.
+        </p>
+    </div>
+    <div class="row implementation">
+        <h4>Implementation</h4>
+        <h5>Algorithm</h5>
+        <p>
+          I think the best way to start is to scale down the puzzle to 4x4 first. Scaling down the problem would allow me to focus on things like how the data is stored and processed, which I could then carry over to the 9x9 solution.
+        </p>
+        <p>
+          A 4x4 puzzle only has 16 cells compared to a 9x9's 81. It should be a fair amount faster to do this first as there are far fewer places to potentially go wrong.
+        </p>
     </div>
   </div>
 
