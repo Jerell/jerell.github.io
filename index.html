@@ -6,8 +6,8 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
   <title>Sudoku Solver</title>
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="description" content="A Sudoku Solving website">
+  <meta name="author" content="Jerell">
 
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -22,6 +22,11 @@
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/skeleton.css">
 
+  <!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script src="http://code.jquery.com/jquery-3.1.1.min.js" charset="utf-8"></script>
+  <script src="js/sudoku.js" charset="utf-8"></script>
+  
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="images/favicon.png">
@@ -50,9 +55,9 @@
       </div>
     </div>
     <div class="row">
-      <div class="one-half column">
+      <div class="column">
         <p>I could write it in C but that makes input and output more difficult so I think javascript is the way to go.</p>
-        <p>I only know how to create menu based command line interfaces using C and javascript allows me to input all the numbers into a grid of text boxes on a webpage and have a separate submit button.</p>
+        <p>I only know how to create menu based command line interfaces using C and JavaScript allows me to input all the numbers into a grid of text boxes on a webpage and have a separate submit button.</p>
         <p>This is important because it means each number can be edited individually without starting the input again if a mistake is made.</p>
       </div>
     </div>
@@ -60,7 +65,7 @@
         <h4>Research</h4>
         <h5>Origin</h5>
         <p>
-          Versions of the puzzle have been around since st least 1783, when Leaonhard Euler created 'Latin Squares,' but it wasn't until the late 1970s that Dell Puzzle Magazines created basis for the version arount today. Previously called 'Number Place,' it was published for years alongside crossowords and other puzzles before it was discovered and gained traction in Japan.
+          Versions of the puzzle have been around since st least 1783, when Leaonhard Euler created 'Latin Squares,' but it wasn't until the late 1970s that Dell Puzzle Magazines created basis for the version around today. Previously called 'Number Place,' it was published for years alongside crossowords and other puzzles before it was discovered and gained traction in Japan.
         </p>
         <p>
           Japanese publisher Nikoli made a couple of improvements to the puzzle and gave it the name 'Sudoku,' publishing it in 1984. It spread quickly, becoming very popular, but never really left the country until 20 years later, after Wayne Gould saw the puzzle in a bookstore and spent 6 years creating a computer program to generate the puzzles.
@@ -83,6 +88,9 @@
         </p>
         <p>
           A 4x4 puzzle only has 16 cells compared to a 9x9's 81. It should be a fair amount faster to do this first as there are far fewer places to potentially go wrong.
+        </p>
+        <p>
+          The basic plan is to assign possible numbers to each cell, read each one that's been entered and remove them as each number is read
         </p>
     </div>
   </div>
