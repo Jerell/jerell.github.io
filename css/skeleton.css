@@ -167,6 +167,18 @@ aside {
     margin: 10px 0;
 }
 
+span.power{
+  position: relative;
+  bottom: 1ex;
+  font-size: 80%;
+}
+
+span.var{
+  background:#eee;
+  color: #3e3e3e;
+  padding: 0 5px;
+}
+
 /* Links
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 a {
@@ -408,50 +420,66 @@ hr {
     position: absolute;
 }
 
-#blockA{
-    top: 60px;
-    right: 347px;
-    border-top: 101px solid rgba(0, 0, 0, 0.3);
-    border-bottom: 167px solid rgba(0, 0, 0, 0.3);
-}
-#blockB{
-    top: 63px;
-    right: 281px;
-    border-top: 65px solid rgba(0, 0, 0, 0.3);
-    border-bottom: 200px solid rgba(0, 0, 0, 0.3);
-}
-#blockC{
-    top: 261px;
-    right: 82px;
-    border-right: 34px solid rgba(0, 0, 0, 0.3);
-    border-left: 233px solid rgba(0, 0, 0, 0.3);
+
+.intro{
+
 }
 
 
-#mid-bot {
-    top: 327px;
-    right: 180px;
-    width: 100px;
+.container {
+    border-bottom: 2px solid #eee;
+    margin-bottom: 10px;
 }
 
-#answer {
-    top: 294px;
-    right: 314px;
-    height: 63px;
+span.note{
+  position:absolute;
+  transition: .2s;
+  opacity: 0;
+  background: white;
+  box-shadow: 0 0 20px;
+  padding: 5px;
+  font-size:80%;
+}
+.var:hover > .note{
+  display:block;
+  opacity:1;
 }
 
-#mid-bot, #answer{
-    background: rgba(0, 88, 0, 0.65);
+
+.digit-window {
+    position:relative;
+    font-size: 10rem;
+    width: 90px;
+    margin: 0 auto;
+    height: 12rem;
+    text-align: center;
+    overflow: hidden;
 }
 
+.digit-slide {
+    font-family: monospace;
+    white-space: nowrap;
+    letter-spacing: 15px;
+    position: absolute;
+    left:12px;
+    animation: 9s digit-slide infinite;
+}
+.digit-window:first-child .digit-slide{
+  animation-duration: 81s;
+  animation-timing-function: step-end;
+}
 
-
-
-
-
-
-
-
+@keyframes digit-slide {
+  11%{transform: translate(-11%);}
+  22%{transform: translate(-23%);}
+  33%{transform: translate(-35%);}
+  44%{transform: translate(-46.5%);}
+  55%{transform: translate(-58%);}
+  66%{transform: translate(-70%);}
+  77%{transform: translate(-82%);}
+  88%{transform: translate(-94%);}
+  100%{transform: translate(0%);}
+}
 
 /* Clearing
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
