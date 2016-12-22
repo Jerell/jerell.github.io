@@ -26,6 +26,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script src="http://code.jquery.com/jquery-3.1.1.min.js" charset="utf-8"></script>
   <script src="js/sudoku.js" charset="utf-8"></script>
+  <script src="js/functionality.js" charset="utf-8"></script>
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -34,7 +35,8 @@
 </head>
 <body>
 
-  <!-- Primary Page Layout
+  <!-- Primary Page
+  Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <div class="container intro">
     <div class="title row">
@@ -135,8 +137,12 @@
         </div>
         <div class="four columns">
           <p>
-            Knowing that a specific list element can be reached if you know its position in the list, I thought of a potentially more efficient method. I plan to take the list of unknown length as an input, and generate a second list containing every number up to and including <span class="var">list.length</span>. Empty spaces in a row will be stored as zeros, so my list could look like <span class="var">0 3 0 4</span> and <span class="var">row.length</span> would be 4. The list of available numbers would be <span class="var">0 1 2 3 4</span>.
+            Knowing that a specific list element can be reached if you know its position in the list, I thought of a potentially more efficient method. I plan to take the list of unknown length as an input, and generate a second list containing every number up to and including <span class="var">list.length</span>. Empty spaces in a row will be stored as zeros, so my list could look like <span class="var">0 3 4 4</span> and <span class="var">row.length</span> would be 4. The list of available numbers would be <span class="var">0 1 2 3 4</span>. The comparison would involve eliminating the row numbers from the list and marking the ones for which the number has already been removed as duplicates.
           </p>
+          <aside class="hide">
+            'Eliminating' numbers from the list would mean setting the value to zero rather than actually removing an element from the list, as the entire utility of the list comes from having an ordered list of values where <span class="var">row[2].value</span>, the value of the second cell in a row, corresponds to <span class="var">list[value] <span class="note">NOTE: In this case, the leading zero on the list of available numbers means that the numbers line up as you would expect them to, with list[2] containing the number 2.</span></span>
+          </aside>
+          <p>Using the example above, the placeholder value of zero would be ignored, 3 </p>
         </div>
       </div>
     </div>

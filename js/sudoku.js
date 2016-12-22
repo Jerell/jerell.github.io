@@ -20,67 +20,96 @@ $(document).ready(function() {
 
   //  cells have coordinates, values, and possibilities - max is the size of the grid which is one block side length squared
 
+
+  //Cell functions
+  function setAllPossible(max){       //  This method sets all numbers up to
+    for(var i=0; i<max; i++){       //  the specified maximum
+      this.possibilities[i] = true; //  to be possibilities
+    }                               //  for this cell
+  }                                 //
+  function removePos(p){
+    this.possibilities[p-1] = false;
+  }
+  function addPos(p){
+    this.possibilities[p-1] = true;
+  }
+  function setValue(newValue){     //  Set the new value and remove other possibilities
+    this.value = newValue;
+    for(var i=0; i<this.max; i++){
+      if(this.possibilities[i] != newValue){
+        removePos(i);
+      }
+    }
+  }
+  //Cell Object
   function Cell(xcoord, ycoord, val, max){
     //--Cell info
-
     this.x = xcoord;
     this.y = ycoord;
     this.value = val;
     this.max = max;
 
     //--Possibilities
-
     this.possibilities = [];          //  (Empty array of possibilities)
-    allPossible: function(max){       //  This method sets all numbers up to
-      for(var i=0; i<max; i++){       //  the specified maximum
-        this.possibilities[i] = true; //  to be possibilities
-      }                               //  for this cell
-    }                                 //
-    this.allPossible(this.max);       // The method is called when the cell is created
-
-    removePos: function(p){
-      this.possibilities[p-1] = false;
-    }
-    addPos: function(p){
-      this.possibilities[p-1] = true;
-    }
-    setValue: function(newValue){     //  Set the new value and remove other possibilities
-      this.value = newValue;
-      for(var i=0; i<max; i++){
-        if(this.possibilities[i] != newValue){
-          removePos(i);
-        }
-      }
-    }
-
+    this.setAllPossible(this.max);       // The method is called when the cell is created
+    this.removePos = removePos;
+    this.addPos = addPos;
+    this.setValue = setValue;
   }
 
+  // Grid functions
+  function populate(max){
+    for(var i=0; i< max * max; i++){  //  A grid will have [maxVal] squared cells
+      var x = i % max;                    //  A cell's x coord is the cell number mod [maxVal]
+      var y = Math.floor(i/max);          //  A cell's y coord is the cell number divided by [maxVal] rounded down
+      this.cells[i] = new Cell(x, y, defaultVal, max);  //  [defaultVal] should be zero
+    }
+  }
+  function readCell(x, y) {
+    var cellNum = y * maxVal + x;
+    return this.cells[cellNum];
+  }
+  function readRow(rowNum){
+    var row = [];
+    var startCellNum = (rowNum - 1) * maxVal;
+    for(var i=0; i<maxVal; i++){
+      row[i] = this.cells[startCellNum + i];
+    }
+    return row;
+  }
+  function readColumn(colNum){
+    var col = [];
+    var startCellNum = colNum;
+    for(var i=0; i<maxVal; i++){
+      col[i] = this.cells[startCellNum + maxVal*i];
+    }
+    return col;
+  }
+  function checkRow(row){
+    var complete = true;
+    //  check there is a number in every cell
+    for(var i=0; i<maxVal; i++){
+      if(row[i] === 0){
+        complete = false;
+      }
+    }
+    //  second loop to check each cell is unique after making sure the row
+
+  }
+  //Grid Object
   function Grid(sideLength){
-      this.cells = [];
+    this.cells = [];
+    this.populate = populate;
+    this.populate(sideLength);  //  Populate this grid with cells with a maximum value of [sideLength]
 
-      populate: function(max){
-        for(var i=0; i< max * max; i++){  //  A grid will have [maxVal] squared cells
-          x = i % max;                    //  A cell's x coord is the cell number mod [maxVal]
-          y = Math.floor(i/max);          //  A cell's y coord is the cell number divided by [maxVal] rounded down
-          cells[i] = new Cell(x, y, defaultVal, max);  //  [defaultVal] should be zero
-        }
-      }
-      this.populate(sideLength);  //  Populate this grid with cells with a maximum value of [sideLength]
-
-      readCell: function(x, y){
-        cellNum = y * max + x;
-        return cells[cellNum];
-      }
-
-      readRow: function(rowNum){
-        row = [];
-        for(var i=0; i<max; i++){
-
-        }
-      }
-
+    this.readCell = readCell;
+    this.readRow = readRow;
+    this.readColumn = readColumn;
   }
 
   //--End
 
-}
+});
+
+
+//	add references to the research area. look for the guardian article.
