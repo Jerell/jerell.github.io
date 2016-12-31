@@ -54,7 +54,7 @@
     width: 80%; }
   .column,
   .columns {
-    margin-left: 4%; }
+    margin-left: 2%; }
   .column:first-child,
   .columns:first-child {
     margin-left: 0; }
@@ -168,6 +168,10 @@ aside {
     transition: .4s;
     max-height:500px;
 }
+aside:last-child{
+  position:absolute;
+}
+
 
 span.power{
   position: relative;
@@ -453,7 +457,7 @@ span.note{
     font-size: 10rem;
     width: 90px;
     margin: 0 auto;
-    height: 12rem;
+    height: 11rem;
     text-align: center;
     overflow: hidden;
 }
@@ -486,9 +490,11 @@ span.note{
 .hide{
   max-height:1em;
   overflow:hidden;
+  cursor:pointer;
 }
 .hide:hover{
   padding-left:30px;
+  max-height:2.2em;
 }
 
 /* Clearing

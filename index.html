@@ -21,12 +21,14 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/skeleton.css">
+  <link rel="stylesheet" href="css/prism.css">
 
   <!-- Scripts
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <script src="http://code.jquery.com/jquery-3.1.1.min.js" charset="utf-8"></script>
   <script src="js/sudoku.js" charset="utf-8"></script>
   <script src="js/functionality.js" charset="utf-8"></script>
+  <script src="js/prism.js" charset="utf-8"></script>
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -65,7 +67,7 @@
       </div>
       <div class="row origin">
         <h4>Research</h4>
-        <h5>Origin</h5>
+        <h5><a href="https://www.theguardian.com/media/2005/may/15/pressandpublishing.usnews">Origin</a></h5>
         <p>
           Versions of the puzzle have been around since st least 1783, when Leaonhard Euler created 'Latin Squares,' but it wasn't until the late 1970s that Dell Puzzle Magazines created basis for the version around today. Previously called 'Number Place,' it was published for years alongside crossowords and other puzzles before it was discovered and gained traction in Japan.
         </p>
@@ -134,15 +136,65 @@
               </div>
             </div>
           </div>
+          <p>
+            Knowing that a specific list element can be reached if you know its position in the list, I thought of a potentially more efficient method. I plan to take the list of unknown length as an input, and generate a second list containing every number up to and including <span class="var">numbers.length</span>. Empty spaces in a row will be stored as zeros, so my list could look like <span class="var">0 3 4 4</span> and <span class="var">row.length</span> would be 4. The list of available numbers would be <span class="var">0 1 2 3 4</span>.
+          </p>
         </div>
         <div class="four columns">
           <p>
-            Knowing that a specific list element can be reached if you know its position in the list, I thought of a potentially more efficient method. I plan to take the list of unknown length as an input, and generate a second list containing every number up to and including <span class="var">list.length</span>. Empty spaces in a row will be stored as zeros, so my list could look like <span class="var">0 3 4 4</span> and <span class="var">row.length</span> would be 4. The list of available numbers would be <span class="var">0 1 2 3 4</span>. The comparison would involve eliminating the row numbers from the list and marking the ones for which the number has already been removed as duplicates.
+            The comparison would involve eliminating the row numbers from the list and marking the ones for which the number has already been removed as duplicates.
+          </p>
+          <p>
+            Using the example, the placeholder value of zero would be ignored and 3 would be knocked of the list of available numbers first, leaving <span class="var">0 1 2 0 4</span>.
+          </p>
+          <p>
+            When the first 4 is reached, this list becomes <span class="var">0 1 2 0 0</span>. Then the second 4 is checked. However, this time <span class="var">numbers[4]</span> is already 0 so all cells with this value are marked as duplicates.
           </p>
           <aside class="hide">
-            'Eliminating' numbers from the list would mean setting the value to zero rather than actually removing an element from the list, as the entire utility of the list comes from having an ordered list of values where <span class="var">row[2].value</span>, the value of the second cell in a row, corresponds to <span class="var">list[value] <span class="note">NOTE: In this case, the leading zero on the list of available numbers means that the numbers line up as you would expect them to, with list[2] containing the number 2.</span></span>
+            'Eliminating' numbers from the list would mean setting the value to zero rather than actually removing an element from the list, as the entire utility of the list comes from having an ordered list of values where <span class="var">row[2].value</span>, the value of the second cell in a row, corresponds to <span class="var">numbers[value] <span class="note">NOTE: In this case, the leading zero on the list of available numbers means that the numbers line up as you would expect them to, with numbers[2] containing the number 2.</span></span>
           </aside>
-          <p>Using the example above, the placeholder value of zero would be ignored, 3 </p>
+        </div>
+      </div>
+      <div class="row data">
+        <p>
+          During my attempts to implement the comparison function, I came across an existing function to sort the numbers that was already built into the lanuguage. Using <span class="var">Array.prototype.sort()</span>, I sorted the input list then looped through it, checking if each value was the same as the next. If the two were equal, that value was added to an array called <span class="var">duplicates</span> which the function returned at the end.
+        </p>
+        <div class="one-half column">
+          <pre>
+            <code class="language-javascript">
+function findDupes(cellList){
+  var list = cellList;
+  if(typeof(list[0]) === 'object'){
+    for(var i = 0; i < list.length; i++){
+      list[i] = list[i].value;
+    }
+  }
+  var complete = true;
+  var sorted = list;
+  sorted.sort();
+  var duplicates = [];
+
+  for(var j=0; j < sorted.length; j++){
+    //  check there is a number in every cell
+    if(list[j] === 0){
+      complete = false;
+    }
+    //  compare
+    if(sorted[j] == sorted[j+1]){
+      if(duplicates.includes(sorted[j]) == false){
+        duplicates.push(sorted[j]);
+      }
+    }
+  }
+  return duplicates;
+}
+            </code>
+          </pre>
+        </div>
+        <div class="one-half column">
+          <p>
+            Here is the code that checks a list of numbers for duplicates. Enter some numbers below to have them checked.
+          </p>
         </div>
       </div>
     </div>
