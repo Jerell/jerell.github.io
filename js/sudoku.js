@@ -87,10 +87,12 @@ function readBlock(blockNum){
 
 function findDupes(cellList){
   var list = cellList;
+  var values = [];
   if(typeof(list[0]) === 'object'){
     for(var i = 0; i < list.length; i++){
-      list[i] = list[i].value;
+      values.push(list[i].value);
     }
+    list = values;
   }
   var complete = true;
   var sorted = list;
@@ -169,5 +171,34 @@ function Grid(sideLength){  // Side options will be limited to square numbers
   this.checkColumn = checkColumn;
   this.checkBlock  = checkBlock;
 }
-var g4 = new Grid(4);
+var g4 = new Grid(4); // Empty test grid
+
+
+
+//Input and Output
+function processSimpleInput(){
+  var inputs = $("[name='checknums']");
+  var dupes = findDupes(inputs);
+  var matches = [];
+  var clean = [];
+  for(var i = 0; i < inputs.length; i++){
+    if(dupes.includes(inputs[i].value)){
+      matches.push(inputs[i]);
+    } else{
+      clean.push(inputs[i]);
+    }
+  }
+  $(matches).addClass("dupe");
+  $(clean).addClass("clean");
+}
+function clearDupesFromSimpleInput(){
+  $("[name='checknums']").removeClass("dupe");
+  $("[name='checknums']").removeClass("clean");
+}
+
+
+
+
+
+
 //--End

@@ -461,6 +461,9 @@ span.note{
     text-align: center;
     overflow: hidden;
 }
+.double-width-window {
+    width: 180px;
+}
 
 .digit-slide {
     font-family: monospace;
@@ -470,6 +473,8 @@ span.note{
     left:12px;
     animation: 9s digit-slide infinite;
 }
+.double-width-window .digit-slide{animation:5s two-digit-slide infinite;}
+
 .digit-window:first-child .digit-slide{
   animation-duration: 81s;
   animation-timing-function: step-end;
@@ -487,6 +492,17 @@ span.note{
   100%{transform: translate(0%);}
 }
 
+@keyframes two-digit-slide {
+  11%{transform: translate(-11%);}
+  22%{transform: translate(-23%);}
+  33%{transform: translate(-35%);}
+  44%{transform: translate(-46.5%);}
+  55%{transform: translate(-58%);}
+  66%{transform: translate(-70%);}
+  77%{transform: translate(-82%);}
+  100%{transform: translate(0%);}
+}
+
 .hide{
   max-height:1em;
   overflow:hidden;
@@ -495,6 +511,26 @@ span.note{
 .hide:hover{
   padding-left:30px;
   max-height:2.2em;
+}
+
+[name="checknums"]{
+  width:30%;
+}
+
+input.dupe{
+  background:#ffb4b4;
+}
+
+input.clean{
+  border:1px solid green;
+  transition: all .2s;
+  animation: .2s clean-pop;
+
+}
+@keyframes clean-pop{
+  0%{border-width:3px;}
+  20%{border-width:5px;}
+  100%{border-width:1px;}
 }
 
 /* Clearing

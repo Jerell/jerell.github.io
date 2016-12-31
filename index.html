@@ -164,22 +164,13 @@
             <code class="language-javascript">
 function findDupes(cellList){
   var list = cellList;
-  if(typeof(list[0]) === 'object'){
-    for(var i = 0; i < list.length; i++){
-      list[i] = list[i].value;
-    }
-  }
-  var complete = true;
+  // Another small block of code takes the numbers
+  // from inside the cells and puts them in 'list'
   var sorted = list;
   sorted.sort();
   var duplicates = [];
 
   for(var j=0; j < sorted.length; j++){
-    //  check there is a number in every cell
-    if(list[j] === 0){
-      complete = false;
-    }
-    //  compare
     if(sorted[j] == sorted[j+1]){
       if(duplicates.includes(sorted[j]) == false){
         duplicates.push(sorted[j]);
@@ -193,7 +184,24 @@ function findDupes(cellList){
         </div>
         <div class="one-half column">
           <p>
+            If a cell value matched a neighbouring cell and the value wasn't already recorded as a duplicate, it was added to the list.
+          </p>
+          <div class="digit-window double-width-window">
+            <div class="digit-slide">
+              1 2 3 5 5 6 7 8 9
+            </div>
+          </div>
+          <p>
             Here is the code that checks a list of numbers for duplicates. Enter some numbers below to have them checked.
+          </p>
+          <form class="" action="javascript: processSimpleInput()">
+            <input type="number" name="checknums" value="1" inputmode="numeric" onchange="javascript: clearDupesFromSimpleInput()">
+            <input type="number" name="checknums" value="2" inputmode="numeric" onchange="javascript: clearDupesFromSimpleInput()">
+            <input type="number" name="checknums" value="1" inputmode="numeric" onchange="javascript: clearDupesFromSimpleInput()">
+            <input type="submit" name="" value="Check">
+          </form>
+          <p>
+
           </p>
         </div>
       </div>
