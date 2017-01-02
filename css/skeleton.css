@@ -507,6 +507,7 @@ span.note{
   max-height:1em;
   overflow:hidden;
   cursor:pointer;
+  display:none;
 }
 .hide:hover{
   padding-left:30px;
@@ -562,6 +563,7 @@ there.
 @media (min-width: 550px) {
   .hide{
     max-height:auto;
+    display:block;
   }
 }
 
