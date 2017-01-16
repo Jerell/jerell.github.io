@@ -5,45 +5,84 @@ var defaultVal = 0; //  A cell's default value should be zero
 
 var side = Math.sqrt(maxVal);
 
+  var nameString = "g"; //The start of the grid names
+
 //  cell < block < Grid
 
 //  cells have coordinates, values, and possibilities - max is the size of the grid which is one block side length squared
 
 
 //Cell functions
+function assignCellAttributes(cell){
+  var type = document.createAttribute("type"); type.value = "number";
+  var name = document.createAttribute("name"); name.value = "active-grid";
+  var inputmode = document.createAttribute("inputmode"); inputmode.value = "numeric";
+  var value = document.createAttribute("value"); value.value = "0";
+
+  cell.setAttributeNode(type);
+  cell.setAttributeNode(name);
+  cell.setAttributeNode(inputmode);
+  cell.setAttributeNode(value);
+}
 function setAllPossible(max){       //  This method sets all numbers up to
   for(var i=0; i<max; i++){       //  the specified maximum
     this.possibilities[i] = true; //  to be possibilities
   }                               //  for this cell
 }                                 //
 function removePos(p){
-  this.possibilities[p-1] = false;
+  if(p < this.max){
+    this.possibilities[p] = false;
+  }
 }
 function addPos(p){
-  this.possibilities[p-1] = true;
+  if(p < this.max){
+    this.possibilities[p] = true;
+  }
 }
 function setValue(newValue){     //  Set the new value and remove other possibilities
-  this.value = newValue;
-  for(var i=0; i<this.max; i++){
+  this.number = newValue;
+  for(var i=1; i<this.max; i++){
     if(this.possibilities[i] != newValue){
       removePos(i);
     }
   }
+  this.updateVal();
 }
+function updateVal(){
+  this.value = this.number;
+}
+function updateNum(){
+  this.number = this.value;
+}
+
 //Cell Object
 function Cell(xcoord, ycoord, val, max){
+  var self = document.createElement('input');
+  assignCellAttributes(self);
   //--Cell info
-  this.x = xcoord;
-  this.y = ycoord;
-  this.value = val;
-  this.max = max;
+  self.x = xcoord;
+  self.y = ycoord;
+
+  self.number = val;
+  self.updateNum = updateNum;
+  self.updateVal = updateVal;
+  self.updateVal();
+
   //--Possibilities
-  this.possibilities = [];          //  (Empty array of possibilities)
-  this.setAllPossible = setAllPossible;
-  this.setAllPossible(this.max);       // The method is called when the cell is created
-  this.removePos = removePos;
-  this.addPos = addPos;
-  this.setValue = setValue;
+  self.max = max;
+  self.min = 0;
+  self.possibilities = [];          //  (Empty array of possibilities)
+  self.setAllPossible = setAllPossible;
+  self.setAllPossible(self.max);
+
+  self.removePos = removePos;
+  self.addPos = addPos;
+
+  self.setValue = setValue;
+
+  this.onchange = updateNum;
+
+  return self;
 }
 
 // Grid functions
@@ -52,11 +91,13 @@ function populate(max){
     var x = i % max;                    //  A cell's x coord is the cell number mod [maxVal]
     var y = Math.floor(i/max);          //  A cell's y coord is the cell number divided by [maxVal] rounded down
     this.cells[i] = new Cell(x, y, defaultVal, max);  //  [defaultVal] should be zero
+    this.append(this.cells[i]);
   }
 }
+// TODO: make these read cell values instead of creating arrays of objects.
 function readCell(x, y) {
   var cellNum = y * maxVal + x;
-  return this.cells[cellNum];
+  return this.cells[cellNum].number;
 }
 function readRow(rowNum){
   var row = [];
@@ -106,7 +147,7 @@ function findDupes(cellList){
     }
     //  compare
     if(sorted[j] == sorted[j+1]){
-      if(duplicates.includes(sorted[j]) == false){
+      if(duplicates.includes(sorted[j]) === false){
         duplicates.push(sorted[j]);
       }
     }
@@ -152,27 +193,45 @@ function checkBlock(blockNum){
 }
 
 //Grid Object
-function Grid(sideLength){  // Side options will be limited to square numbers
-  var self = this;
-  this.cells = [];
-  this.max   = sideLength;
-  this.populate = populate;
-  this.populate(this.max);
+function Grid(sideLength, id){  // Side options will be limited to square numbers
+  var self = document.createElement('div');
+  self.cells = [];
+  self.max   = sideLength;
+  self.populate = populate;
+  self.populate(self.max);
 
-  this.readCell    = readCell;
-  this.readRow     = readRow;
-  this.readColumn  = readColumn;
-  this.readBlock   = readBlock;
+  self.readCell    = readCell;
+  self.readRow     = readRow;
+  self.readColumn  = readColumn;
+  self.readBlock   = readBlock;
 
-  this.findDupes   = findDupes;
-  this.isComplete  = isComplete;
+  self.findDupes   = findDupes;
+  self.isComplete  = isComplete;
 
-  this.checkRow    = checkRow;
-  this.checkColumn = checkColumn;
-  this.checkBlock  = checkBlock;
+  self.checkRow    = checkRow;
+  self.checkColumn = checkColumn;
+  self.checkBlock  = checkBlock;
+
+  self.style.width = self.max * 50 + "px";
+
+  self.id = id;
+
+  self.classList.add("grid");
+  return self;
 }
-var g4 = new Grid(4); // Empty test grid
 
+
+//Generating Grids
+var existingGrids = [];
+
+function createGrid(size){
+  var id = existingGrids.length;
+  existingGrids.push(id);
+
+  window[nameString + id] = new Grid(size, id)
+
+}
+createGrid(4);
 
 
 //Input and Output
@@ -196,8 +255,27 @@ function clearDupesFromSimpleInput(){
   $("[name='checknums']").removeClass("clean");
 }
 
+//Demo
+function showGridOnDemo(gridRef){
+  var grid = window[gridRef];
+  $('.placeholder').empty();
+  $('.placeholder').append(grid);
+};
 
+$('[name="4x4"]').onclick = function(){
+  createGrid(4);
+  showGridOnDemo(window[nameString + existingGrids.length]);
+}
 
+$('[name="9x9"]').onclick = function(){
+  createGrid(9);
+  showGridOnDemo(window[nameString + existingGrids.length]);
+}
+
+$('[name="clear"]').onclick = $('.placeholder').empty();
+
+createGrid(4);
+showGridOnDemo(window[nameString + existingGrids.length]);
 
 
 
