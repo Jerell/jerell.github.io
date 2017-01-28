@@ -80,7 +80,7 @@ function Cell(xcoord, ycoord, val, max){
 
   self.setValue = setValue;
 
-  this.onchange = updateNum;
+  self.onchange = updateNum;
 
   return self;
 }
@@ -96,7 +96,7 @@ function populate(max){
 }
 // TODO: make these read cell values instead of creating arrays of objects.
 function readCell(x, y) {
-  var cellNum = y * maxVal + x;
+  var cellNum = (y - 1) * maxVal + (x - 1);
   return this.cells[cellNum].number;
 }
 function readRow(rowNum){
@@ -262,21 +262,20 @@ function showGridOnDemo(gridRef){
   $('.placeholder').append(grid);
 };
 
-$('[name="4x4"]').onclick = function(){
-  createGrid(4);
-  showGridOnDemo(window[nameString + existingGrids.length]);
-}
-
-$('[name="9x9"]').onclick = function(){
-  createGrid(9);
-  showGridOnDemo(window[nameString + existingGrids.length]);
-}
-
-$('[name="clear"]').onclick = $('.placeholder').empty();
-
-createGrid(4);
-showGridOnDemo(window[nameString + existingGrids.length]);
 
 
+showGridOnDemo(nameString + (existingGrids.length - 1));
+
+var puzzles4x4 = [
+  [0, 1, 3, 0,
+   2, 0, 0, 0,
+   0, 0, 0, 3,
+   0, 2, 1, 0]
+   ,
+  [3, 4, 1, 0,
+   0, 2, 0, 0,
+   0, 0, 2, 0,
+   0, 1, 4, 3]
+];
 
 //--End

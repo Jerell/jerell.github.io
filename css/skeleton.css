@@ -459,8 +459,9 @@ span.note{
   box-shadow: 0 0 20px;
   padding: 5px;
   font-size:80%;
+  white-space: normal;
 }
-.var:hover > .note{
+code:hover > .note{
   display:block;
   opacity:1;
 }
@@ -476,7 +477,7 @@ span.note{
     overflow: hidden;
 }
 .double-width-window {
-    width: 180px;
+    width: 230px;
 }
 
 .digit-slide {

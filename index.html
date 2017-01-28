@@ -105,10 +105,10 @@
         I began by writing out what each part of the puzzle consists of: A grid is made of rows, columns, and blocks of cells which each have positions within the grid, values, and a range of possibilities.
       </p>
       <p>
-        Rows, columns and blocks aren't actual things but references to certain areas of the grid. The grid is simply a list of <span class="var">n<span class="power">2</span></span> values where <span class="var">n</span> is the maximum cell value. A row is a list of n numbers starting from <span class="var">row number - 1</span> times <span class="var">n</span>. A column is a list of every <span class="var">n<span class="power">th</span></span> number starting from <span class="var">column number</span>. It's a little more complex to define what a block is but it's very similar to rows and columns, being a subset of the full list of numbers.
+        Rows, columns and blocks aren't actual things but references to certain areas of the grid. The grid is simply a list of <code>n<span class="power">2</span></code> values where <code>n</code> is the maximum cell value. A row is a list of n numbers starting from <code>row number - 1</code> times <code>n</code>. A column is a list of every <code>n<span class="power">th</span></code> number starting from <code>column number</code>. It's a little more complex to define what a block is but it's very similar to rows and columns, being a subset of the full list of numbers.
       </p>
       <p>
-        A 9x9 grid is stored as a list of 81 objects with a value, position and array of nine booleans (one for each possible number). The plan is to change the value of the appropriate boolean when a condition is met that means the cell can no longer contain that particular number. If a number 4 was written in a cell's row, column or block, the program would set the value of <span class="var">Cell.possibilities['4'] <span class="note">NOTE: The first value in an array is Array[0] so really the possibility of n is stored in possibilities[n-1]</span></span> to false, because 4 is no longer a possibility for the cell.
+        A 9x9 grid is stored as a list of 81 objects with a value, position and array of nine booleans (one for each possible number). The plan is to change the value of the appropriate boolean when a condition is met that means the cell can no longer contain that particular number. If a number 4 was written in a cell's row, column or block, the program would set the value of <code>Cell.possibilities['4'] <span class="note">NOTE: The first value in an array is Array[0] so really the possibility of n is stored in possibilities[n-1]</span></code> to false, because 4 is no longer a possibility for the cell.
       </p>
       <h5>Cell Comparison</h5>
       <div class="row data">
@@ -137,7 +137,7 @@
             </div>
           </div>
           <p>
-            Knowing that a specific list element can be reached if you know its position in the list, I thought of a potentially more efficient method. I plan to take the list of unknown length as an input, and generate a second list containing every number up to and including <span class="var">numbers.length</span>. Empty spaces in a row will be stored as zeros, so my list could look like <span class="var">0 3 4 4</span> and <span class="var">row.length</span> would be 4. The list of available numbers would be <span class="var">0 1 2 3 4</span>.
+            Knowing that a specific list element can be reached if you know its position in the list, I thought of a potentially more efficient method. I plan to take the list of unknown length as an input, and generate a second list containing every number up to and including <code>numbers.length</code>. Empty spaces in a row will be stored as zeros, so my list could look like <code>0 3 4 4</code> and <code>row.length</code> would be 4. The list of available numbers would be <code>0 1 2 3 4</code>.
           </p>
         </div>
         <div class="four columns">
@@ -145,19 +145,19 @@
             The comparison would involve eliminating the row numbers from the list and marking the ones for which the number has already been removed as duplicates.
           </p>
           <p>
-            Using the example, the placeholder value of zero would be ignored and 3 would be knocked of the list of available numbers first, leaving <span class="var">0 1 2 0 4</span>.
+            Using the example, the placeholder value of zero would be ignored and 3 would be knocked of the list of available numbers first, leaving <code>0 1 2 0 4</code>.
           </p>
           <p>
-            When the first 4 is reached, this list becomes <span class="var">0 1 2 0 0</span>. Then the second 4 is checked. However, this time <span class="var">numbers[4]</span> is already 0 so all cells with this value are marked as duplicates.
+            When the first 4 is reached, this list becomes <code>0 1 2 0 0</code>. Then the second 4 is checked. However, this time <code>numbers[4]</code> is already 0 so all cells with this value are marked as duplicates.
           </p>
           <aside class="hide">
-            'Eliminating' numbers from the list would mean setting the value to zero rather than actually removing an element from the list, as the entire utility of the list comes from having an ordered list of values where <span class="var">row[2].value</span>, the value of the second cell in a row, corresponds to <span class="var">numbers[value] <span class="note">NOTE: In this case, the leading zero on the list of available numbers means that the numbers line up as you would expect them to, with numbers[2] containing the number 2.</span></span>
+            'Eliminating' numbers from the list would mean setting the value to zero rather than actually removing an element from the list, as the entire utility of the list comes from having an ordered list of values where <code>row[2].value</code>, the value of the second cell in a row, corresponds to <code>numbers[value] <span class="note">NOTE: In this case, the leading zero on the list of available numbers means that the numbers line up as you would expect them to, with numbers[2] containing the number 2.</span></code>
           </aside>
         </div>
       </div>
       <div class="row data">
         <p>
-          During my attempts to implement the comparison function, I came across an existing function to sort the numbers that was already built into the lanuguage. Using <span class="var">Array.prototype.sort()</span>, I sorted the input list then looped through it, checking if each value was the same as the next. If the two were equal, that value was added to an array called <span class="var">duplicates</span> which the function returned at the end.
+          During my attempts to implement the comparison function, I came across an existing function to sort the numbers that was already built into the lanuguage. Using <code>Array.prototype.sort()</code>, I sorted the input list then looped through it, checking if each value was the same as the next. If the two were equal, that value was added to an array called <code>duplicates</code> which the function returned at the end.
         </p>
         <div class="one-half column">
           <pre>
@@ -201,7 +201,7 @@ function findDupes(cellList){
             <input type="submit" name="" value="Check">
           </form>
           <p>
-            This method does only 8 comparisons for a list of 9 numbers. Comparing each number to every other number in the list involves <span class="var">n(n+1)/2</span> comparisons where <span class="var">n</span> is the length of the list, so it is clearly much more efficient to make use of the in-built sorting function and make only <span class="var">n-1</span> comparisons.
+            This method does only 8 comparisons for a list of 9 numbers. Comparing each number to every other number in the list involves <code>n(n+1)/2</code> comparisons where <code>n</code> is the length of the list, so it is clearly much more efficient to make use of the in-built sorting function and make only <code>n-1</code> comparisons.
           </p>
         </div>
       </div>
@@ -210,9 +210,10 @@ function findDupes(cellList){
     <div class="row input">
       <div class="one-half column">
         <p>Here I'm using javascript to generate a grid of input cells like those above.</p>
-        <input type="button" name="4x4" value="FOUR BY FOUR" class="button-primary">
-        <input type="button" name="9x9" value="NINE BY NINE" class="button-primary">
-        <input type="button" name="clear" value="CLEAR">
+        <h6>New:</h6>
+        <input type="button" name="4x4" value="four by four" class="button-primary">
+        <input type="button" name="9x9" value="nine by nine" class="button-primary">
+        <input type="button" name="clear" value="clear">
         <p></p>
       </div>
       <div class="one-half column">
