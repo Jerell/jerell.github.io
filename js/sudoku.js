@@ -94,7 +94,7 @@ function populate(max){
     this.append(this.cells[i]);
   }
 }
-// TODO: make these read cell values instead of creating arrays of objects.
+
 function readCell(x, y) {
   var cellNum = (y - 1) * maxVal + (x - 1);
   return this.cells[cellNum].number;
@@ -103,7 +103,7 @@ function readRow(rowNum){
   var row = [];
   var startCellNum = (rowNum - 1) * maxVal;
   for(var i=0; i<maxVal; i++){
-    row[i] = this.cells[startCellNum + i];
+    row[i] = this.cells[startCellNum + i].number;
   }
   return row;
 }
@@ -111,7 +111,7 @@ function readColumn(colNum){
   var col = [];
   var startCellNum = colNum;
   for(var i=0; i<maxVal; i++){
-    col[i] = this.cells[startCellNum + maxVal*i];
+    col[i] = this.cells[startCellNum + maxVal*i].number;
   }
   return col;
 }
@@ -120,7 +120,7 @@ function readBlock(blockNum){
   var startCellNum = ((blockNum-1) % side) * side + Math.floor((blockNum-1)/side)*maxVal*side;
   for(var i = 0; i < maxVal; i++){
     var cellNum = Math.floor(i/side)*maxVal + i % side;
-    block[i] = this.cells[cellNum];
+    block[i] = this.cells[cellNum].number;
   }
   return block;
 
@@ -192,6 +192,10 @@ function checkBlock(blockNum){
   return [duplicate_string, noDupesExist];
 }
 
+function loadPuzzle(n){
+
+}
+
 //Grid Object
 function Grid(sideLength, id){  // Side options will be limited to square numbers
   var self = document.createElement('div');
@@ -231,7 +235,6 @@ function createGrid(size){
   window[nameString + id] = new Grid(size, id)
 
 }
-createGrid(4);
 
 
 //Input and Output
@@ -262,8 +265,6 @@ function showGridOnDemo(gridRef){
   $('.placeholder').append(grid);
 };
 
-
-
 showGridOnDemo(nameString + (existingGrids.length - 1));
 
 var puzzles4x4 = [
@@ -277,5 +278,7 @@ var puzzles4x4 = [
    0, 0, 2, 0,
    0, 1, 4, 3]
 ];
+
+
 
 //--End
