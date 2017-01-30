@@ -69,4 +69,8 @@ $(document).ready(function(){
   $('[name="clear"]').click(function(){
     $('.placeholder').empty();
   });
+
+  $('[name="load-demo"]').click(function(){
+    window[nameString + currentGridID].loadPuzzle(puzzles4x4[this.value - 1]);
+  });
 });

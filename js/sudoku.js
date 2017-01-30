@@ -3,8 +3,6 @@
 var maxVal = 4;
 var defaultVal = 0; //  A cell's default value should be zero
 
-var side = Math.sqrt(maxVal);
-
   var nameString = "g"; //The start of the grid names
 
 //  cell < block < Grid
@@ -53,6 +51,9 @@ function updateVal(){
 }
 function updateNum(){
   this.number = this.value;
+}
+function getBlockNum(x, y){
+
 }
 
 //Cell Object
@@ -116,6 +117,7 @@ function readColumn(colNum){
   return col;
 }
 function readBlock(blockNum){
+  var side = this.blockSideLength;
   var block = [];
   var startCellNum = ((blockNum-1) % side) * side + Math.floor((blockNum-1)/side)*maxVal*side;
   for(var i = 0; i < maxVal; i++){
@@ -123,7 +125,6 @@ function readBlock(blockNum){
     block[i] = this.cells[cellNum].number;
   }
   return block;
-
 }
 
 function findDupes(cellList){
@@ -183,16 +184,37 @@ function checkColumn(colNum){
   return [duplicate_string, noDupesExist];
 }
 function checkBlock(blockNum){
-  var dupes = findDupes(this.readRow(blockNum));
+  var dupes = findDupes(this.readBlock(blockNum));
   var noDupesExist = dupes.length === 0 ? true : false;
   var duplicate_string = "Block " + blockNum + " contains too many instances of " + dupes;
   if(noDupesExist){
-    duplicate_string = "There are no duplicates in blck " + blockNum;
+    duplicate_string = "There are no duplicates in block " + blockNum;
   }
   return [duplicate_string, noDupesExist];
 }
 
-function loadPuzzle(n){
+function loadPuzzle(array){
+  if (array.length != this.cells.length) {
+    return "Incorrect puzzle size";
+  }
+  for(var i = 0; i < this.cells.length; i++){
+    this.cells[i].setValue(array[i]);
+  }
+}
+
+function readCellNeighbours(cell){
+  var row = readRow(cell.y);
+  var column = readColumn(cell.x);
+  var block;
+}
+
+function processPuzzle(){
+  // Read a cell
+  // Remove possibilities according to row, column, block
+  // Check possibilities
+    // If there is only one, assign that value to the cell
+  // If there are multiple, move to next cell
+  // Repeat
 
 }
 
@@ -201,6 +223,7 @@ function Grid(sideLength, id){  // Side options will be limited to square number
   var self = document.createElement('div');
   self.cells = [];
   self.max   = sideLength;
+  self.blockSideLength  = Math.sqrt(self.max);
   self.populate = populate;
   self.populate(self.max);
 
@@ -208,6 +231,8 @@ function Grid(sideLength, id){  // Side options will be limited to square number
   self.readRow     = readRow;
   self.readColumn  = readColumn;
   self.readBlock   = readBlock;
+
+  self.loadPuzzle = loadPuzzle;
 
   self.findDupes   = findDupes;
   self.isComplete  = isComplete;
@@ -259,13 +284,14 @@ function clearDupesFromSimpleInput(){
 }
 
 //Demo
+var currentGridID = 0;
+
 function showGridOnDemo(gridRef){
   var grid = window[gridRef];
   $('.placeholder').empty();
   $('.placeholder').append(grid);
+  currentGridID = gridRef[1];
 };
-
-showGridOnDemo(nameString + (existingGrids.length - 1));
 
 var puzzles4x4 = [
   [0, 1, 3, 0,
@@ -278,6 +304,8 @@ var puzzles4x4 = [
    0, 0, 2, 0,
    0, 1, 4, 3]
 ];
+
+
 
 
 
