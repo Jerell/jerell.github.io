@@ -12,15 +12,11 @@ var defaultVal = 0; //  A cell's default value should be zero
 
 //Cell functions
 function assignCellAttributes(cell){
-  var type = document.createAttribute("type"); type.value = "number";
-  var name = document.createAttribute("name"); name.value = "active-grid";
-  var inputmode = document.createAttribute("inputmode"); inputmode.value = "numeric";
-  var value = document.createAttribute("value"); value.value = "0";
+  cell.setAttribute("type", "number");
+  cell.setAttribute("name", "active-grid");
+  cell.setAttribute("inputmode", "numeric");
+  cell.setAttribute("value", "0");
 
-  cell.setAttributeNode(type);
-  cell.setAttributeNode(name);
-  cell.setAttributeNode(inputmode);
-  cell.setAttributeNode(value);
 }
 function setAllPossible(max){       //  This method sets all numbers up to
   for(var i=0; i<max; i++){       //  the specified maximum
