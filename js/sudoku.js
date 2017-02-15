@@ -33,6 +33,23 @@ function addPos(p){
     this.possibilities[p] = true;
   }
 }
+function checkLastPossible(){
+  var numLeft = 0;
+  // count the remaining possibilities
+  for(var i = 0; i < this.possibilities.length; i++){
+    if(this.possibilities[i] == true){
+      numLeft++;
+    }
+  }
+  // if only one possibility remains, set this cell to that value
+  if(numLeft == 1){
+    for(i=0; i < this.possibilities.length; i++){
+      if(this.possibilities[i] == true){
+        this.setValue(i);
+      }
+    }
+  }
+}
 function setValue(newValue){     //  Set the new value and remove other possibilities
   this.number = newValue;
   for(var i=1; i<this.max; i++){
@@ -74,6 +91,8 @@ function Cell(xcoord, ycoord, val, max){
 
   self.removePos = removePos;
   self.addPos = addPos;
+
+  self.checkLastPossible = checkLastPossible;
 
   self.setValue = setValue;
 
@@ -121,6 +140,27 @@ function readBlock(blockNum){
     block[i] = this.cells[cellNum].number;
   }
   return block;
+}
+
+function rowRemovePos(rowNum, pos){
+  var startCellNum = (rowNum - 1) * maxVal;
+  for(var i=0; i<maxVal; i++){
+    this.cells[startCellNum + i].removePos(pos);
+  }
+}
+function colRemovePos(colNum, pos){
+  var startCellNum = colNum;
+  for(var i=0; i<maxVal; i++){
+    this.cells[startCellNum + maxVal*i].removePos(pos);
+  }
+}
+function blockRemovePos(blockNum, pos){
+  var side = this.blockSideLength;
+  var startCellNum = ((blockNum-1) % side) * side + Math.floor((blockNum-1)/side)*maxVal*side;
+  for(var i = 0; i < maxVal; i++){
+    var cellNum = Math.floor(i/side)*maxVal + i % side;
+    this.cells[cellNum].removePos(pos);
+  }
 }
 
 function findDupes(cellList){
@@ -198,10 +238,21 @@ function loadPuzzle(array){
   }
 }
 
-function readCellNeighbours(cell){
-  var row = readRow(cell.y);
-  var column = readColumn(cell.x);
+function updateNeighbours(cell){
+  var row = readRow(cell.y) + 1;
+  var column = readColumn(cell.x) + 1;
   var block;
+
+  // Remove the possibility of this value from this cell's neighbours
+  var num = cell.value;
+  // skip the cell if nothing has been entered
+  if(num === 0){
+    return;
+  }
+
+  rowRemovePos(row, num);
+  colRemovePos(column, num);
+
 }
 
 function processPuzzle(){
@@ -211,6 +262,9 @@ function processPuzzle(){
     // If there is only one, assign that value to the cell
   // If there are multiple, move to next cell
   // Repeat
+  for(var i = 0; i < this.cells.length){
+
+  }
 
 }
 
@@ -228,7 +282,13 @@ function Grid(sideLength, id){  // Side options will be limited to square number
   self.readColumn  = readColumn;
   self.readBlock   = readBlock;
 
+  self.rowRemovePos = rowRemovePos;
+  self.colRemovePos = colRemovePos;
+  self.blockRemovePos = blockRemovePos;
+
   self.loadPuzzle = loadPuzzle;
+
+  self.updateNeighbours = updateNeighbours;
 
   self.findDupes   = findDupes;
   self.isComplete  = isComplete;
