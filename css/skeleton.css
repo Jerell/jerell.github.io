@@ -552,6 +552,11 @@ input.clean{
   100%{border-width:1px;}
 }
 
+[name="solve"]{
+  float: right;
+  margin-right: 50px;
+}
+
 /* Clearing
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 

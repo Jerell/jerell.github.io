@@ -95,4 +95,7 @@ $(document).ready(function(){
   $('[name="load-demo-9x9"]').click(function(){
     window[nameString + currentGridID].loadPuzzle(puzzles9x9[this.value - 1]);
   });
+  $('[name="solve"]').click(function(){
+    window[nameString + currentGridID].processPuzzle();
+  });
 });
