@@ -3,7 +3,7 @@
 var maxVal = 4;
 var defaultVal = 0; //  A cell's default value should be zero
 
-  var nameString = "g"; //The start of the grid names
+var nameString = "g"; //The start of the grid names
 
 //  cell < block < Grid
 
@@ -24,27 +24,27 @@ function setAllPossible(max){       //  This method sets all numbers up to
   }                               //  for this cell
 }                                 //
 function removePos(p){
-  if(p < this.max){
-    this.possibilities[p] = false;
+  if(p <= this.max){
+    this.possibilities[p - 1] = false;
   }
 }
 function addPos(p){
-  if(p < this.max){
-    this.possibilities[p] = true;
+  if(p <= this.max){
+    this.possibilities[p - 1] = true;
   }
 }
 function checkLastPossible(){
   var numLeft = 0;
   // count the remaining possibilities
   for(var i = 0; i < this.possibilities.length; i++){
-    if(this.possibilities[i] == true){
+    if(this.possibilities[i] === true){
       numLeft++;
     }
   }
   // if only one possibility remains, set this cell to that value
   if(numLeft == 1){
-    for(i=0; i < this.possibilities.length; i++){
-      if(this.possibilities[i] == true){
+    for(i=1; i <= this.possibilities.length; i++){
+      if(this.possibilities[i-1] === true){
         this.setValue(i);
       }
     }
@@ -52,9 +52,11 @@ function checkLastPossible(){
 }
 function setValue(newValue){     //  Set the new value and remove other possibilities
   this.number = newValue;
-  for(var i=1; i<this.max; i++){
-    if(this.possibilities[i] != newValue){
-      removePos(i);
+  if(newValue !== 0){
+    for(var i=1; i<=this.max + 1; i++){
+      if(i != newValue){
+        this.removePos(i);
+      }
     }
   }
   this.updateVal();
@@ -64,9 +66,6 @@ function updateVal(){
 }
 function updateNum(){
   this.number = this.value;
-}
-function getBlockNum(x, y){
-
 }
 
 //Cell Object
@@ -125,7 +124,7 @@ function readRow(rowNum){
 }
 function readColumn(colNum){
   var col = [];
-  var startCellNum = colNum;
+  var startCellNum = colNum - 1;
   for(var i=0; i<maxVal; i++){
     col[i] = this.cells[startCellNum + maxVal*i].number;
   }
@@ -149,7 +148,7 @@ function rowRemovePos(rowNum, pos){
   }
 }
 function colRemovePos(colNum, pos){
-  var startCellNum = colNum;
+  var startCellNum = colNum - 1;
   for(var i=0; i<maxVal; i++){
     this.cells[startCellNum + maxVal*i].removePos(pos);
   }
@@ -191,10 +190,11 @@ function findDupes(cellList){
   }
   return duplicates;
 }
-function isComplete(list){
+function isComplete(){
   var status = true;
+  var list = this.cells;
   for(var i=0; i<list.length; i++){
-    if(list[i] === 0){
+    if(list[i].value == 0){
       status = false;
     }
   }
@@ -238,33 +238,39 @@ function loadPuzzle(array){
   }
 }
 
-function updateNeighbours(cell){
-  var row = readRow(cell.y) + 1;
-  var column = readColumn(cell.x) + 1;
-  var block;
-
-  // Remove the possibility of this value from this cell's neighbours
-  var num = cell.value;
+function updateNeighbours(cellNum){
   // skip the cell if nothing has been entered
   if(num === 0){
     return;
   }
+  //  Gather relevant cell data
+  var cell = this.cells[cellNum];
+  var side = this.blockSideLength;
+  var row = cell.y + 1;
+  var column = cell.x + 1;
+  var block = Math.ceil(column / side) + side*(Math.ceil(row / side) - 1);
 
-  rowRemovePos(row, num);
-  colRemovePos(column, num);
+  // Remove the possibility of this value from this cell's neighbours
+  var num = cell.value;
 
+  this.rowRemovePos(row, num);
+  this.colRemovePos(column, num);
+  this.blockRemovePos(block, num);
 }
 
 function processPuzzle(){
   // Read a cell
   // Remove possibilities according to row, column, block
   // Check possibilities
-    // If there is only one, assign that value to the cell
+  // If there is only one, assign that value to the cell
   // If there are multiple, move to next cell
   // Repeat
-  for(var i = 0; i < this.cells.length){
-
-  }
+  do {
+    for(var i = 0; i < this.cells.length; i++){
+      this.updateNeighbours(i);
+      this.cells[i].checkLastPossible();
+    }
+  }  while(this.isComplete == false);
 
 }
 
@@ -289,6 +295,7 @@ function Grid(sideLength, id){  // Side options will be limited to square number
   self.loadPuzzle = loadPuzzle;
 
   self.updateNeighbours = updateNeighbours;
+  self.processPuzzle = processPuzzle;
 
   self.findDupes   = findDupes;
   self.isComplete  = isComplete;
@@ -313,7 +320,7 @@ function createGrid(size){
   var id = existingGrids.length;
   existingGrids.push(id);
 
-  window[nameString + id] = new Grid(size, id)
+  window[nameString + id] = new Grid(size, id);
 
 }
 
@@ -347,22 +354,22 @@ function showGridOnDemo(gridRef){
   $('.placeholder').empty();
   $('.placeholder').append(grid);
   currentGridID = gridRef[1];
-};
+}
 
 var puzzles4x4 = [
   [0, 1, 3, 0,
-   2, 0, 0, 0,
-   0, 0, 0, 3,
-   0, 2, 1, 0]
-   ,
-  [3, 4, 1, 0,
-   0, 2, 0, 0,
-   0, 0, 2, 0,
-   0, 1, 4, 3]
-];
+    2, 0, 0, 0,
+    0, 0, 0, 3,
+    0, 2, 1, 0]
+    ,
+    [3, 4, 1, 0,
+      0, 2, 0, 0,
+      0, 0, 2, 0,
+      0, 1, 4, 3]
+    ];
 
 
 
 
 
-//--End
+    //--End
