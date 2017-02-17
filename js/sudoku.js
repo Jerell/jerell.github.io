@@ -1,6 +1,5 @@
 
 //--The size of the grid will be decided by user input. For initial testing this will be 4x4 but once it works it should default to 9x9
-var maxVal = 4;
 var defaultVal = 0; //  A cell's default value should be zero
 
 var nameString = "g"; //The start of the grid names
@@ -15,11 +14,11 @@ function assignCellAttributes(cell){
   cell.setAttribute("type", "number");
   cell.setAttribute("name", "active-grid");
   cell.setAttribute("inputmode", "numeric");
-  cell.setAttribute("value", "0");
+  // cell.setAttribute("value", "0");
 
 }
-function setAllPossible(max){       //  This method sets all numbers up to
-  for(var i=0; i<max; i++){       //  the specified maximum
+function setAllPossible(){       //  This method sets all numbers up to
+  for(var i=0; i<this.max; i++){       //  the specified maximum
     this.possibilities[i] = true; //  to be possibilities
   }                               //  for this cell
 }                                 //
@@ -63,9 +62,19 @@ function setValue(newValue){     //  Set the new value and remove other possibil
 }
 function updateVal(){
   this.value = this.number;
+  if(this.value == 0){
+    $( this ).addClass("zero")
+  } else {
+    $( this ).removeClass("zero")
+  }
 }
 function updateNum(){
   this.number = this.value;
+  if(this.number == 0){
+    $( this ).addClass("zero")
+  } else {
+    $( this ).removeClass("zero")
+  }
 }
 
 //Cell Object
@@ -102,22 +111,26 @@ function Cell(xcoord, ycoord, val, max){
 
 // Grid functions
 function populate(max){
-  for(var i=0; i< max * max; i++){  //  A grid will have [maxVal] squared cells
-    var x = i % max;                    //  A cell's x coord is the cell number mod [maxVal]
-    var y = Math.floor(i/max);          //  A cell's y coord is the cell number divided by [maxVal] rounded down
+  for(var i=0; i< max * max; i++){  //  A grid will have [this.max] squared cells
+    var x = i % max;                    //  A cell's x coord is the cell number mod [this.max]
+    var y = Math.floor(i/max);          //  A cell's y coord is the cell number divided by [this.max] rounded down
     this.cells[i] = new Cell(x, y, defaultVal, max);  //  [defaultVal] should be zero
     this.append(this.cells[i]);
   }
 }
 
 function readCell(x, y) {
-  var cellNum = (y - 1) * maxVal + (x - 1);
+  var cellNum = (y - 1) * this.max + (x - 1);
   return this.cells[cellNum].number;
+}
+function getCell(x, y) {
+  var cellNum = (y - 1) * this.max + (x - 1);
+  return this.cells[cellNum];
 }
 function readRow(rowNum){
   var row = [];
-  var startCellNum = (rowNum - 1) * maxVal;
-  for(var i=0; i<maxVal; i++){
+  var startCellNum = (rowNum - 1) * this.max;
+  for(var i=0; i<this.max; i++){
     row[i] = this.cells[startCellNum + i].number;
   }
   return row;
@@ -125,39 +138,49 @@ function readRow(rowNum){
 function readColumn(colNum){
   var col = [];
   var startCellNum = colNum - 1;
-  for(var i=0; i<maxVal; i++){
-    col[i] = this.cells[startCellNum + maxVal*i].number;
+  for(var i=0; i<this.max; i++){
+    col[i] = this.cells[startCellNum + this.max*i].number;
   }
   return col;
 }
 function readBlock(blockNum){
   var side = this.blockSideLength;
   var block = [];
-  var startCellNum = ((blockNum-1) % side) * side + Math.floor((blockNum-1)/side)*maxVal*side;
-  for(var i = 0; i < maxVal; i++){
-    var cellNum = Math.floor(i/side)*maxVal + i % side;
+  var startCellNum = ((blockNum-1) % side) * side + Math.floor((blockNum-1)/side)*this.max*side;
+  for(var i = 0; i < this.max; i++){
+    var cellNum = startCellNum + Math.floor(i/side)*this.max + i % side;
     block[i] = this.cells[cellNum].number;
   }
   return block;
 }
+function readBlockPossibilities(blockNum, pos){
+  var side = this.blockSideLength;
+  var blockPossibilities = [];
+  var startCellNum = ((blockNum-1) % side) * side + Math.floor((blockNum-1)/side)*this.max*side;
+  for(var i = 0; i < this.max; i++){
+    var cellNum = startCellNum + Math.floor(i/side)*this.max + i % side;
+    blockPossibilities[i] = this.cells[cellNum].possibilities[pos - 1];
+  }
+  return blockPossibilities;
+}
 
 function rowRemovePos(rowNum, pos){
-  var startCellNum = (rowNum - 1) * maxVal;
-  for(var i=0; i<maxVal; i++){
+  var startCellNum = (rowNum - 1) * this.max;
+  for(var i=0; i<this.max; i++){
     this.cells[startCellNum + i].removePos(pos);
   }
 }
 function colRemovePos(colNum, pos){
   var startCellNum = colNum - 1;
-  for(var i=0; i<maxVal; i++){
-    this.cells[startCellNum + maxVal*i].removePos(pos);
+  for(var i=0; i<this.max; i++){
+    this.cells[startCellNum + this.max*i].removePos(pos);
   }
 }
 function blockRemovePos(blockNum, pos){
   var side = this.blockSideLength;
-  var startCellNum = ((blockNum-1) % side) * side + Math.floor((blockNum-1)/side)*maxVal*side;
-  for(var i = 0; i < maxVal; i++){
-    var cellNum = Math.floor(i/side)*maxVal + i % side;
+  var startCellNum = ((blockNum-1) % side) * side + Math.floor((blockNum-1)/side)*this.max*side;
+  for(var i = 0; i < this.max; i++){
+    var cellNum = startCellNum + Math.floor(i/side)*this.max + i % side;
     this.cells[cellNum].removePos(pos);
   }
 }
@@ -234,6 +257,7 @@ function loadPuzzle(array){
     return "Incorrect puzzle size";
   }
   for(var i = 0; i < this.cells.length; i++){
+    this.cells[i].setAllPossible();
     this.cells[i].setValue(array[i]);
   }
 }
@@ -250,9 +274,25 @@ function updateNeighbours(cellNum){
   var column = cell.x + 1;
   var block = Math.ceil(column / side) + side*(Math.ceil(row / side) - 1);
 
-  // Remove the possibility of this value from this cell's neighbours
   var num = cell.value;
 
+  /*
+  for(var p = 1; p <= cell.possibilities.length; p++){
+    if(cell.possibilities[p] == true){ // for every true possibility of this cell
+      var occurences = this.readBlockPossibilities(block, p);
+      var count = 0; // count how many block neighbours have this possibility;
+      for(var o = 0; o < occurences.length; o++){
+        if(occurences[o] == true){
+          count++;
+        }
+      }
+      if(count == 1){  // if this is the only one
+        cell.setValue(p);  // set this cell to that possibility;
+      }
+    }
+  }*/
+
+  // Remove the possibility of this value from this cell's neighbours
   this.rowRemovePos(row, num);
   this.colRemovePos(column, num);
   this.blockRemovePos(block, num);
@@ -265,12 +305,14 @@ function processPuzzle(){
   // If there is only one, assign that value to the cell
   // If there are multiple, move to next cell
   // Repeat
+
   do {
     for(var i = 0; i < this.cells.length; i++){
       this.updateNeighbours(i);
       this.cells[i].checkLastPossible();
     }
-  }  while(this.isComplete == false);
+  }  while(this.isComplete() == false);
+
 
 }
 
@@ -284,9 +326,11 @@ function Grid(sideLength, id){  // Side options will be limited to square number
   self.populate(self.max);
 
   self.readCell    = readCell;
+  self.getCell     = getCell;
   self.readRow     = readRow;
   self.readColumn  = readColumn;
   self.readBlock   = readBlock;
+  self.readBlockPossibilities = readBlockPossibilities;
 
   self.rowRemovePos = rowRemovePos;
   self.colRemovePos = colRemovePos;
@@ -358,17 +402,37 @@ function showGridOnDemo(gridRef){
 
 var puzzles4x4 = [
   [0, 1, 3, 0,
-    2, 0, 0, 0,
-    0, 0, 0, 3,
-    0, 2, 1, 0]
-    ,
-    [3, 4, 1, 0,
-      0, 2, 0, 0,
-      0, 0, 2, 0,
-      0, 1, 4, 3]
-    ];
+   2, 0, 0, 0,
+   0, 0, 0, 3,
+   0, 2, 1, 0]
+   ,
+   [3, 4, 1, 0,
+    0, 2, 0, 0,
+    0, 0, 2, 0,
+    0, 1, 4, 3]
+   ];
 
-
+var puzzles9x9 = [
+  [5, 3, 0, 0, 7, 0, 0, 0, 0,
+   6, 0, 0, 1, 9, 5, 0, 0, 0,
+   0, 9, 8, 0, 0, 0, 0, 6, 0,
+   8, 0, 0, 0, 6, 0, 0, 0, 3,
+   4, 0, 0, 8, 0, 3, 0, 0, 1,
+   7, 0, 0, 0, 2, 0, 0, 0, 6,
+   0, 6, 0, 0, 0, 0, 2, 8, 0,
+   0, 0, 0, 4, 1, 9, 0, 0, 5,
+   0, 0, 0, 0, 8, 0, 0, 7, 9]
+   ,
+  [0, 0, 6, 0, 5, 4, 9, 0, 0,
+   1, 0, 0, 0, 6, 0, 0, 4, 2,
+   7, 0, 0, 0, 8, 9, 0, 0, 0,
+   0, 7, 0, 0, 0, 5, 0, 8, 1,
+   0, 5, 0, 3, 4, 0, 6, 0, 0,
+   4, 0, 2, 0, 0, 0, 0, 0, 0,
+   0, 3, 4, 0, 0, 0, 1, 0, 0,
+   9, 0, 0, 8, 0, 0, 0, 5, 0,
+   0, 0, 0, 4, 0, 0, 3, 0, 7,]
+];
 
 
 

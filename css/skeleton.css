@@ -466,6 +466,9 @@ code:hover > .note{
   opacity:1;
 }
 
+.zero{
+  color:#ccc;
+}
 
 .digit-window {
     position:relative;

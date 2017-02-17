@@ -89,7 +89,10 @@ $(document).ready(function(){
     $('.placeholder').empty();
   });
 
-  $('[name="load-demo"]').click(function(){
+  $('[name="load-demo-4x4"]').click(function(){
     window[nameString + currentGridID].loadPuzzle(puzzles4x4[this.value - 1]);
+  });
+  $('[name="load-demo-9x9"]').click(function(){
+    window[nameString + currentGridID].loadPuzzle(puzzles9x9[this.value - 1]);
   });
 });
