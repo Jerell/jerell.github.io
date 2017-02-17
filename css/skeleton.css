@@ -544,8 +544,8 @@ input.clean{
   border:1px solid green;
   transition: all .2s;
   animation: .2s clean-pop;
-
 }
+
 @keyframes clean-pop{
   0%{border-width:3px;}
   20%{border-width:5px;}
@@ -555,6 +555,10 @@ input.clean{
 [name="solve"]{
   float: right;
   margin-right: 50px;
+}
+
+input.grey{
+  background:#eee;
 }
 
 /* Clearing

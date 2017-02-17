@@ -312,8 +312,19 @@ function processPuzzle(){
       this.cells[i].checkLastPossible();
     }
   }  while(this.isComplete() == false);
+}
 
-
+function blockColour(){
+  for(var i=0; i < this.cells.length; i++){
+    var cell = this.cells[i];
+    var side = this.blockSideLength;
+    var row = cell.y + 1;
+    var column = cell.x + 1;
+    var block = Math.ceil(column / side) + side*(Math.ceil(row / side) - 1);
+    if((Math.ceil(column / side) - (Math.ceil(row / side) - 1))%2 == 0){
+      $(this.cells[i]).addClass("grey");
+    }
+  }
 }
 
 //Grid Object
@@ -351,6 +362,9 @@ function Grid(sideLength, id){  // Side options will be limited to square number
   self.style.width = self.max * 50 + "px";
 
   self.id = id;
+
+  self.blockColour = blockColour;
+  self.blockColour();
 
   self.classList.add("grid");
   return self;
