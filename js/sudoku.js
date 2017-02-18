@@ -305,13 +305,18 @@ function processPuzzle(){
   // If there is only one, assign that value to the cell
   // If there are multiple, move to next cell
   // Repeat
-
   do {
     for(var i = 0; i < this.cells.length; i++){
       this.updateNeighbours(i);
       this.cells[i].checkLastPossible();
     }
   }  while(this.isComplete() == false);
+}
+function oneStep(){
+  for(var i = 0; i < this.cells.length; i++){
+    this.updateNeighbours(i);
+    this.cells[i].checkLastPossible();
+  }
 }
 
 function blockColour(){
@@ -351,6 +356,7 @@ function Grid(sideLength, id){  // Side options will be limited to square number
 
   self.updateNeighbours = updateNeighbours;
   self.processPuzzle = processPuzzle;
+  self.oneStep = oneStep;
 
   self.findDupes   = findDupes;
   self.isComplete  = isComplete;
@@ -370,10 +376,8 @@ function Grid(sideLength, id){  // Side options will be limited to square number
   return self;
 }
 
-
 //Generating Grids
 var existingGrids = [];
-
 function createGrid(size){
   var id = existingGrids.length;
   existingGrids.push(id);
@@ -381,7 +385,6 @@ function createGrid(size){
   window[nameString + id] = new Grid(size, id);
 
 }
-
 
 //Input and Output
 function processSimpleInput(){
@@ -406,7 +409,6 @@ function clearDupesFromSimpleInput(){
 
 //Demo
 var currentGridID = 0;
-
 function showGridOnDemo(gridRef){
   var grid = window[gridRef];
   $('.placeholder').empty();
@@ -425,7 +427,6 @@ var puzzles4x4 = [
     0, 0, 2, 0,
     0, 1, 4, 3]
    ];
-
 var puzzles9x9 = [
   [5, 3, 0, 0, 7, 0, 0, 0, 0,
    6, 0, 0, 1, 9, 5, 0, 0, 0,
@@ -447,7 +448,4 @@ var puzzles9x9 = [
    9, 0, 0, 8, 0, 0, 0, 5, 0,
    0, 0, 0, 4, 0, 0, 3, 0, 7,]
 ];
-
-
-
     //--End

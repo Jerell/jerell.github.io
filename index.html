@@ -50,8 +50,8 @@
           <p>My idea for a programming project is to make a website that solves sudoku puzzles.</p>
           <p>It would mean making an algorithm to take the initial puzzle as an input, process the current state of the puzzle and loop until it is complete.</p>
           <p>I think this makes a good project because it has a clear use and end state and is easier to verify than something like a crossword.</p>
-          <p>I have a basic idea of how to create the program but I haven't worked out the details and I'm a bit out of practice so I imagine it would take a significant amount of time.</p>
-          <p>I could create the program as its own thing but I think it needs to be paired with a website so I can have an interface that's easier to use than a command line.</p>
+          <p>I have a basic idea of how to create the program but I have not worked out the details and I'm a bit out of practice so I expect it to take a significant amount of time.</p>
+          <p>I could create it as a standalone program but I think it needs to be paired with a website just so I can have an interface that's easier to use than a command line.</p>
         </div>
         <div class="one-half column">
           <img src="images/sudoku image.png" class="centre-block h300"/>
@@ -60,16 +60,19 @@
       </div>
       <div class="row">
         <div class="column">
-          <p>I could write it in C but that makes input and output more difficult so I think javascript is the way to go.</p>
-          <p>I only know how to create menu based command line interfaces using C and JavaScript allows me to input all the numbers into a grid of text boxes on a webpage and have a separate submit button.</p>
-          <p>This is important because it means each number can be edited individually without starting the input again if a mistake is made.</p>
+          <h5>Prior Knowledge</h5>
+          <p>If I were to create a standalone program, I would have to use a language like C or Python that I have little experience with, and I run the risk of not being able to test it on college computers due to restrictions on running unknown and potentially malicious programs. I am unsure of what (if any) restrictions there are but I expect that there might be something in place to prevent a user from running certain file types without proper validation, simply for basic computer safety reasons.</p>
+          <p>Javascript is a language that runs in a more restricted environment, a web browser. This means that a program written in javascript is safer to run and would not be blocked the same way an .exe file might be. The language might be similar in structure to C but this is an important distinction to be aware of because of these safety issues.</p>
+          <p>I have a fair amount of experience with HTML and CSS, the markup languages used to create websites, from my introduction to them in GCSE ICT and further exploration in my own projects. Javascript is used to add interactivity to websites and is the only real programming language of the three. I have a working knowledge of javascript but have never used it to build anything nearly this complex. I think I have a firm enough grasp of the concepts involved to be able to get going and look up the necessary intricacies online as I go.</p>
+          <p>The choice of language also means that I have a way to create a user friendly interface for the program: create the structure of the webpage with HTML; style it with CSS; read, process and write data with javascript. Almost everybody is familiar with HTML input forms in one way or another. You would have used one if you've typed anything on any website ever. Potential users of this program would be much less familiar with the only type of interface I am currently able to create using another programming language: the command line.</p>
+          <p>The command line would also introduce problems with things like correcting mistakes because a command has to be typed out correctly in full before submission. If a single cell on an 81 cell sudoku grid had a typo, the entire command would have to be typed out again. Not only the corrected cell or every number in the grid, but also (depending on the way the program is set up) the command saying what to do with this data.</p>
         </div>
       </div>
       <div class="row origin">
         <h4>Research</h4>
         <h5><a href="https://www.theguardian.com/media/2005/may/15/pressandpublishing.usnews">Origin</a></h5>
         <p>
-          Versions of the puzzle have been around since at least 1783, when Leonhard Euler created 'Latin Squares,' but it wasn't until the late 1970s that Dell Puzzle Magazines created basis for the version around today. Previously called 'Number Place,' it was published for years alongside crosswords and other puzzles before it was discovered and gained traction in Japan.
+          Versions of the puzzle have been around since at least 1783, when Leonhard Euler created 'Latin Squares,' but it was not until the late 1970s that Dell Puzzle Magazines created basis for the version around today. Previously called 'Number Place,' it was published for years alongside crosswords and other puzzles before it was discovered and gained traction in Japan.
         </p>
         <p>
           Japanese publisher Nikoli made a couple of improvements to the puzzle and gave it the name 'Sudoku,' publishing it in 1984. It spread quickly, becoming very popular, but never really left the country until 20 years later, after Wayne Gould saw the puzzle in a bookstore and spent 6 years creating a computer program to generate the puzzles.
@@ -83,6 +86,13 @@
         <p>
           <a href="http://www.sudoku-solutions.com/">Sudoku-Solutions.com</a> is a good example of something to work towards. It has a simple interface for inputting data and selecting what you would like to do with it. It goes beyond just solving the puzzles and allows the user to try random puzzles of varying difficulty and have a go at them, with buttons to check, undo, save and load their attempt, before using the solve function.
         </p>
+        <p>
+          On their website, there is <a href="http://www.sudoku-solutions.com/index.php?page=sudokuSelector">a page</a> with links to other sudoku solvers built for other grid formats. Unfortunately, some of them are not functional or do not load.
+        </p>
+        <p>
+          Microsoft have also published their code <a href="https://github.com/MicrosoftEdge/Sudoku">online. (Github, 14 Jul 2014)</a> This example, created by Jacob Rossi, an engineer on the web platform team at Microsoft, solves the puzzles using their Chakra engine built for their new browser, Microsoft Edge. It is written in javascript but their engine allows them to do things a little differently from the standard and should make their program faster and more efficient. It has less features than the one above but it is more lightweight and easier for the computer to run.
+        </p>
+        <p>It only processes one size of puzzle, using 900 lines of code to do so. </p>
       </div>
       <div class="row implementation">
         <h4>Implementation</h4>
@@ -91,25 +101,50 @@
           I think the best way to start is to scale down the puzzle to 4x4 first. Scaling down the problem would allow me to focus on things like how the data is stored and processed, which I could then carry over to the 9x9 solution.
         </p>
         <p>
-          A 4x4 puzzle only has 16 cells compared to a 9x9's 81. It should be a fair amount faster to do this first as there are far fewer places to potentially go wrong.
+          A 4x4 puzzle only has 16 cells compared to a 9x9's 81. It should be a fair amount faster to do this first as there are far fewer places to potentially go wrong. Creating a program that can handle muliple grid sizes means taking a different approach to those I have seen online. Lots of existing solutions handle different sized grids with different programs, with each one using properties and values specific to the size of the grid. For example, if you numbered each cell 1-81 on a 9x9 grid, ascending horizontally, you would be able to tell your program to read cells 31, 40 and 49 and the two following each of those when it wanted to read the centre block. My approach means that I have to create a formula to read the correct values from the grid for any given size. I could not just tell it to read cell 31 on a 4x4 grid because cell 31 does not exist.
         </p>
         <p>
-          The basic plan is to assign possible numbers to each cell, read each one that's been entered and remove them as each number is read
+          The basic plan is to assign possible numbers to each cell, read each one and remove them from the potential values of cells in the appropriate rows, columns and blocks as each number is read.
         </p>
       </div>
     </div> <!-- End intro -->
     <div class="container early-dev">
-      <h4>Data</h4>
-      <h5>Storage</h5>
-      <p>
-        I began by writing out what each part of the puzzle consists of: A grid is made of rows, columns, and blocks of cells which each have positions within the grid, values, and a range of possibilities.
-      </p>
-      <p>
-        Rows, columns and blocks aren't actual things but references to certain areas of the grid. The grid is simply a list of <code>n<span class="power">2</span></code> values where <code>n</code> is the maximum cell value. A row is a list of n numbers starting from <code>row number - 1</code> times <code>n</code>. A column is a list of every <code>n<span class="power">th</span></code> number starting from <code>column number</code>. It's a little more complex to define what a block is but it's very similar to rows and columns, being a subset of the full list of numbers.
-      </p>
-      <p>
-        A 9x9 grid is stored as a list of 81 objects with a value, position and array of nine booleans (one for each possible number). The plan is to change the value of the appropriate boolean when a condition is met that means the cell can no longer contain that particular number. If a number 4 was written in a cell's row, column or block, the program would set the value of <code>Cell.possibilities['4'] <span class="note">NOTE: The first value in an array is Array[0] so really the possibility of n is stored in possibilities[n-1]</span></code> to false, because 4 is no longer a possibility for the cell.
-      </p>
+      <div class="row">
+        <h4>Data</h4>
+        <h5>Storage</h5>
+      <div class="column one-half">
+        <p>
+          I began by writing out what each part of the puzzle consists of: A grid is made of rows, columns, and blocks of cells which each have positions within the grid, values, and a range of possibilities.
+        </p>
+        <p>
+          Rows, columns and blocks are not actual things but references to certain areas of the grid. The grid is simply a list of <code>n<span class="power">2</span></code> values where <code>n</code> is the maximum cell value. A row is a list of n numbers starting from <code>row number - 1</code> times <code>n</code>. A column is a list of every <code>n<span class="power">th</span></code> number starting from <code>column number</code>. It's a little more complex to define what a block is but it's very similar to rows and columns, being a subset of the full list of numbers.
+        </p>
+        <p>
+          A 9x9 grid is stored as a list of 81 objects with a value, position and array of nine booleans (one for each possible number). The plan is to change the value of the appropriate boolean when a condition is met that means the cell can no longer contain that particular number. If a number 4 was written in a cell's row, column or block, the program would set the value of <code>Cell.possibilities['4'] <span class="note">NOTE: The first value in an array is Array[0] so really the possibility of n is stored in possibilities[n-1]</span></code> to false, because 4 is no longer a possibility for the cell.
+        </p>
+      </div>
+      <div class="column one-half">
+        <pre>
+          <code class="language-javascript">
+function readBlock(blockNum){
+  var side = this.blockSideLength;
+  var block = [];
+  var startCellNum = ((blockNum-1) % side) * side +
+                     Math.floor((blockNum-1)/side)
+                     * this.max * side;
+
+  for(var i = 0; i < this.max; i++){
+    var cellNum = startCellNum +
+                  Math.floor(i/side)
+                  * this.max + i % side;
+    block[i] = this.cells[cellNum].number;
+  }
+  return block;
+}
+          </code>
+        </pre>
+      </div>
+    </div>
       <h5>Cell Comparison</h5>
       <div class="row data">
         <div class="four columns">
@@ -184,7 +219,7 @@ function findDupes(cellList){
         </div>
         <div class="one-half column">
           <p>
-            If a cell value matched a neighbouring cell and the value wasn't already recorded as a duplicate, it was added to the list.
+            If a cell value matched a neighbouring cell and the value was not already recorded as a duplicate, it was added to the list.
           </p>
           <div class="digit-window double-width-window">
             <div class="digit-slide">
@@ -209,7 +244,13 @@ function findDupes(cellList){
       <h5>Auto-generated input grid</h5>
     <div class="row input">
       <div class="one-half column">
-        <p>Here I'm using javascript to generate a grid of input cells like those above.</p>
+        <p>Here I use javascript to generate a grid of input cells like those above instead of coding each grid individually.</p>
+        <input type="button" name="one-step" value="one step" class="button-primary">
+        <input type="button" name="solve" value="solve" class="button">
+        <aside>
+          The solve button runs the program until the puzzle is complete. If it can not be done then it loops infitely.
+          <br> This is bad. Do not tell it to solve an empty puzzle.
+        </aside>
         <h6>New:</h6>
         <input type="button" name="4x4" value="four by four" class="button-primary">
         <input type="button" name="9x9" value="nine by nine" class="button-primary">
@@ -217,16 +258,49 @@ function findDupes(cellList){
         <h6>Load 4x4:</h6>
         <input type="button" name="load-demo-4x4" value="1" class="button">
         <input type="button" name="load-demo-4x4" value="2" class="button">
-        <input type="button" name="solve" value="solve" class="button-primary">
         <h6>Load 9x9:</h6>
         <input type="button" name="load-demo-9x9" value="1" class="button">
         <input type="button" name="load-demo-9x9" value="2" class="button">
-
       </div>
       <div class="one-half column">
         <div class="placeholder">
 
         </div>
+      </div>
+    </div>
+    <div class="row input">
+      <div class="one-half column">
+        <h5>Process</h5>
+        <p>You can use the buttons above to generate empty grids, load preset puzzles in and have the program process them.</p>
+        <p>You can also enter numbers yourself if you want to try others.</p>
+        <p>If you are unsure if the puzzle you entered can be completed, use the 'one step' button. It will run the program only once without continuing the loop. Sometimes it takes multiple (no more than two or three) passes to narrow down the options enough to fill in a cell. If nothing changed after the first run, try it again.</p>
+        <p>'One step' fills in all the cells with only one potential value, considering the top left cell first and moving row by row to the bottom right. If it fills in a cell during a pass, it eliminates possibilities from a cell's row, column and block, further narrowing the options for the later cells. During a pass, an early cell might be narrowed to one remaining possibility when a later cell is filled in. However, the early cell will not be updated during this pass and will remain empty until the function runs again.</p>
+      </div>
+      <div class="one-half column">
+        <pre>
+          <code class="language-javascript">
+function processPuzzle(){
+  // Read a cell
+  // Remove possibilities from row, column, block
+  // Check cell possibilities
+  // If only one, assign that value to the cell
+  // If there are multiple, move to next cell
+  // Repeat
+  do {
+    for(var i = 0; i < this.cells.length; i++){
+      this.updateNeighbours(i);
+      this.cells[i].checkLastPossible();
+    }
+  }  while(this.isComplete() == false);
+}
+function oneStep(){
+  for(var i = 0; i < this.cells.length; i++){
+    this.updateNeighbours(i);
+    this.cells[i].checkLastPossible();
+  }
+}
+          </code>
+        </pre>
       </div>
     </div>
   </div>

@@ -98,4 +98,7 @@ $(document).ready(function(){
   $('[name="solve"]').click(function(){
     window[nameString + currentGridID].processPuzzle();
   });
+  $('[name="one-step"]').click(function(){
+    window[nameString + currentGridID].oneStep();
+  });
 });
