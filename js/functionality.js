@@ -75,6 +75,12 @@ $(document).ready(function(){
   })([Element.prototype, Document.prototype, DocumentFragment.prototype]);
   //END Append Polyfill
 
+  $('[name="scroll"]').click(function() {
+    $('html, body').animate({
+      scrollTop: ($('#program').offset().top)
+    },700);
+  });
+
   $('[name="4x4"]').click(function(){
     createGrid(4);
     showGridOnDemo(nameString + (existingGrids.length - 1));
@@ -95,9 +101,9 @@ $(document).ready(function(){
   $('[name="load-demo-9x9"]').click(function(){
     window[nameString + currentGridID].loadPuzzle(puzzles9x9[this.value - 1]);
   });
-  $('[name="solve"]').click(function(){
+  /*$('[name="solve"]').click(function(){
     window[nameString + currentGridID].processPuzzle();
-  });
+  });*/
   $('[name="one-step"]').click(function(){
     window[nameString + currentGridID].oneStep();
   });

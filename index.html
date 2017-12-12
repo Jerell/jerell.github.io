@@ -45,6 +45,14 @@
       <div class="column">
         <h3>Sudoku Solver</h3></div>
       </div>
+      <div class="row explanation">
+        <div class="column">
+          <input class="button-primary" type="button" name="scroll" value="Scroll to interface">
+          <p>This is an independent project I made at college. I had to make a report to accompany the program (written in simple terms for a presentation) so this page has lots of text describing the process of making it.</p>
+          <p>Click the button above to skip straight to the good part.</p>
+          <p>The code isn't perfect but this is how it was at the time. If I were to do it again, there are a few things I would do differently.</p>
+        </div>
+      </div>
       <div class="row">
         <div class="one-half column">
           <p>My idea for a programming project is to make a website that solves sudoku puzzles.</p>
@@ -240,21 +248,22 @@ function findDupes(cellList){
           </p>
         </div>
       </div>
-      <h4>Input</h4>
+      <h4 id="program">Input</h4>
       <h5>Auto-generated input grid</h5>
     <div class="row input">
       <div class="one-half column">
         <p>Here I use javascript to generate a grid of input cells like those above instead of coding each grid individually.</p>
-        <input type="button" name="one-step" value="one step" class="button-primary">
-        <input type="button" name="solve" value="solve" class="button">
-        <aside>
-          The solve button runs the program until the puzzle is complete. If it can not be done then it loops infitely.
-          <br> This is bad. Do not tell it to solve an empty puzzle.
-        </aside>
         <h6>New:</h6>
         <input type="button" name="4x4" value="four by four" class="button-primary">
         <input type="button" name="9x9" value="nine by nine" class="button-primary">
         <input type="button" name="clear" value="clear">
+        <h6>Notice:</h6>
+        <aside>
+          I removed the auto solve button and just left in 'One step.' The process is demonstrated more clearly with the one step function and this has the added benefit of avoiding the infinite loop for unsolvable puzzles that might be entered by mistake.
+        </aside>
+        <h6>Solve:</h6>
+        <input type="button" name="one-step" value="one step" class="button-primary">
+        <input type="button" name="solve" value="solve" class="button">
         <h6>Load 4x4:</h6>
         <input type="button" name="load-demo-4x4" value="1" class="button">
         <input type="button" name="load-demo-4x4" value="2" class="button">

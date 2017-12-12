@@ -442,8 +442,14 @@ hr {
   text-align: center;
 }
 
-.intro{
+.explanation{
+  border-bottom: 1px solid #eee;
+  margin-bottom: 20px;
+}
 
+input[name="solve"]{
+  text-decoration: line-through;
+  opacity:0.4;
 }
 
 
