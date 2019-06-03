@@ -29,7 +29,7 @@ const copy = () => {
   cheeks.select();
   document.execCommand("copy")
   copyText.classList = "copied"
-  setTimeout(()=>{copyText.classList = "uncopy"}, 400)
+  setTimeout(()=>{copyText.classList = "uncopy"}, 500)
 }
 
 
