@@ -1,6 +1,8 @@
 const mainTitle = document.querySelector('#mainTitle')
 const cheeks = document.querySelector('#cheeks')
 const handSelect = document.querySelector('#handSelect')
+const copyButton = document.querySelector('#copy')
+const copyText = document.querySelector('#copyText')
 
 const hands = ['👏','👏🏻','👏🏼','👏🏽','👏🏾','👏🏿']
 
@@ -18,11 +20,19 @@ const selectNext = () => {
   selected = hands[selectionNum]
 }
 
-
-
 const clap = (string) => {
   return string.split(' ').join(selected)
 }
+
+
+const copy = () => {
+  cheeks.select();
+  document.execCommand("copy")
+  copyText.classList = "copied"
+  setTimeout(()=>{copyText.classList = "uncopy"}, 400)
+}
+
+
 
 mainTitle.onclick = () => {
   selectNext()
@@ -43,4 +53,8 @@ cheeks.onkeyup = () => {
     let output = input.indexOf(' ') > 0 ? clap(input) : ''
     cheeks.value = output
   }
+}
+
+copyButton.onclick = () => {
+  copy()
 }

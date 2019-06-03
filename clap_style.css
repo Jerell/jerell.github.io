@@ -1,8 +1,41 @@
-#cheeks::placeholder{
+#cheeks::placeholder {
   font-style: italic;
 }
-#handSelect, #mainTitle{
+
+#handSelect, #mainTitle {
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
+}
+
+.uncopy {
+  position:absolute;
+  left: 50%;
+  transform: translate(-50%) scale(1);
+
+  font-weight: bold;
+  font-style: italic;
+
+  opacity:0;
+}
+
+.copied {
+  position:absolute;
+  left: 50%;
+  transform: translate(-50%) scale(1);
+
+  font-weight: bold;
+  font-style: italic;
+  animation: popInFadeOut 0.4s forwards;
+}
+
+@keyframes popInFadeOut {
+  0% {
+    transform: translate(-50%) scale(10);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%) scale(0.2);
+    opacity: 0;
+  }
 }
