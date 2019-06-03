@@ -1,0 +1,8 @@
+#cheeks::placeholder{
+  font-style: italic;
+}
+#handSelect, #mainTitle{
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
