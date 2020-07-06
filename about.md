@@ -4,12 +4,12 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
+One day I'll put some info about me on this page. Not today.
 
 ### More Information
 
-A place to include any other types of information that you'd like to include about yourself.
+I got nothing homie.
 
-### Contact me
+### Work email
 
-[email@domain.com](mailto:email@domain.com)
+[jerell@paceflowassurance.co.uk](mailto:jerell@paceflowassurance.co.uk)
