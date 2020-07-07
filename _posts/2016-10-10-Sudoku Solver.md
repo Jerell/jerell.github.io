@@ -3,9 +3,9 @@ layout: post
 title: EPQ - Sudoku Solver
 ---
 
-## Context
-
 For my Extended Project Qualification during my time at college, I decided to design and build a system that would solve sudoku puzzles.
+
+## Context
 
 At the time, I had a decent amount of experience with HTML, CSS and JavaScript, through my own independent studies and projects and the reinforcement I got during GCSE ICT, but I hadn't attempted anything quite as ambitious as this.
 
