@@ -31,4 +31,4 @@ A column is a list of every `n`th cell starting from cell `column number`
 
 ### Block
 
-A block, being one of the smaller square areas 
+A block, being one of the smaller square areas that makes up the larger grid, has a side length of `sqrt(n)`. It's a series of `sqrt(n)` lists of `sqrt(n)` consecutive numbers on consecutive rows.
