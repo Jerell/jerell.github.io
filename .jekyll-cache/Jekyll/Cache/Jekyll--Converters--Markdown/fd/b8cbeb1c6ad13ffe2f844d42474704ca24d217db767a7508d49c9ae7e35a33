@@ -1,0 +1,10 @@
+I"¸<h2 id="context">Context</h2>
+
+<p>For my Extended Project Qualification during my time at college, I decided to design and build a system that would solve sudoku puzzles.</p>
+
+<p>At the time, I had a decent amount of experience with HTML, CSS and JavaScript, through my own independent studies and projects and the reinforcement I got during GCSE ICT, but I hadnâ€™t attempted anything quite as ambitious as this.</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>The basic idea was to create a web based interface to capture the state of the puzzle as an input and write an algorithm that would process the grid, eliminate options wherever possible, and loop until the final state was found.</p>
+:ET

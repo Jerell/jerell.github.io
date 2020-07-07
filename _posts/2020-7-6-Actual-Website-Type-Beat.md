@@ -3,7 +3,7 @@ layout: post
 title: Actual Website Type Beat
 ---
 
-I used Jekyll to make a blog post instead of hosting some previous work on the main page. The plan is to have posts about different projects rather than just showcasing one at a time.
+I used Jekyll to make a blog site instead of hosting some previous work on the main page. The plan is to have posts about different projects rather than just showcasing one at a time.
 
 ![_config.yml]({{ site.baseurl }}/images/config.png)
 
