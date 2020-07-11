@@ -15,6 +15,11 @@ class Game {
     this.numberCells();
 
     this.html();
+
+    this.updateRow(1, 4);
+    this.updateRow(1, 3);
+
+    this.updateCol(1, 1);
   }
 
   numberCells() {
@@ -116,10 +121,27 @@ class Game {
         }
       }
     }
-    console.log(sg);
-
     return sg;
   }
+
+  updateRow = (row_num = 0, val) => {
+    let index_rg = Math.floor(row_num / this.sqrt);
+    for (let col = 0; col < this.max; col++) {
+      this.grid[index_rg][row_num % this.sqrt][col].possibilities.remove(val);
+    }
+  };
+
+  updateCol = (col_num = 0, val) => {
+    for (let index_rg = 0; index_rg < this.grid.length; index_rg++) {
+      for (
+        let index_row = 0;
+        index_row < this.grid[index_rg].length;
+        index_row++
+      ) {
+        this.grid[index_rg][index_row][col_num].possibilities.remove(val);
+      }
+    }
+  };
 }
 
 class RowGroup {
@@ -148,6 +170,9 @@ class RowGroup {
 class Cell {
   constructor(max, initialVal) {
     this.possibilities = new Possibilities(max);
+    this.possibilities.trigger = (v) => {
+      console.log(this.possibilities, v);
+    };
     this.initialVal = initialVal;
   }
 
@@ -175,10 +200,25 @@ class Possibilities {
     return this.vals.filter(Boolean).length;
   }
 
+  last() {
+    return this.vals.filter(Boolean)[0];
+  }
+
   remove(val) {
+    if (!val) {
+      return;
+    }
+
     let p = val - 1;
     this.vals[p] = 0;
+    console.log(this.vals);
+    let remaining = this.count();
+    if (remaining === 1) {
+      this.trigger(this.last());
+    }
+    return remaining;
   }
+
   // probably won't be used
   add(val) {
     let p = val - 1;
