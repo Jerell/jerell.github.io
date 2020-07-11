@@ -15,9 +15,6 @@ class Game {
     this.numberCells();
 
     this.html();
-
-    let c = this.grid[0][0][2];
-    this.selectCell(c);
   }
 
   numberCells() {
@@ -87,8 +84,41 @@ class Game {
     container.append(table);
   }
 
-  selectCell(cell) {
-    console.log(cell.select(this.table));
+  selectCellHTML(cell) {
+    return cell.select(this.table);
+  }
+
+  selectRow(row_num = 0) {
+    let index_rg = Math.floor(row_num / this.sqrt);
+    let rg = this.grid[index_rg];
+    let row = rg[row_num % this.sqrt];
+    return row;
+  }
+
+  selectCol(col_num = 0) {
+    let col = [];
+    for (let rg of this.grid) {
+      for (let row of rg) {
+        col.push(row[col_num]);
+      }
+    }
+    return col;
+  }
+
+  selectSubgrid(sg_num = 0) {
+    let sg = [];
+    for (let rg of this.grid) {
+      for (let row of rg) {
+        for (let cell of row) {
+          if (cell.subgrid === sg_num) {
+            sg.push(cell);
+          }
+        }
+      }
+    }
+    console.log(sg);
+
+    return sg;
   }
 }
 
