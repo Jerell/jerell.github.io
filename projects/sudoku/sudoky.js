@@ -122,8 +122,6 @@ class Cell {
   }
 
   select(table) {
-    console.log(table);
-    console.log(this.rg, this.rg_row, this.col, this.subgrid);
     let rowGroup = table.getElementsByTagName("tbody")[this.rg];
     let row = rowGroup.childNodes[this.rg_row];
     return row.childNodes[this.col];
