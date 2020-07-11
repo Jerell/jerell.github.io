@@ -1,4 +1,4 @@
-class Grid {
+class Game {
   constructor(max) {
     this.sqrt = Math.sqrt(max);
     if (!Number.isInteger(this.sqrt)) {
@@ -8,16 +8,43 @@ class Grid {
     this.numCells = max ** 2;
   }
 
-  newCell() {
-    return new Cell(this.max);
+  grid() {
+    let g = [];
+    for (let rg = 0; rg < this.sqrt; rg++) {
+      g.push(new RowGroup(this.sqrt).group());
+    }
+    return g;
+  }
+}
+
+class RowGroup {
+  constructor(subgridSize) {
+    this.rows = subgridSize;
+    this.rowLength = subgridSize ** 2;
   }
 
-  html() {}
+  row() {
+    let r = [];
+    console.log("this.rowLength :>> ", this.rowLength);
+    for (let c = 0; c < this.rows; c++) {
+      r.push(new Cell(this.rowLength));
+    }
+    return r;
+  }
+
+  group() {
+    let g = [];
+    for (let r = 0; r < this.rows; r++) {
+      g.push(this.row());
+    }
+    return g;
+  }
 }
 
 class Cell {
   constructor(max, initialVal) {
-    this.possibilities = this.initialVal = initialVal;
+    this.possibilities = new Possibilities(max);
+    this.initialVal = initialVal;
   }
 
   html() {
@@ -49,5 +76,7 @@ class Possibilities {
   }
 }
 
-p = new Possibilities(9);
-g = new Grid(5);
+// p = new Possibilities(9);
+g = new Game(9);
+console.log(g);
+console.log(g.grid());
