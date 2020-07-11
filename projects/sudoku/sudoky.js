@@ -12,9 +12,8 @@ class Game {
       g.push(new RowGroup(this.sqrt).group());
     }
     this.grid = g;
-    this.numberCells();
-
     this.html();
+    this.numberCells();
   }
 
   numberCells() {
@@ -24,6 +23,7 @@ class Game {
           let c = Math.floor(index_col / this.sqrt);
           let r = index_rg * this.sqrt;
           let subgrid = r + c;
+
           this.grid[index_rg][rowgroup_row][index_col].autofill = (
             cell,
             val
@@ -37,6 +37,21 @@ class Game {
           this.grid[index_rg][rowgroup_row][index_col].col = parseInt(
             index_col
           );
+
+          let clicky = () => {
+            let input = parseInt(prompt("what number"));
+            if (!input) {
+              return;
+            }
+            this.setCellValue(
+              this.grid[index_rg][rowgroup_row][index_col],
+              input
+            );
+          };
+
+          this.grid[index_rg][rowgroup_row][index_col].select(
+            this.table
+          ).onclick = clicky;
         }
       }
     }
@@ -91,7 +106,11 @@ class Game {
   }
 
   selectCellHTML(cell) {
-    return cell.select(this.table);
+    try {
+      return cell.select(this.table);
+    } catch {
+      console.log(cell);
+    }
   }
 
   selectRow(row_num = 0) {
@@ -126,7 +145,9 @@ class Game {
   }
 
   setCellValue(cell, val) {
-    cell.setValue(val, this.table);
+    if (!cell.setValue(val, this.table)) {
+      return;
+    }
     this.updateRow(cell.row, val);
     this.updateCol(cell.col, val);
     this.updateSubgrid(cell.subgrid, val);
@@ -135,6 +156,12 @@ class Game {
   updateRow = (row_num = 0, val) => {
     let index_rg = Math.floor(row_num / this.sqrt);
     for (let col = 0; col < this.max; col++) {
+      if (
+        this.selectCellHTML(this.grid[index_rg][row_num % this.sqrt][col])
+          .innerHTML
+      ) {
+        continue;
+      }
       this.grid[index_rg][row_num % this.sqrt][col].possibilities.remove(val);
     }
   };
@@ -146,6 +173,11 @@ class Game {
         index_row < this.grid[index_rg].length;
         index_row++
       ) {
+        if (
+          this.selectCellHTML(this.grid[index_rg][index_row][col_num]).innerHTML
+        ) {
+          continue;
+        }
         this.grid[index_rg][index_row][col_num].possibilities.remove(val);
       }
     }
@@ -163,6 +195,12 @@ class Game {
           index_col < this.grid[index_rg][index_row].length;
           index_col++
         ) {
+          if (
+            this.selectCellHTML(this.grid[index_rg][index_row][index_col])
+              .innerHTML
+          ) {
+            continue;
+          }
           if (this.grid[index_rg][index_row][index_col].subgrid === sg_num) {
             this.grid[index_rg][index_row][index_col].possibilities.remove(val);
           }
@@ -199,17 +237,19 @@ class Cell {
   constructor(max, initialVal) {
     this.possibilities = new Possibilities(max);
     this.possibilities.trigger = (v) => {
-      console.log(this, v);
       this.autofill(this, v);
     };
     this.value = initialVal ? initialVal : 0;
   }
 
   setValue(val, table) {
+    if (!this.possibilities.is(val)) {
+      return false;
+    }
     this.value = val;
     let html = this.select(table);
     html.innerHTML = val;
-    console.log(html, val);
+    return true;
   }
 
   select(table) {
@@ -246,12 +286,14 @@ class Possibilities {
     }
 
     let p = val - 1;
-    this.vals[p] = 0;
-    let remaining = this.count();
-    if (remaining === 1) {
-      this.trigger(this.last());
+    if (this.count()) {
+      this.vals[p] = 0;
+      let remaining = this.count();
+      if (remaining === 1) {
+        this.trigger(this.last());
+      }
+      return remaining;
     }
-    return remaining;
   }
 
   // probably won't be used
@@ -261,6 +303,5 @@ class Possibilities {
   }
 }
 
-// p = new Possibilities(9);
 g = new Game(4);
-console.log(g);
+h = new Game(9);
