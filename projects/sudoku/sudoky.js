@@ -15,11 +15,6 @@ class Game {
     this.numberCells();
 
     this.html();
-
-    this.updateRow(1, 4);
-    this.updateRow(1, 3);
-
-    this.updateCol(1, 1);
   }
 
   numberCells() {
@@ -29,6 +24,12 @@ class Game {
           let c = Math.floor(index_col / this.sqrt);
           let r = index_rg * this.sqrt;
           let subgrid = r + c;
+          this.grid[index_rg][rowgroup_row][index_col].autofill = (
+            cell,
+            val
+          ) => {
+            this.setCellValue(cell, val);
+          };
           this.grid[index_rg][rowgroup_row][index_col].rg = index_rg;
           this.grid[index_rg][rowgroup_row][index_col].rg_row = rowgroup_row;
           this.grid[index_rg][rowgroup_row][index_col].subgrid = subgrid;
@@ -124,6 +125,13 @@ class Game {
     return sg;
   }
 
+  setCellValue(cell, val) {
+    cell.setValue(val, this.table);
+    this.updateRow(cell.row, val);
+    this.updateCol(cell.col, val);
+    this.updateSubgrid(cell.subgrid, val);
+  }
+
   updateRow = (row_num = 0, val) => {
     let index_rg = Math.floor(row_num / this.sqrt);
     for (let col = 0; col < this.max; col++) {
@@ -142,6 +150,26 @@ class Game {
       }
     }
   };
+
+  updateSubgrid(sg_num = 0, val) {
+    for (let index_rg = 0; index_rg < this.grid.length; index_rg++) {
+      for (
+        let index_row = 0;
+        index_row < this.grid[index_rg].length;
+        index_row++
+      ) {
+        for (
+          let index_col = 0;
+          index_col < this.grid[index_rg][index_row].length;
+          index_col++
+        ) {
+          if (this.grid[index_rg][index_row][index_col].subgrid === sg_num) {
+            this.grid[index_rg][index_row][index_col].possibilities.remove(val);
+          }
+        }
+      }
+    }
+  }
 }
 
 class RowGroup {
@@ -171,9 +199,17 @@ class Cell {
   constructor(max, initialVal) {
     this.possibilities = new Possibilities(max);
     this.possibilities.trigger = (v) => {
-      console.log(this.possibilities, v);
+      console.log(this, v);
+      this.autofill(this, v);
     };
-    this.initialVal = initialVal;
+    this.value = initialVal ? initialVal : 0;
+  }
+
+  setValue(val, table) {
+    this.value = val;
+    let html = this.select(table);
+    html.innerHTML = val;
+    console.log(html, val);
   }
 
   select(table) {
@@ -211,7 +247,6 @@ class Possibilities {
 
     let p = val - 1;
     this.vals[p] = 0;
-    console.log(this.vals);
     let remaining = this.count();
     if (remaining === 1) {
       this.trigger(this.last());
