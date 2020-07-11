@@ -149,6 +149,11 @@ class Possibilities {
     let p = val - 1;
     this.vals[p] = 0;
   }
+  // probably won't be used
+  add(val) {
+    let p = val - 1;
+    this.vals[p] = val;
+  }
 }
 
 // p = new Possibilities(9);
