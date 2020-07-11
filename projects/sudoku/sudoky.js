@@ -6,14 +6,29 @@ class Game {
     }
     this.max = max;
     this.numCells = max ** 2;
-  }
 
-  grid() {
     let g = [];
     for (let rg = 0; rg < this.sqrt; rg++) {
       g.push(new RowGroup(this.sqrt).group());
     }
-    return g;
+    this.grid = g;
+  }
+
+  numberCells() {
+    let table = [];
+    for (let [index_rg, rg] of this.grid.entries()) {
+      for (let [index_row, row] of rg.entries()) {
+        for (let [index_col, cell] of row.entries()) {
+          let c = Math.floor(index_col / this.sqrt);
+          let r = index_rg * this.sqrt;
+          let subgrid = r + c;
+          cell.subgrid = subgrid;
+          cell.row = r + index_row;
+          table.push({ index_rg, index_row, index_col, subgrid });
+        }
+      }
+    }
+    console.table(table);
   }
 }
 
@@ -25,8 +40,7 @@ class RowGroup {
 
   row() {
     let r = [];
-    console.log("this.rowLength :>> ", this.rowLength);
-    for (let c = 0; c < this.rows; c++) {
+    for (let c = 0; c < this.rowLength; c++) {
       r.push(new Cell(this.rowLength));
     }
     return r;
@@ -77,6 +91,6 @@ class Possibilities {
 }
 
 // p = new Possibilities(9);
-g = new Game(9);
+g = new Game(4);
 console.log(g);
-console.log(g.grid());
+g.numberCells();
