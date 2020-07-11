@@ -12,23 +12,21 @@ class Game {
       g.push(new RowGroup(this.sqrt).group());
     }
     this.grid = g;
+    this.numberCells();
   }
 
   numberCells() {
-    let table = [];
     for (let [index_rg, rg] of this.grid.entries()) {
       for (let [index_row, row] of rg.entries()) {
         for (let [index_col, cell] of row.entries()) {
           let c = Math.floor(index_col / this.sqrt);
           let r = index_rg * this.sqrt;
           let subgrid = r + c;
-          cell.subgrid = subgrid;
-          cell.row = r + index_row;
-          table.push({ index_rg, index_row, index_col, subgrid });
+          this.grid[index_rg][index_row][index_col].subgrid = subgrid;
+          this.grid[index_rg][index_row][index_col].row = r + index_row;
         }
       }
     }
-    console.table(table);
   }
 }
 
