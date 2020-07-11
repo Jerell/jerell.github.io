@@ -13,19 +13,27 @@ class Game {
     }
     this.grid = g;
     this.numberCells();
+
+    this.html();
+
+    let c = this.grid[0][0][2];
+    this.selectCell(c);
   }
 
   numberCells() {
     for (let [index_rg, rg] of this.grid.entries()) {
-      for (let [subgrid_row, row] of rg.entries()) {
+      for (let [rowgroup_row, row] of rg.entries()) {
         for (let index_col in row) {
           let c = Math.floor(index_col / this.sqrt);
           let r = index_rg * this.sqrt;
           let subgrid = r + c;
-          this.grid[index_rg][subgrid_row][index_col].sg_row = subgrid_row;
-          this.grid[index_rg][subgrid_row][index_col].subgrid = subgrid;
-          this.grid[index_rg][subgrid_row][index_col].row = r + subgrid_row;
-          this.grid[index_rg][subgrid_row][index_col].col = parseInt(index_col);
+          this.grid[index_rg][rowgroup_row][index_col].rg = index_rg;
+          this.grid[index_rg][rowgroup_row][index_col].rg_row = rowgroup_row;
+          this.grid[index_rg][rowgroup_row][index_col].subgrid = subgrid;
+          this.grid[index_rg][rowgroup_row][index_col].row = r + rowgroup_row;
+          this.grid[index_rg][rowgroup_row][index_col].col = parseInt(
+            index_col
+          );
         }
       }
     }
@@ -44,6 +52,7 @@ class Game {
     }
 
     let table = document.createElement("table");
+    this.table = table;
     let colGroups = () => {
       let cgs = [];
       let rgs = [];
@@ -77,6 +86,10 @@ class Game {
     colGroups();
     container.append(table);
   }
+
+  selectCell(cell) {
+    console.log(cell.select(this.table));
+  }
 }
 
 class RowGroup {
@@ -107,6 +120,14 @@ class Cell {
     this.possibilities = new Possibilities(max);
     this.initialVal = initialVal;
   }
+
+  select(table) {
+    console.log(table);
+    console.log(this.rg, this.rg_row, this.col, this.subgrid);
+    let rowGroup = table.getElementsByTagName("tbody")[this.rg];
+    let row = rowGroup.childNodes[this.rg_row];
+    return row.childNodes[this.col];
+  }
 }
 
 class Possibilities {
@@ -135,5 +156,3 @@ class Possibilities {
 // p = new Possibilities(9);
 g = new Game(4);
 console.log(g);
-g.numberCells();
-g.html();
