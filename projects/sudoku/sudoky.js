@@ -172,15 +172,15 @@ class Game {
 
     let neighbours = [n_sg, n_row, n_col];
 
-    function valueNotPossibleInAny(list) {
-      let allNums = new Possibilities(maxVal);
-      for (let c of list) {
-        for (let p of c.possibilities.remaining) {
-          allNums.remove(p);
+    function valueNotPossibleInAny(neighbours) {
+      let cellPossibilities = cell.possibilities;
+      for (let p of cellPossibilities.remaining) {
+        let notPossInAny = neighbours
+          .map((n) => !n.possibilities.is(p))
+          .every(Boolean);
+        if (notPossInAny) {
+          return p;
         }
-      }
-      if (allNums.remaining.length === 1) {
-        return allNums.last;
       }
       return false;
     }
