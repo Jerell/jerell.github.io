@@ -17,18 +17,34 @@ I started by scaling the problem down and working with a 4x4 puzzle, designing m
 
 I assigned numbers to each cell and tried to identify the various entities that comprised the puzzle.
 
+---
+
 ### Grid
 
 If `n` is the size of the puzzle, the maximum cell value, a grid is simply an array of `n * n` cells.
+
+---
 
 ### Row
 
 A row is a list of `n` consecutive cells starting from cell `(row number - 1) * n`.
 
+---
+
 ### Column
 
 A column is a list of every `n`th cell starting from cell `column number`
 
+---
+
 ### Block
 
 A block, being one of the smaller square areas that makes up the larger grid, has a side length of `sqrt(n)`. It's a series of `sqrt(n)` lists of `sqrt(n)` consecutive numbers on consecutive rows.
+
+---
+
+---
+
+# Update (12/07/2020): Project rebuilt
+
+Looking back at the code, I thought I could do better, so I spent a few days doing it again.

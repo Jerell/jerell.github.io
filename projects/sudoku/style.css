@@ -37,6 +37,11 @@ header {
   text-align: center;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .grid {
   display: flex;
   justify-content: center;

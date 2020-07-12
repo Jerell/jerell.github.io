@@ -39,7 +39,11 @@ class Game {
           );
 
           let clicky = () => {
-            let input = parseInt(prompt("what number"));
+            let options = this.grid[index_rg][rowgroup_row][index_col]
+              .possibilities.remaining;
+            let input = parseInt(
+              prompt(`What number? (${options.join(", ")})`)
+            );
             if (!input) {
               return;
             }
