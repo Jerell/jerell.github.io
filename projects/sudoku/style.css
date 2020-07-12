@@ -42,3 +42,10 @@ header {
   justify-content: center;
   padding: 2em;
 }
+
+.processing {
+  background: var(--lightPink);
+}
+.entering {
+  background: var(--alabaster);
+}

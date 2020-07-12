@@ -28,7 +28,7 @@ class Game {
             cell,
             val
           ) => {
-            this.setCellValue(cell, val);
+            this.setCellValue(cell, val, true);
           };
           this.grid[index_rg][rowgroup_row][index_col].rg = index_rg;
           this.grid[index_rg][rowgroup_row][index_col].rg_row = rowgroup_row;
@@ -45,7 +45,8 @@ class Game {
             }
             this.setCellValue(
               this.grid[index_rg][rowgroup_row][index_col],
-              input
+              input,
+              false
             );
           };
 
@@ -115,8 +116,7 @@ class Game {
 
   cellIsEmpty(cell) {
     try {
-      let empty = this.selectCellHTML(cell).innerHTML == false;
-      return empty;
+      return cell.value == false;
     } catch (e) {
       console.log(cell, e);
     }
@@ -156,10 +156,15 @@ class Game {
   checkNeighbours(cell) {
     let g = this;
     let maxVal = this.max;
+
+    function isMain(c) {
+      let xMatch = c.row === cell.row;
+      let yMatch = c.col === cell.col;
+      return xMatch && yMatch;
+    }
+
     function excludeSelf(list) {
-      return list.filter(
-        (c) => g.cellIsEmpty(c) && (c.col != cell.col || c.row != cell.row)
-      );
+      return list.filter((c) => g.cellIsEmpty(c) && !isMain(c));
     }
     let n_sg = excludeSelf(this.selectSubgrid(cell.subgrid));
     let n_row = excludeSelf(this.selectRow(cell.row));
@@ -169,8 +174,8 @@ class Game {
 
     function valueNotPossibleInAny(list) {
       let allNums = new Possibilities(maxVal);
-      for (let cell of list) {
-        for (let p of cell.possibilities.remaining) {
+      for (let c of list) {
+        for (let p of c.possibilities.remaining) {
           allNums.remove(p);
         }
       }
@@ -179,10 +184,12 @@ class Game {
       }
       return false;
     }
-    for (let neighbour of neighbours) {
-      let v = valueNotPossibleInAny(neighbour);
-      if (v) {
-        cell.setValue(v, this.table);
+    if (this.cellIsEmpty(cell)) {
+      for (let neighbour of neighbours) {
+        let v = valueNotPossibleInAny(neighbour);
+        if (v) {
+          cell.setValue(v, this.table);
+        }
       }
     }
     return;
@@ -207,8 +214,8 @@ class Game {
     }
   };
 
-  setCellValue(cell, val) {
-    if (!cell.setValue(val, this.table)) {
+  setCellValue(cell, val, auto) {
+    if (!cell.setValue(val, this.table, auto)) {
       return;
     }
     this.updateRow(cell.row, val);
@@ -306,12 +313,25 @@ class Cell {
     this.value = initialVal ? initialVal : 0;
   }
 
-  setValue(val, table) {
+  setValue(val, table, auto = false) {
     if (!this.value && !this.possibilities.is(val)) {
       return false;
     }
     this.value = val;
     let html = this.select(table);
+
+    // Colour change
+    function flash() {
+      if (html.innerHTML) return;
+      let cl_name = auto ? "processing" : "entering";
+      html.classList.add(cl_name);
+      setTimeout(() => {
+        html.classList.remove(cl_name);
+      }, 100);
+    }
+
+    flash();
+
     html.innerHTML = val;
     return true;
   }
