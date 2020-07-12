@@ -113,6 +113,15 @@ class Game {
     }
   }
 
+  cellIsEmpty(cell) {
+    try {
+      let empty = this.selectCellHTML(cell).innerHTML == false;
+      return empty;
+    } catch (e) {
+      console.log(cell, e);
+    }
+  }
+
   selectRow(row_num = 0) {
     let index_rg = Math.floor(row_num / this.sqrt);
     let rg = this.grid[index_rg];
@@ -144,6 +153,60 @@ class Game {
     return sg;
   }
 
+  checkNeighbours(cell) {
+    let g = this;
+    let maxVal = this.max;
+    function excludeSelf(list) {
+      return list.filter(
+        (c) => g.cellIsEmpty(c) && (c.col != cell.col || c.row != cell.row)
+      );
+    }
+    let n_sg = excludeSelf(this.selectSubgrid(cell.subgrid));
+    let n_row = excludeSelf(this.selectRow(cell.row));
+    let n_col = excludeSelf(this.selectCol(cell.col));
+
+    let neighbours = [n_sg, n_row, n_col];
+
+    function valueNotPossibleInAny(list) {
+      let allNums = new Possibilities(maxVal);
+      for (let cell of list) {
+        for (let p of cell.possibilities.remaining) {
+          allNums.remove(p);
+        }
+      }
+      if (allNums.remaining.length === 1) {
+        return allNums.last;
+      }
+      return false;
+    }
+    for (let neighbour of neighbours) {
+      let v = valueNotPossibleInAny(neighbour);
+      if (v) {
+        cell.setValue(v, this.table);
+      }
+    }
+    return;
+  }
+
+  applyToAllCells = (func) => {
+    let bound = func.bind(this);
+    for (let index_rg = 0; index_rg < this.grid.length; index_rg++) {
+      for (
+        let index_row = 0;
+        index_row < this.grid[index_rg].length;
+        index_row++
+      ) {
+        for (
+          let index_col = 0;
+          index_col < this.grid[index_rg][index_row].length;
+          index_col++
+        ) {
+          bound(this.grid[index_rg][index_row][index_col]);
+        }
+      }
+    }
+  };
+
   setCellValue(cell, val) {
     if (!cell.setValue(val, this.table)) {
       return;
@@ -151,6 +214,7 @@ class Game {
     this.updateRow(cell.row, val);
     this.updateCol(cell.col, val);
     this.updateSubgrid(cell.subgrid, val);
+    this.applyToAllCells(this.checkNeighbours);
   }
 
   updateRow = (row_num = 0, val) => {
@@ -243,7 +307,7 @@ class Cell {
   }
 
   setValue(val, table) {
-    if (!this.possibilities.is(val)) {
+    if (!this.value && !this.possibilities.is(val)) {
       return false;
     }
     this.value = val;
@@ -272,12 +336,16 @@ class Possibilities {
     return false;
   }
 
-  count() {
-    return this.vals.filter(Boolean).length;
+  get remaining() {
+    return this.vals.filter(Boolean);
   }
 
-  last() {
-    return this.vals.filter(Boolean)[0];
+  get count() {
+    return this.remaining.length;
+  }
+
+  get last() {
+    return this.remaining[0];
   }
 
   remove(val) {
@@ -286,13 +354,13 @@ class Possibilities {
     }
 
     let p = val - 1;
-    if (this.count()) {
+    if (this.count) {
       this.vals[p] = 0;
-      let remaining = this.count();
-      if (remaining === 1) {
-        this.trigger(this.last());
+      let remainingCount = this.count;
+      if (remainingCount === 1 && this.trigger) {
+        this.trigger(this.last);
       }
-      return remaining;
+      return remainingCount;
     }
   }
 
