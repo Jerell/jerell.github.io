@@ -27,8 +27,8 @@ export default function App({ Component, pageProps }) {
     <>
       <Component {...pageProps} />
       <footer className="bg-gray-100 w-full text-center" key="foot">
-        {links.map((l) => (
-          <FootLink {...l}></FootLink>
+        {links.map((l, i) => (
+          <FootLink {...l} key={i}></FootLink>
         ))}
         <p>
           &#169;{" "}
