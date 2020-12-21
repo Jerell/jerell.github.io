@@ -17,6 +17,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "remark": "^13.0.0",
+    "remark-external-links": "^8.0.0",
     "remark-html": "^13.0.1",
     "sass": "^1.30.0",
     "tailwindcss": "^2.0.2"
