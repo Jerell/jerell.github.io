@@ -24,6 +24,7 @@ export default function Home({ allPostsData }) {
         <p>
           Hey, I'm Jerell. I'm a <i>software developer/data analyst</i> who
           primarily uses <strong>JavaScript</strong> and <strong>Python</strong>
+          .
         </p>
         <p>I'll have more to show here soon.</p>
       </section>

@@ -21,5 +21,7 @@
     "sass": "^1.30.0",
     "tailwindcss": "^2.0.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "stylelint-config-recommended": "^3.0.0"
+  }
 }
