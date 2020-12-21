@@ -2,13 +2,11 @@ import Head from "next/head";
 import styles from "./layout.module.css";
 import utilStyles from "../styles/utils.module.css";
 import Link from "next/link";
-import { parseISO, format } from "date-fns";
 
-const name = "Jerell James";
+export const name = "Jerell James";
 export const siteTitle = `${name} | Portfolio`;
 
 export default function Layout({ children, home }) {
-  const date = new Date();
   return (
     <>
       <div className={styles.container}>
@@ -62,17 +60,6 @@ export default function Layout({ children, home }) {
           </div>
         )}
       </div>
-      <footer className="absolute bottom-0 bg-gray-100 max-w-full w-full text-center">
-        <a href="https://github.com/jerell" target="_">
-          GitHub
-        </a>
-        <p>
-          &#169;{" "}
-          <time dateTime={date}>
-            {format(date, "yyyy")} {name}
-          </time>{" "}
-        </p>
-      </footer>
     </>
   );
 }
