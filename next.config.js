@@ -5,4 +5,5 @@ module.exports = {
   assetPrefix: isProd
     ? "https://cdn.statically.io/gh/jerell/jerell.github.io/gh-pages/"
     : "",
+  distDir: "build",
 };
