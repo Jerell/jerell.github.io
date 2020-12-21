@@ -502,7 +502,7 @@ function Layout({
     className: _layout_module_css__WEBPACK_IMPORTED_MODULE_2___default.a.container
   }, __jsx(next_head__WEBPACK_IMPORTED_MODULE_1___default.a, null, __jsx("link", {
     rel: "icon",
-    href: "/favicon.ico"
+    href: "./favicon.ico"
   }), __jsx("meta", {
     name: "description",
     content: `${name}'s portfolio of work`
