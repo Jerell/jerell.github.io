@@ -2,8 +2,9 @@ import Head from "next/head";
 import Demo from "../components/demo";
 import utilStyles from "../styles/utils.module.css";
 import Horizon from "../components/horizon";
+import SimulationForm from "../components/simulationForm";
 
-const name = "FAMS";
+const name = "FAMS Demo";
 
 export default function Fams() {
   return (
@@ -13,38 +14,50 @@ export default function Fams() {
       </Head>
       <section className={utilStyles.headingMd}>
         <div className="grid grid-cols-6 gap-4 text-center rounded-t-xl overflow-hidden bg-gradient-to-r from-green-50 to-green-100 bg-white p-8">
-          <div className="col-span-2 row-span-2 bg-gray-300 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
+          <div className="col-span-2 row-span-2 bg-gray-300 rounded-md flex flex-col items-center justify-center text-white text-2xl font-extrabold">
+            <p className="text-left pl-1">Live data stream</p>
             <Horizon></Horizon>
           </div>
           <div className="col-span-2 row-span-2 bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
-            2
+            this space could have an interactive map that allows you to select
+            which part of the system the graphs show data for
           </div>
           <div className="col-span-2 bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
-            3
+            info or graphs
           </div>
           <div className="bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
-            4
+            graphs
           </div>
           <div className="bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
-            5
+            graphs
+          </div>
+          <div className="col-span-3 bg-green-500 rounded-md flex flex-col items-center text-white text-2xl font-extrabold">
+            <p className="text-left pl-1">Simulate</p>
+            <SimulationForm></SimulationForm>
+            <p className="text-left pl-1 font-medium">
+              This will probably be very different
+            </p>
+          </div>
+          <div className="col-span-3 bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
+            simulation results, fan chart
           </div>
           <div className="bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
-            6
+            ?
           </div>
           <div className="bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
-            a
+            ?
           </div>
           <div className="bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
-            a
+            ?
           </div>
           <div className="bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
-            a
+            ?
           </div>
           <div className="bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
-            a
+            ?
           </div>
           <div className="bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
-            a
+            ?
           </div>
         </div>
       </section>
