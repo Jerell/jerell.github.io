@@ -9,7 +9,7 @@ export default function Horizon() {
   }
   function doto() {
     const n = 10,
-      m = 400;
+      m = 600;
     const data = new Array(n);
     for (let i = 0; i < n; ++i) {
       const d = (data[i] = new Float64Array(m));
@@ -23,10 +23,8 @@ export default function Horizon() {
 
   function init() {
     const div = d3.select(ref.current);
-    // const canvas = div.append("canvas");
-
     const settings = {
-      width: 400,
+      width: 600,
       height: 30,
       margin: { top: 30, right: 10, bottom: 0, left: 10 },
       overlap: 7,
@@ -115,7 +113,8 @@ export default function Horizon() {
       .append("svg")
       .attr("width", settings.width)
       .attr("height", settings.height * data.length + settings.margin.top)
-      .style("position", "relative");
+      .style("position", "relative")
+      .style("font", "10px sans-serif");
 
     const gX = svg.append("g");
 
@@ -161,24 +160,20 @@ export default function Horizon() {
 
     const period = 250;
     function update() {
-      // console.log(data);
       const m = data[0].length;
       const tail = data.map((d) => d.subarray(m - 1, m));
-      // while (true) {
       const then = new Date(Math.ceil((Date.now() + 1) / period) * period);
       for (const d of data) d.copyWithin(0, 1, m), (d[m - 1] = walk(d[m - 1]));
       x.domain([then - period * settings.width, then]);
       ref.current.update(tail);
-      // }
     }
-    // update();
     const repeat = setInterval(update, period);
   }
 
   useEffect(init, []);
   return (
     <>
-      <div className="horizon relative" ref={ref}></div>
+      <div className="horizon relative overflow-hidden" ref={ref}></div>
     </>
   );
 }
