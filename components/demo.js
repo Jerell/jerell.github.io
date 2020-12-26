@@ -7,7 +7,7 @@ export default function Demo({ children, name }) {
   const siteTitle = `${name} | Demo`;
   return (
     <>
-      <div className="mt-12 mb-4 px-4">
+      <div className="mt-2 mb-2 px-4">
         <Head>
           <link rel="icon" href="./favicon.ico" />
           <meta name="description" content={`A demo of ${name}`} />
