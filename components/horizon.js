@@ -9,7 +9,7 @@ export default function Horizon() {
   }
   function generateData() {
     const n = 10,
-      m = 600;
+      m = 775;
     const data = new Array(n);
     for (let i = 0; i < n; ++i) {
       const d = (data[i] = new Float64Array(m));
@@ -23,7 +23,7 @@ export default function Horizon() {
 
   function init() {
     const settings = {
-      width: 600,
+      width: 775,
       height: 30,
       margin: { top: 30, right: 10, bottom: 0, left: 10 },
       overlap: 7,
