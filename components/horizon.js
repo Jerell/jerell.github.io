@@ -7,7 +7,7 @@ export default function Horizon() {
   function walk(v) {
     return Math.max(0, Math.min(1, v + (Math.random() - 0.5) * 0.05));
   }
-  function doto() {
+  function generateData() {
     const n = 10,
       m = 600;
     const data = new Array(n);
@@ -19,10 +19,9 @@ export default function Horizon() {
     }
     return data;
   }
-  const data = doto();
+  const data = generateData();
 
   function init() {
-    const div = d3.select(ref.current);
     const settings = {
       width: 600,
       height: 30,
