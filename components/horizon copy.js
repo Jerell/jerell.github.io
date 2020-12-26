@@ -7,7 +7,7 @@ export default function Horizon() {
   function walk(v) {
     return Math.max(0, Math.min(1, v + (Math.random() - 0.5) * 0.05));
   }
-  function data() {
+  function doto() {
     const n = 10,
       m = 400;
     const data = new Array(n);
@@ -19,6 +19,7 @@ export default function Horizon() {
     }
     return data;
   }
+  const data = doto();
 
   function init() {
     const div = d3.select(ref.current);
@@ -113,7 +114,7 @@ export default function Horizon() {
       .select(ref.current)
       .append("svg")
       .attr("width", settings.width)
-      .attr("height", settings.height * data().length)
+      .attr("height", settings.height * data.length + settings.margin.top)
       .style("position", "relative");
 
     const gX = svg.append("g");
@@ -137,7 +138,13 @@ export default function Horizon() {
       .append("line")
       .attr("stroke", "#000")
       .attr("y1", settings.margin.top - 6)
-      .attr("y2", settings.height * data().length - settings.margin.bottom - 1)
+      .attr(
+        "y2",
+        settings.height * data.length -
+          settings.margin.bottom -
+          1 +
+          settings.margin.top
+      )
       .attr("x1", 0.5)
       .attr("x2", 0.5);
     svg.on("mousemove touchmove", (event) => {
@@ -154,17 +161,18 @@ export default function Horizon() {
 
     const period = 250;
     function update() {
-      const d = data();
-      const m = d[0].length;
-      const tail = d.map((d) => d.subarray(m - 1, m));
+      // console.log(data);
+      const m = data[0].length;
+      const tail = data.map((d) => d.subarray(m - 1, m));
       // while (true) {
       const then = new Date(Math.ceil((Date.now() + 1) / period) * period);
-      for (const d of d) d.copyWithin(0, 1, m), (d[m - 1] = walk(d[m - 1]));
+      for (const d of data) d.copyWithin(0, 1, m), (d[m - 1] = walk(d[m - 1]));
       x.domain([then - period * settings.width, then]);
       ref.current.update(tail);
       // }
     }
-    // const repeat = setInterval(update, period);
+    // update();
+    const repeat = setInterval(update, period);
   }
 
   useEffect(init, []);
