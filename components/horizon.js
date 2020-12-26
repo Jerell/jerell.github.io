@@ -4,38 +4,62 @@ import * as d3 from "d3";
 export default function Horizon() {
   const ref = useRef();
 
-  function drawChart() {
-    // Data
-    function walk(v) {
-      return Math.max(0, Math.min(1, v + (Math.random() - 0.5) * 0.05));
-    }
-    function data() {
-      const n = 20,
-        m = 964;
-      const data = new Array(n);
-      for (let i = 0; i < n; ++i) {
-        const d = (data[i] = new Float64Array(m));
-        for (let j = 0, v = 0; j < m; ++j) {
-          d[j] = v = walk(v);
-        }
+  function walk(v) {
+    return Math.max(0, Math.min(1, v + (Math.random() - 0.5) * 0.05));
+  }
+  function doto() {
+    const n = 10,
+      m = 600;
+    const data = new Array(n);
+    for (let i = 0; i < n; ++i) {
+      const d = (data[i] = new Float64Array(m));
+      for (let j = 0, v = 0; j < m; ++j) {
+        d[j] = v = walk(v);
       }
-      return data;
     }
-    // const data = [12, 5, 6, 6, 9, 10];
-    const width = 600;
+    return data;
+  }
+  const data = doto();
 
-    // Draw
+  function init() {
+    const div = d3.select(ref.current);
+    const settings = {
+      width: 600,
+      height: 30,
+      margin: { top: 30, right: 10, bottom: 0, left: 10 },
+      overlap: 7,
+      step: 29,
+    };
+    const x = d3.scaleTime().range([0, settings.width]);
+    const y = d3
+      .scaleLinear()
+      .rangeRound([0, -settings.overlap * settings.step]);
+
+    const color = (i) =>
+      d3["schemeGreens"][Math.max(3, settings.overlap)][
+        i + Math.max(0, 3 - settings.overlap)
+      ];
+
     function horizon(d) {
       const { context } = this;
       const { length: k } = d;
-      console.log(length, width);
-      if (k < width)
-        context.drawImage(this, k, 0, width - k, step, 0, 0, width - k, step);
+      if (k < settings.width)
+        context.drawImage(
+          this,
+          k,
+          0,
+          settings.width - k,
+          settings.step,
+          0,
+          0,
+          settings.width - k,
+          settings.step
+        );
       context.fillStyle = "#fff";
-      context.fillRect(width - k, 0, k, step);
-      for (let i = 0; i < overlap; ++i) {
+      context.fillRect(settings.width - k, 0, k, settings.step);
+      for (let i = 0; i < settings.overlap; ++i) {
         context.save();
-        context.translate(width - k, (i + 1) * step);
+        context.translate(settings.width - k, (i + 1) * settings.step);
         context.fillStyle = color(i);
         for (let j = 0; j < k; ++j) {
           context.fillRect(j, y(d[j]), 1, -y(d[j]));
@@ -43,7 +67,27 @@ export default function Horizon() {
         context.restore();
       }
     }
-    const margin = { top: 30, right: 10, bottom: 0, left: 10 };
+
+    const xAxis = (g) =>
+      g
+        .attr("transform", `translate(0,${settings.margin.top})`)
+        .call(
+          d3
+            .axisTop(x)
+            .ticks(settings.width / 80)
+            .tickSizeOuter(0)
+        )
+        .call((g) =>
+          g
+            .selectAll(".tick")
+            .filter(
+              (d) =>
+                x(d) < settings.margin.left ||
+                x(d) >= settings.width - settings.margin.right
+            )
+            .remove()
+        )
+        .call((g) => g.select(".domain").remove());
 
     const canvas = d3
       .select(ref.current)
@@ -51,12 +95,14 @@ export default function Horizon() {
       .data(data)
       .enter()
       .append("canvas")
-      .attr("width", width)
-      .attr("height", 60)
-      // .append(() => DOM.context2d(width, step, 1).canvas)
+      .attr("width", settings.width)
+      .attr("height", settings.height)
       .style("position", "absolute")
       .style("image-rendering", "pixelated")
-      .style("top", (d, i) => `${i * (step + 1) + margin.top}px`)
+      .style(
+        "top",
+        (d, i) => `${i * (settings.step + 1) + settings.margin.top}px`
+      )
       .property("context", function () {
         return this.getContext("2d");
       })
@@ -65,32 +111,39 @@ export default function Horizon() {
     const svg = d3
       .select(ref.current)
       .append("svg")
-      .lower()
-      .attr("width", width)
-      .attr("height", 300);
+      .attr("width", settings.width)
+      .attr("height", settings.height * data.length + settings.margin.top)
+      .style("position", "relative")
+      .style("font", "10px sans-serif");
 
-    const overlap = 4;
-    const step = 59;
-    const color = (i) =>
-      d3[scheme][Math.max(3, overlap)][i + Math.max(0, 3 - overlap)];
-    const height = data.length * (step + 1) + margin.top + margin.bottom;
     const gX = svg.append("g");
 
+    // Label
     svg
       .append("g")
       .selectAll("text")
       .data(data)
       .join("text")
       .attr("x", 4)
-      .attr("y", (d, i) => (i + 0.5) * (step + 1) + margin.top)
+      .attr(
+        "y",
+        (d, i) => (i + 0.5) * (settings.step + 1) + settings.margin.top
+      )
       .attr("dy", "0.35em")
       .text((d, i) => i);
 
+    // Vertical
     const rule = svg
       .append("line")
       .attr("stroke", "#000")
-      .attr("y1", margin.top - 6)
-      .attr("y2", height - margin.bottom - 1)
+      .attr("y1", settings.margin.top - 6)
+      .attr(
+        "y2",
+        settings.height * data.length -
+          settings.margin.bottom -
+          1 +
+          settings.margin.top
+      )
       .attr("x1", 0.5)
       .attr("x2", 0.5);
     svg.on("mousemove touchmove", (event) => {
@@ -98,50 +151,29 @@ export default function Horizon() {
       rule.attr("x1", x).attr("x2", x);
     });
 
+    // Update
+
     ref.current.update = (data) => {
       canvas.data(data).each(horizon);
       gX.call(xAxis);
     };
 
-    const x = d3.scaleTime().range([0, width]);
-    const y = d3.scaleLinear().rangeRound([0, -overlap * step]);
-
-    const xAxis = (g) =>
-      g
-        .attr("transform", `translate(0,${margin.top})`)
-        .call(
-          d3
-            .axisTop(x)
-            .ticks(width / 80)
-            .tickSizeOuter(0)
-        )
-        .call((g) =>
-          g
-            .selectAll(".tick")
-            .filter((d) => x(d) < margin.left || x(d) >= width - margin.right)
-            .remove()
-        )
-        .call((g) => g.select(".domain").remove());
-    function* update() {
-      const period = 250,
-        m = data[0].length;
+    const period = 250;
+    function update() {
+      const m = data[0].length;
       const tail = data.map((d) => d.subarray(m - 1, m));
-      while (true) {
-        const then = new Date(Math.ceil((Date.now() + 1) / period) * period);
-        yield Promises.when(then, then);
-        for (const d of data)
-          d.copyWithin(0, 1, m), (d[m - 1] = walk(d[m - 1]));
-        x.domain([then - period * width, then]);
-        ref.current.update(tail);
-      }
+      const then = new Date(Math.ceil((Date.now() + 1) / period) * period);
+      for (const d of data) d.copyWithin(0, 1, m), (d[m - 1] = walk(d[m - 1]));
+      x.domain([then - period * settings.width, then]);
+      ref.current.update(tail);
     }
-    update();
+    const repeat = setInterval(update, period);
   }
 
-  useEffect(drawChart, []);
+  useEffect(init, []);
   return (
     <>
-      <div className="horizon" ref={ref}></div>
+      <div className="horizon relative overflow-hidden" ref={ref}></div>
     </>
   );
 }

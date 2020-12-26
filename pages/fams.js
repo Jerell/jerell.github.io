@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Demo from "../components/demo";
 import utilStyles from "../styles/utils.module.css";
-import Horizon from "../components/horizon copy";
+import Horizon from "../components/horizon";
 
 const name = "FAMS";
 
