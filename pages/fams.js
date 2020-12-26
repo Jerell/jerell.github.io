@@ -25,7 +25,7 @@ export default function Fams() {
           <div className="col-span-2 bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
             info or graphs
           </div>
-          <div className="bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
+          <div className="rounded-md flex items-center justify-center text-green-500 text-2xl font-extrabold">
             graphs
           </div>
           <div className="bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
