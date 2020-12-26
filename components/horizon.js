@@ -65,6 +65,7 @@ export default function Horizon() {
     const svg = d3
       .select(ref.current)
       .append("svg")
+      .lower()
       .attr("width", width)
       .attr("height", 300);
 
