@@ -4,6 +4,7 @@ import utilStyles from "../styles/utils.module.css";
 import Horizon from "../components/horizon";
 import SimulationForm from "../components/simulationForm";
 import Gauge from "../components/gauge";
+import Network from "../components/network";
 
 const name = "FAMS Demo";
 
@@ -19,9 +20,12 @@ export default function Fams() {
             <p className="pl-1 text-center">Live data stream</p>
             <Horizon></Horizon>
           </div>
-          <div className="col-span-2 row-span-2 bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
-            this space could have an interactive map that allows you to select
-            which part of the system the graphs show data for
+          <div className="col-span-2 row-span-2 bg-green-500 rounded-md flex flex-col justify-between text-white text-2xl font-extrabold">
+            <p className="pl-1 text-center">Network map</p>
+            <Network></Network>
+            <p className="text-left pl-1 font-medium">
+              Interactive map allows you to select nodes to view data for
+            </p>
           </div>
           <div className="col-span-2 bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
             info or graphs

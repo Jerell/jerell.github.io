@@ -24,10 +24,10 @@ export default function Horizon() {
   function init() {
     const settings = {
       width: 586,
-      height: 30,
+      height: 40,
       margin: { top: 30, right: 10, bottom: 0, left: 10 },
       overlap: 7,
-      step: 29,
+      step: 39,
     };
     const x = d3.scaleTime().range([0, settings.width]);
     const y = d3
