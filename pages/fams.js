@@ -5,10 +5,13 @@ import Horizon from "../components/horizon";
 import SimulationForm from "../components/simulationForm";
 import Gauge from "../components/gauge";
 import Network from "../components/network";
+import { useState } from "react";
 
 const name = "FAMS";
 
 export default function Fams() {
+  const [selectedNode, selectNode] = useState("A");
+
   return (
     <Demo name={name}>
       <Head>
@@ -22,13 +25,13 @@ export default function Fams() {
           </div>
           <div className="col-span-2 row-span-2 rounded-md flex flex-col justify-between text-green-500 text-2xl font-extrabold">
             <p className="pl-1 text-center">Network map</p>
-            <Network></Network>
+            <Network selectNode={selectNode}></Network>
             <p className="text-left pl-1 font-medium">
               Interactive map allows you to select nodes to view data for
             </p>
           </div>
           <div className="col-span-2 bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
-            info or graphs
+            Info about node {selectedNode}
           </div>
           <div className="rounded-md flex items-center justify-center text-green-500 text-2xl font-extrabold">
             graphs

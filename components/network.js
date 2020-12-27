@@ -1,8 +1,13 @@
 import { useRef, useEffect } from "react";
 import * as d3 from "d3";
 
-export default function Network() {
+export default function Network({ selectNode }) {
   const ref = useRef();
+
+  function handleMouseOverNode(e, d) {
+    console.log(d);
+    selectNode(d.name);
+  }
 
   function init() {
     const settings = {
@@ -34,6 +39,8 @@ export default function Network() {
       const node = svg.selectAll("g").data(data.nodes).enter().append("g");
 
       node.append("circle").attr("r", 20).style("fill", "#374151");
+
+      node.on("mouseover", (e, d) => handleMouseOverNode(e, d));
 
       node
         .append("text")
