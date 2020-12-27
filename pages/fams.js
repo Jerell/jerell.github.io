@@ -3,6 +3,7 @@ import Demo from "../components/demo";
 import utilStyles from "../styles/utils.module.css";
 import Horizon from "../components/horizon";
 import SimulationForm from "../components/simulationForm";
+import Gauge from "../components/gauge";
 
 const name = "FAMS Demo";
 
@@ -41,24 +42,14 @@ export default function Fams() {
           <div className="col-span-3 bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
             simulation results, fan chart
           </div>
-          <div className="bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
-            ?
-          </div>
-          <div className="bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
-            ?
-          </div>
-          <div className="bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
-            ?
-          </div>
-          <div className="bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
-            ?
-          </div>
-          <div className="bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
-            ?
-          </div>
-          <div className="bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
-            ?
-          </div>
+          {[0.5, 0.1, 0.2, 0.7, 0.6, 0.3].map((p, i) => (
+            <div
+              key={i}
+              className="bg-green-500 rounded-md flex flex-col items-center justify-center text-white text-2xl font-extrabold"
+            >
+              <Gauge percent={p}></Gauge>
+            </div>
+          ))}
         </div>
       </section>
     </Demo>
