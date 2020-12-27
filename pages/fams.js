@@ -59,8 +59,16 @@ export default function Fams() {
               This will probably be very different
             </p>
           </div>
-          <div className="col-span-3 bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
-            simulation results, fan chart
+          <div className="col-span-3 bg-green-500 rounded-md flex flex-col items-center justify-center text-white text-2xl font-extrabold">
+            <p>simulation results</p>
+            <p>
+              chart like{" "}
+              <a href="https://observablehq.com/@d3/fan-chart">this</a> or{" "}
+              <a href="https://covid19.healthdata.org/global?view=total-deaths&tab=trend">
+                this
+              </a>{" "}
+              maybe
+            </p>
           </div>
           {guageMaps[selectedNode].map((p, i) => (
             <div
