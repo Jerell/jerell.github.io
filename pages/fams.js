@@ -20,7 +20,7 @@ export default function Fams() {
             <p className="pl-1 text-center">Live data stream</p>
             <Horizon></Horizon>
           </div>
-          <div className="col-span-2 row-span-2 bg-green-500 rounded-md flex flex-col justify-between text-white text-2xl font-extrabold">
+          <div className="col-span-2 row-span-2 rounded-md flex flex-col justify-between text-green-500 text-2xl font-extrabold">
             <p className="pl-1 text-center">Network map</p>
             <Network></Network>
             <p className="text-left pl-1 font-medium">
