@@ -11,6 +11,8 @@ export default function Gauge({
   const value = Math.floor(percent * max);
   const text = <p>{value}</p>;
 
+  const gauge = useRef();
+
   function init() {
     const svg = d3
       .select(ref.current)
@@ -18,7 +20,7 @@ export default function Gauge({
       .attr("width", 160)
       .attr("height", 120);
 
-    const simpleGauge = new SimpleGauge({
+    gauge.current = new SimpleGauge({
       el: svg.append("g"),
       height: 100,
       width: 160,
@@ -27,12 +29,20 @@ export default function Gauge({
       barWidth: 20,
       needleRadius: 10,
       sectionsColors: d3.schemeSpectral[sections],
+      percent: percent,
     });
+  }
 
-    simpleGauge.value = value;
+  function update() {
+    console.log(gauge.current);
+    if (!gauge.current) {
+      return;
+    }
+    gauge.current.percent = percent;
   }
 
   useEffect(init, []);
+  useEffect(update, [percent]);
   return (
     <>
       <div className="gauge relative overflow-hidden" ref={ref}></div>

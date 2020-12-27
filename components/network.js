@@ -40,7 +40,7 @@ export default function Network({ selectNode }) {
 
       node.append("circle").attr("r", 20).style("fill", "#374151");
 
-      node.on("mouseover", (e, d) => handleMouseOverNode(e, d));
+      node.on("mouseover touchmove", (e, d) => handleMouseOverNode(e, d));
 
       node
         .append("text")

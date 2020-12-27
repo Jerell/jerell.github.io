@@ -12,6 +12,19 @@ const name = "FAMS";
 export default function Fams() {
   const [selectedNode, selectNode] = useState("A");
 
+  const guageMaps = {
+    A: [0.5, 0.8, 0.2, 0.7, 0.6, 0.34],
+    B: [0.9, 0.1, 0.3, 0.4, 0.2, 0.15],
+    C: [0.2, 0.0, 0.5, 0.6, 0.6, 0.23],
+    D: [0.1, 0.3, 0.1, 0.3, 0.4, 0.15],
+    E: [0.3, 0.5, 0.7, 0.7, 0.8, 0.37],
+    F: [0.7, 0.2, 0.9, 0.7, 0.1, 0.68],
+    G: [0.6, 0.6, 0.8, 0.6, 0.5, 0.86],
+    H: [0.5, 0.9, 0.4, 0.2, 0.3, 0.45],
+    I: [0.4, 0.4, 0.6, 0.1, 0.7, 0.19],
+    J: [0.8, 0.7, 0.0, 0.9, 0.9, 0.72],
+  };
+
   return (
     <Demo name={name}>
       <Head>
@@ -49,7 +62,7 @@ export default function Fams() {
           <div className="col-span-3 bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
             simulation results, fan chart
           </div>
-          {[0.5, 0.1, 0.2, 0.7, 0.6, 0.3].map((p, i) => (
+          {guageMaps[selectedNode].map((p, i) => (
             <div
               key={i}
               className="bg-green-500 rounded-md flex flex-col items-center justify-center text-white text-2xl font-extrabold"
