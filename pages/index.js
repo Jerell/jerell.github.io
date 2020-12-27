@@ -26,7 +26,6 @@ export default function Home({ allPostsData }) {
           primarily uses <strong>JavaScript</strong> and <strong>Python</strong>
           .
         </p>
-        <p>I'll have more to show here soon.</p>
       </section>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Work</h2>
