@@ -6,7 +6,7 @@ import SimulationForm from "../components/simulationForm";
 import Gauge from "../components/gauge";
 import Network from "../components/network";
 
-const name = "FAMS Demo";
+const name = "FAMS";
 
 export default function Fams() {
   return (
