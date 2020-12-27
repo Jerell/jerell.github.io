@@ -23,13 +23,13 @@ export default function Network() {
       );
 
     d3.json("network.json").then(function (data) {
-      console.log(data);
       const link = svg
         .selectAll("line")
         .data(data.links)
         .enter()
         .append("line")
-        .style("stroke", "#111827");
+        .style("stroke", "#111827")
+        .attr("stroke-width", 5);
 
       const node = svg.selectAll("g").data(data.nodes).enter().append("g");
 
