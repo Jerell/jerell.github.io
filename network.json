@@ -2,69 +2,61 @@
   "nodes": [
     {
       "id": 1,
-      "name": "A"
+      "name": "Input 1"
     },
     {
       "id": 2,
-      "name": "B"
+      "name": "Input 2"
     },
     {
       "id": 3,
-      "name": "C"
+      "name": "Input 3"
     },
     {
       "id": 4,
-      "name": "D"
+      "name": "Pipeline"
     },
     {
       "id": 5,
-      "name": "E"
+      "name": "Pipeline"
     },
     {
       "id": 6,
-      "name": "F"
+      "name": "Compression station"
     },
     {
       "id": 7,
-      "name": "G"
+      "name": "Offshore pipeline"
     },
     {
       "id": 8,
-      "name": "H"
+      "name": "Injection reservoir 1"
     },
     {
       "id": 9,
-      "name": "I"
+      "name": "Injection reservoir 2"
     },
     {
       "id": 10,
-      "name": "J"
+      "name": "Input 4"
+    },
+    {
+      "id": 11,
+      "name": "Input 5"
     }
   ],
   "links": [
     {
       "source": 1,
-      "target": 2
-    },
-    {
-      "source": 1,
-      "target": 6
+      "target": 4
     },
     {
       "source": 2,
-      "target": 3
-    },
-    {
-      "source": 2,
-      "target": 7
+      "target": 4
     },
     {
       "source": 3,
       "target": 4
-    },
-    {
-      "source": 8,
-      "target": 3
     },
     {
       "source": 4,
@@ -72,23 +64,27 @@
     },
     {
       "source": 5,
-      "target": 10
+      "target": 6
     },
     {
-      "source": 4,
+      "source": 6,
       "target": 7
     },
     {
-      "source": 1,
-      "target": 7
-    },
-    {
-      "source": 5,
+      "source": 7,
       "target": 8
     },
     {
-      "source": 10,
+      "source": 7,
       "target": 9
+    },
+    {
+      "source": 10,
+      "target": 5
+    },
+    {
+      "source": 11,
+      "target": 6
     }
   ]
 }
