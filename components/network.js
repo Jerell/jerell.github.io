@@ -1,13 +1,11 @@
 import { useRef, useEffect } from "react";
 import * as d3 from "d3";
 
-export default function Network({ selectNode, setNodeName }) {
+export default function Network({ selectNode, setNodeName, handleNodeHover }) {
   const ref = useRef();
 
   function handleMouseOverNode(e, d) {
-    console.log(d);
-    selectNode(d.id - 1);
-    setNodeName(d.name);
+    handleNodeHover(d);
   }
 
   function init() {
@@ -15,7 +13,7 @@ export default function Network({ selectNode, setNodeName }) {
       width: 586,
       height: 330,
       margin: { top: 10, right: 30, bottom: 30, left: 40 },
-      nodeRadius: 15,
+      nodeRadius: 10,
       lineThickness: 5,
     };
 
@@ -56,11 +54,16 @@ export default function Network({ selectNode, setNodeName }) {
 
       node
         .append("text")
-        // .attr("dx", (d) => -settings.nodeRadius / 2)
+        .attr("dx", (d) => {
+          if (d.id >= 8 || d.name === "Manifold A" || d.name === "Manifold B") {
+            return -settings.nodeRadius / 3;
+          }
+          return settings.nodeRadius / 3;
+        })
         .attr("dy", (d) => settings.nodeRadius / 2)
-        .attr("font-size", settings.nodeRadius)
+        .attr("font-size", settings.nodeRadius + 5)
         .attr("text-anchor", (d) => {
-          if (d.id >= 8 || d.name === "Manifold") {
+          if (d.id >= 8 || d.name === "Manifold A" || d.name === "Manifold B") {
             return "start";
           }
           return "end";
@@ -79,7 +82,7 @@ export default function Network({ selectNode, setNodeName }) {
             }) // This provide  the id of a node
             .links(data.links) // and this the list of links
         )
-        .force("charge", d3.forceManyBody().strength(-200)) // This adds repulsion between nodes. Play with the -400 for the repulsion strength
+        .force("charge", d3.forceManyBody().strength(-230)) // This adds repulsion between nodes. Play with the -400 for the repulsion strength
         .force(
           "center",
           d3.forceCenter(settings.width / 3, settings.height / 2)

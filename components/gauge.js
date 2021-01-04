@@ -34,7 +34,6 @@ export default function Gauge({
   }
 
   function update() {
-    console.log(gauge.current);
     if (!gauge.current) {
       return;
     }

@@ -7,11 +7,72 @@ import Gauge from "../components/gauge";
 import Network from "../components/network";
 import { useState } from "react";
 
+// import network from "../public/network.json";
+
 const name = "FAMS";
 
+function nodeData(node) {
+  if (!node || !node.properties) {
+    return;
+  }
+  const units = {
+    pressure: "bara",
+    flowrate: "MTPA",
+    temperature: "°C",
+    outlettemperature: "°C",
+    composition: "%",
+    length: "m",
+    diameter: "m",
+    power: "W",
+  };
+  function getUnit(prop) {
+    return units[prop] ? units[prop] : "";
+  }
+
+  let dataStrings = Object.keys(node.properties).map((prop) => {
+    let unit = getUnit(prop.replace(" ", ""));
+    let value = node.properties[prop];
+    return `${prop.charAt(0).toUpperCase() + prop.slice(1)}: ${value} ${unit}`;
+  });
+  return dataStrings ? dataStrings : [];
+}
+
+function NodeInfo({ name, lines = [] }) {
+  const displayNames = {
+    "Manifold A": "pipeline section 1",
+    "Manifold B": "pipeline section 2",
+    "Manifold C (offshore)": "pipeline section 3 (offshore)",
+  };
+  const getDisplayName = (n) => {
+    let name = n;
+    if (Object.keys(displayNames).includes(n)) {
+      name = displayNames[n];
+    }
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  };
+
+  return (
+    <>
+      <p>{getDisplayName(name)}</p>
+      {lines.map((l, i) => (
+        <p key={i}>{l}</p>
+      ))}
+    </>
+  );
+}
+
 export default function Fams() {
-  const [selectedNode, selectNode] = useState(0);
-  const [nodeName, setNodeName] = useState("Input 1");
+  const [selectedNode, setNode] = useState({});
+  const [selectedNodeID, selectNode] = useState(0);
+  const [nodeName, setNodeName] = useState("Hover over a node for information");
+
+  function handleNodeHover(node) {
+    selectNode(node.id);
+    setNodeName(node.name);
+    console.log(node);
+    setNode(node);
+    console.log(nodeData(node));
+  }
 
   const guageMaps = [
     [0.5, 0.8, 0.2, 0.7, 0.6, 0.34],
@@ -38,23 +99,14 @@ export default function Fams() {
             <p className="pl-1 text-center">Live data stream</p>
             <Horizon></Horizon>
           </div>
-          <div className="col-span-2 row-span-2 rounded-md flex flex-col justify-between text-green-500 text-2xl font-extrabold">
+          <div className="col-span-2 row-span-2 rounded-md flex flex-col text-green-500 text-2xl font-extrabold">
             <p className="pl-1 text-center">Network map</p>
-            <Network
-              selectNode={selectNode}
-              setNodeName={setNodeName}
-            ></Network>
-            <p className="text-left pl-1 font-medium">
-              Interactive map allows you to select nodes to view data for
-            </p>
+            <Network handleNodeHover={handleNodeHover}></Network>
           </div>
-          <div className="col-span-2 bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
-            Info about {nodeName}
+          <div className="col-span-2 bg-green-500 rounded-md flex flex-col text-white text-base font-extrabold text-left p-4 h-40">
+            <NodeInfo name={nodeName} lines={nodeData(selectedNode)}></NodeInfo>
           </div>
-          <div className="rounded-md flex items-center justify-center text-green-500 text-2xl font-extrabold">
-            graphs
-          </div>
-          <div className="bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
+          <div className="rounded-md flex items-center justify-center text-green-500 text-2xl font-extrabold flex-grow col-span-2">
             graphs
           </div>
           <div className="col-span-3 bg-green-500 rounded-md flex flex-col items-center text-white text-2xl font-extrabold">
@@ -75,7 +127,7 @@ export default function Fams() {
               maybe
             </p>
           </div>
-          {guageMaps[selectedNode].map((p, i) => (
+          {guageMaps[selectedNodeID].map((p, i) => (
             <div
               key={i}
               className="bg-green-500 rounded-md flex flex-col items-center justify-center text-white text-2xl font-extrabold"
