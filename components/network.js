@@ -85,7 +85,7 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
         .force("charge", d3.forceManyBody().strength(-230)) // This adds repulsion between nodes. Play with the -400 for the repulsion strength
         .force(
           "center",
-          d3.forceCenter(settings.width / 3, settings.height / 2)
+          d3.forceCenter(settings.width / 3, settings.height / 2 - 30)
         ) // This force attracts nodes to the center of the svg area
         .on("end", ticked);
 
