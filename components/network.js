@@ -120,7 +120,7 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
             return d.target.y;
           });
 
-        node.attr("transform", (d) => `translate(${d.x + 6}, ${d.y + 6})`);
+        node.attr("transform", (d) => `translate(${d.x}, ${d.y})`);
       }
     });
   }
