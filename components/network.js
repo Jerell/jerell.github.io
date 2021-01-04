@@ -1,5 +1,6 @@
 import { useRef, useEffect } from "react";
 import * as d3 from "d3";
+import networkStyles from "../styles/network.module.css";
 
 export default function Network({ selectNode, setNodeName, handleNodeHover }) {
   const ref = useRef();
@@ -35,6 +36,7 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
         .enter()
         .append("line")
         .style("stroke", "#86EFAC")
+        .attr("class", networkStyles.path)
         .attr("stroke-width", settings.lineThickness);
 
       const node = svg.selectAll("g").data(data.nodes).enter().append("g");
