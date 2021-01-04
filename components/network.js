@@ -11,7 +11,7 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
   function init() {
     const settings = {
       width: 586,
-      height: 330,
+      height: 296,
       margin: { top: 10, right: 30, bottom: 30, left: 40 },
       nodeRadius: 10,
       lineThickness: 5,
