@@ -1,12 +1,13 @@
 import { useRef, useEffect } from "react";
 import * as d3 from "d3";
 
-export default function Network({ selectNode }) {
+export default function Network({ selectNode, setNodeName }) {
   const ref = useRef();
 
   function handleMouseOverNode(e, d) {
     console.log(d);
-    selectNode(d.name);
+    selectNode(d.id - 1);
+    setNodeName(d.name);
   }
 
   function init() {
@@ -33,21 +34,29 @@ export default function Network({ selectNode }) {
         .data(data.links)
         .enter()
         .append("line")
-        .style("stroke", "#111827")
+        .style("stroke", "#86EFAC")
         .attr("stroke-width", 5);
 
       const node = svg.selectAll("g").data(data.nodes).enter().append("g");
 
-      node.append("circle").attr("r", 20).style("fill", "#374151");
+      const radius = 15;
+      node.append("circle").attr("r", radius).style("fill", "#22C55E");
 
       node.on("mouseover touchmove", (e, d) => handleMouseOverNode(e, d));
 
       node
         .append("text")
-        .attr("dx", (d) => -10)
-        .attr("dy", (d) => 10)
+        // .attr("dx", (d) => -radius / 2)
+        .attr("dy", (d) => radius / 2)
+        .attr("font-size", radius)
+        .attr("text-anchor", (d) => {
+          if (d.id >= 8 || d.name === "Pipeline") {
+            return "start";
+          }
+          return "end";
+        })
         .text((d) => d.name)
-        .style("fill", "#F3F4F6");
+        .style("fill", "#1F2937");
 
       const simulation = d3
         .forceSimulation(data.nodes) // Force algorithm is applied to data.nodes
@@ -60,14 +69,28 @@ export default function Network({ selectNode }) {
             }) // This provide  the id of a node
             .links(data.links) // and this the list of links
         )
-        .force("charge", d3.forceManyBody().strength(-400)) // This adds repulsion between nodes. Play with the -400 for the repulsion strength
+        .force("charge", d3.forceManyBody().strength(-200)) // This adds repulsion between nodes. Play with the -400 for the repulsion strength
         .force(
           "center",
-          d3.forceCenter(settings.width / 2, settings.height / 2)
+          d3.forceCenter(settings.width / 3, settings.height / 2)
         ) // This force attracts nodes to the center of the svg area
         .on("end", ticked);
 
       function ticked() {
+        node
+          .attr("cx", function (d) {
+            return (d.x = Math.max(
+              radius,
+              Math.min(settings.width - radius, d.x)
+            ));
+          })
+          .attr("cy", function (d) {
+            return (d.y = Math.max(
+              radius,
+              Math.min(settings.height - radius, d.y)
+            ));
+          });
+
         link
           .attr("x1", function (d) {
             return d.source.x;
@@ -82,13 +105,6 @@ export default function Network({ selectNode }) {
             return d.target.y;
           });
 
-        // node
-        //   .attr("cx", function (d) {
-        //     return d.x + 6;
-        //   })
-        //   .attr("cy", function (d) {
-        //     return d.y - 6;
-        //   });
         node.attr("transform", (d) => `translate(${d.x + 6}, ${d.y + 6})`);
       }
     });

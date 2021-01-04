@@ -10,20 +10,22 @@ import { useState } from "react";
 const name = "FAMS";
 
 export default function Fams() {
-  const [selectedNode, selectNode] = useState("A");
+  const [selectedNode, selectNode] = useState(0);
+  const [nodeName, setNodeName] = useState("Input 1");
 
-  const guageMaps = {
-    A: [0.5, 0.8, 0.2, 0.7, 0.6, 0.34],
-    B: [0.9, 0.1, 0.3, 0.4, 0.2, 0.15],
-    C: [0.2, 0.0, 0.5, 0.6, 0.6, 0.23],
-    D: [0.1, 0.3, 0.1, 0.3, 0.4, 0.15],
-    E: [0.3, 0.5, 0.7, 0.7, 0.8, 0.37],
-    F: [0.7, 0.2, 0.9, 0.7, 0.1, 0.68],
-    G: [0.6, 0.6, 0.8, 0.6, 0.5, 0.86],
-    H: [0.5, 0.9, 0.4, 0.2, 0.3, 0.45],
-    I: [0.4, 0.4, 0.6, 0.1, 0.7, 0.19],
-    J: [0.8, 0.7, 0.0, 0.9, 0.9, 0.72],
-  };
+  const guageMaps = [
+    [0.5, 0.8, 0.2, 0.7, 0.6, 0.34],
+    [0.9, 0.1, 0.3, 0.4, 0.2, 0.15],
+    [0.2, 0.0, 0.5, 0.6, 0.6, 0.23],
+    [0.1, 0.3, 0.1, 0.3, 0.4, 0.15],
+    [0.3, 0.5, 0.7, 0.7, 0.8, 0.37],
+    [0.7, 0.2, 0.9, 0.7, 0.1, 0.68],
+    [0.6, 0.6, 0.8, 0.6, 0.5, 0.86],
+    [0.5, 0.9, 0.4, 0.2, 0.3, 0.45],
+    [0.4, 0.4, 0.6, 0.1, 0.7, 0.19],
+    [0.8, 0.7, 0.0, 0.9, 0.9, 0.72],
+    [0.2, 0.1, 0.1, 0.1, 0.5, 0.11],
+  ];
 
   return (
     <Demo name={name}>
@@ -38,13 +40,16 @@ export default function Fams() {
           </div>
           <div className="col-span-2 row-span-2 rounded-md flex flex-col justify-between text-green-500 text-2xl font-extrabold">
             <p className="pl-1 text-center">Network map</p>
-            <Network selectNode={selectNode}></Network>
+            <Network
+              selectNode={selectNode}
+              setNodeName={setNodeName}
+            ></Network>
             <p className="text-left pl-1 font-medium">
               Interactive map allows you to select nodes to view data for
             </p>
           </div>
           <div className="col-span-2 bg-green-500 rounded-md flex items-center justify-center text-white text-2xl font-extrabold">
-            Info about node {selectedNode}
+            Info about {nodeName}
           </div>
           <div className="rounded-md flex items-center justify-center text-green-500 text-2xl font-extrabold">
             graphs
