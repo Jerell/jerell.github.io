@@ -15,6 +15,8 @@ export default function Network({ selectNode, setNodeName }) {
       width: 586,
       height: 330,
       margin: { top: 10, right: 30, bottom: 30, left: 40 },
+      nodeRadius: 15,
+      lineThickness: 5,
     };
 
     const svg = d3
@@ -35,25 +37,30 @@ export default function Network({ selectNode, setNodeName }) {
         .enter()
         .append("line")
         .style("stroke", "#86EFAC")
-        .attr("stroke-width", 5);
+        .attr("stroke-width", settings.lineThickness);
 
       const node = svg.selectAll("g").data(data.nodes).enter().append("g");
 
-      const radius = 15;
       node
         .append("circle")
-        .attr("r", radius)
-        .style("fill", (d) => (d.name === "Pipeline" ? "#86EFAC" : "#22C55E"));
+        .attr("r", (d) =>
+          d.name.startsWith("Manifold")
+            ? settings.lineThickness
+            : settings.nodeRadius
+        )
+        .style("fill", (d) =>
+          d.name.startsWith("Manifold") ? "#86EFAC" : "#22C55E"
+        );
 
       node.on("mouseover touchmove", (e, d) => handleMouseOverNode(e, d));
 
       node
         .append("text")
-        // .attr("dx", (d) => -radius / 2)
-        .attr("dy", (d) => radius / 2)
-        .attr("font-size", radius)
+        // .attr("dx", (d) => -settings.nodeRadius / 2)
+        .attr("dy", (d) => settings.nodeRadius / 2)
+        .attr("font-size", settings.nodeRadius)
         .attr("text-anchor", (d) => {
-          if (d.id >= 8 || d.name === "Pipeline") {
+          if (d.id >= 8 || d.name === "Manifold") {
             return "start";
           }
           return "end";
@@ -83,14 +90,14 @@ export default function Network({ selectNode, setNodeName }) {
         node
           .attr("cx", function (d) {
             return (d.x = Math.max(
-              radius,
-              Math.min(settings.width - radius, d.x)
+              settings.nodeRadius,
+              Math.min(settings.width - settings.nodeRadius, d.x)
             ));
           })
           .attr("cy", function (d) {
             return (d.y = Math.max(
-              radius,
-              Math.min(settings.height - radius, d.y)
+              settings.nodeRadius,
+              Math.min(settings.height - settings.nodeRadius, d.y)
             ));
           });
 
