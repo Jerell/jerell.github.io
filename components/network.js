@@ -40,7 +40,10 @@ export default function Network({ selectNode, setNodeName }) {
       const node = svg.selectAll("g").data(data.nodes).enter().append("g");
 
       const radius = 15;
-      node.append("circle").attr("r", radius).style("fill", "#22C55E");
+      node
+        .append("circle")
+        .attr("r", radius)
+        .style("fill", (d) => (d.name === "Pipeline" ? "#86EFAC" : "#22C55E"));
 
       node.on("mouseover touchmove", (e, d) => handleMouseOverNode(e, d));
 
