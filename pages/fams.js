@@ -21,8 +21,8 @@ function nodeData(node) {
     temperature: "°C",
     outlettemperature: "°C",
     composition: "%",
-    length: "m",
-    diameter: "m",
+    length: "km",
+    diameter: '"',
     power: "W",
   };
   function getUnit(prop) {
