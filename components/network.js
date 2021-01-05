@@ -18,15 +18,20 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
       lineThickness: 5,
     };
 
+    const pipelength = d3.scaleLinear().domain([0, 50]).range([15, 30]);
+
     const simulation = d3
       .forceSimulation()
       .force(
         "link",
-        d3.forceLink().id(function (d) {
-          return d.id;
-        })
+        d3
+          .forceLink()
+          .id(function (d) {
+            return d.id;
+          })
+          .distance((d) => pipelength(d.length))
       )
-      .force("charge", d3.forceManyBody().strength(-230))
+      .force("charge", d3.forceManyBody().strength(-150))
       .force("center", d3.forceCenter(settings.width / 2, settings.height / 2));
 
     function dragstarted(e, d) {
@@ -108,6 +113,9 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
         })
         .text((d) => d.name)
         .style("fill", "#1F2937");
+
+      // data.nodes[4].fx = settings.width / 2.5;
+      // data.nodes[4].fy = 100;
 
       simulation.nodes(data.nodes).on("tick", ticked);
 
