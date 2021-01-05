@@ -7,7 +7,8 @@
         "pressure": 10,
         "temperature": 50,
         "flow rate": 20
-      }
+      },
+      "onshore": true
     },
     {
       "id": 1,
@@ -16,7 +17,8 @@
         "pressure": 15,
         "temperature": 60,
         "flow rate": 30
-      }
+      },
+      "onshore": true
     },
     {
       "id": 2,
@@ -25,7 +27,8 @@
         "pressure": 5,
         "temperature": 30,
         "flow rate": 10
-      }
+      },
+      "onshore": true
     },
     {
       "id": 3,
@@ -33,7 +36,8 @@
       "properties": {
         "length": 200,
         "diameter": 2
-      }
+      },
+      "onshore": true
     },
     {
       "id": 4,
@@ -41,7 +45,8 @@
       "properties": {
         "length": 200,
         "diameter": 2
-      }
+      },
+      "onshore": true
     },
     {
       "id": 5,
@@ -49,7 +54,8 @@
       "properties": {
         "outlet temperature": 80,
         "power": 5
-      }
+      },
+      "onshore": true
     },
     {
       "id": 6,
@@ -57,23 +63,26 @@
       "properties": {
         "length": 200,
         "diameter": 2
-      }
+      },
+      "onshore": false
     },
     {
       "id": 7,
-      "name": "Injection reservoir 1",
+      "name": "Wellhead 1",
       "properties": {
         "pressure": 1,
         "temperature": 10
-      }
+      },
+      "onshore": true
     },
     {
       "id": 8,
-      "name": "Injection reservoir 2",
+      "name": "Wellhead 2",
       "properties": {
         "pressure": 1,
         "temperature": 10
-      }
+      },
+      "onshore": false
     },
     {
       "id": 9,
@@ -82,7 +91,8 @@
         "pressure": 8,
         "temperature": 40,
         "flow rate": 15
-      }
+      },
+      "onshore": false
     },
     {
       "id": 10,
@@ -91,49 +101,60 @@
         "pressure": 6,
         "temperature": 35,
         "flow rate": 12
-      }
+      },
+      "onshore": true
     }
   ],
   "links": [
     {
       "source": 0,
-      "target": 3
+      "target": 3,
+      "length": 10
     },
     {
       "source": 1,
-      "target": 3
+      "target": 3,
+      "length": 5
     },
     {
       "source": 2,
-      "target": 3
+      "target": 3,
+      "length": 0
     },
     {
       "source": 3,
-      "target": 4
+      "target": 4,
+      "length": 50
     },
     {
       "source": 4,
-      "target": 5
+      "target": 5,
+      "length": 30
     },
     {
       "source": 5,
-      "target": 6
+      "target": 6,
+      "length": 50
     },
     {
       "source": 6,
-      "target": 7
+      "target": 7,
+      "length": 0
     },
     {
       "source": 6,
-      "target": 8
+      "target": 8,
+      "length": 10
     },
     {
       "source": 9,
-      "target": 4
+      "target": 4,
+      "length": 20
     },
     {
       "source": 10,
-      "target": 5
+      "target": 5,
+      "length": 0
     }
   ]
 }
