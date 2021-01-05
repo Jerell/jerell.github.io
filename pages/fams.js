@@ -93,15 +93,14 @@ export default function Fams() {
       </Head>
       <section className={utilStyles.headingMd}>
         <div className="grid grid-cols-6 gap-4 text-center rounded-t-xl overflow-hidden bg-gradient-to-r from-green-50 to-green-100 bg-white p-8">
-          <div className="col-span-2 row-span-2 rounded-md flex flex-col text-green-500 text-2xl font-extrabold bg-gradient-to-br from-green-50 to-green-200">
-            <p className="pl-1 text-left">Network map</p>
-            <Network handleNodeHover={handleNodeHover}></Network>
-          </div>
           <div className="col-span-2 row-span-2 bg-gray-300 rounded-md flex flex-col 2xl:items-center text-white text-2xl font-extrabold overflow-hidden">
             <p className="pl-1 text-center">Live data stream</p>
             <Horizon></Horizon>
           </div>
-
+          <div className="col-span-2 row-span-2 rounded-md flex flex-col text-green-500 text-2xl font-extrabold bg-gradient-to-br from-green-50 to-green-200">
+            <p className="pl-1 text-left">Network map</p>
+            <Network handleNodeHover={handleNodeHover}></Network>
+          </div>
           <div className="col-span-2 bg-green-500 rounded-md flex flex-col text-white text-base font-extrabold text-left p-4 h-40">
             <NodeInfo name={nodeName} lines={nodeData(selectedNode)}></NodeInfo>
           </div>
