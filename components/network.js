@@ -16,6 +16,16 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
       margin: { top: 10, right: 30, bottom: 30, left: 40 },
       nodeRadius: 10,
       lineThickness: 5,
+      color: {
+        node: {
+          onshore: "#22C55E",
+          offshore: "#0D9488",
+        },
+        pipe: {
+          onshore: "#86EFAC",
+          offshore: "#2DD4BF",
+        },
+      },
     };
 
     const pipelength = d3.scaleLinear().domain([0, 50]).range([15, 30]);
@@ -68,7 +78,7 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
         .data(data.links)
         .enter()
         .append("line")
-        .style("stroke", "#86EFAC")
+        .style("stroke", settings.color.pipe.onshore)
         .attr("class", networkStyles.path)
         .attr("stroke-width", settings.lineThickness);
 
@@ -81,9 +91,12 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
             ? settings.lineThickness
             : settings.nodeRadius
         )
-        .style("fill", (d) =>
-          d.name.startsWith("Manifold") ? "#86EFAC" : "#22C55E"
-        );
+        .style("fill", (d) => {
+          const shore = d.onshore ? "onshore" : "offshore";
+          return d.name.startsWith("Manifold")
+            ? settings.color.pipe[shore]
+            : settings.color.node[shore];
+        });
 
       node.call(
         d3

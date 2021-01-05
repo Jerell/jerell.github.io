@@ -73,7 +73,7 @@
         "pressure": 1,
         "temperature": 10
       },
-      "onshore": true
+      "onshore": false
     },
     {
       "id": 8,
@@ -92,7 +92,7 @@
         "temperature": 40,
         "flow rate": 15
       },
-      "onshore": false
+      "onshore": true
     },
     {
       "id": 10,
