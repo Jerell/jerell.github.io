@@ -11,7 +11,7 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
 
   function init() {
     const settings = {
-      width: 1190,
+      width: 586,
       height: 296,
       margin: { top: 10, right: 30, bottom: 30, left: 40 },
       nodeRadius: 10,
@@ -25,6 +25,10 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
           onshore: "#86EFAC",
           offshore: "#2DD4BF",
         },
+      },
+      legend: {
+        offset: { top: 240 },
+        fontSize: 20,
       },
     };
 
@@ -41,7 +45,7 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
           })
           .distance((d) => pipelength(d.length))
       )
-      .force("charge", d3.forceManyBody().strength(-150))
+      .force("charge", d3.forceManyBody().strength(-175))
       .force("center", d3.forceCenter(settings.width / 2, settings.height / 2));
 
     function dragstarted(e, d) {
@@ -71,6 +75,17 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
         "transform",
         "translate(" + settings.margin.left + "," + settings.margin.top + ")"
       );
+
+    const legendData = [
+      {
+        text: "Onshore",
+        color: settings.color.node.onshore,
+      },
+      {
+        text: "Offshore",
+        color: settings.color.node.offshore,
+      },
+    ];
 
     d3.json("network.json").then(function (data) {
       const link = svg
@@ -131,11 +146,25 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
         .text((d) => d.name)
         .style("fill", "#1F2937");
 
-      // data.nodes[4].fx = settings.width / 2.5;
-      // data.nodes[4].fy = 100;
+      const legend = svg
+        .append("g")
+        .selectAll("text")
+        .data(legendData)
+        .enter()
+        .append("text")
+        .attr("dx", 0)
+        .attr(
+          "dy",
+          (l, i) =>
+            settings.legend.offset.top + 1.3 * i * settings.legend.fontSize
+        )
+        .text((l) => l.text)
+        .attr("font-size", settings.legend.fontSize)
+        .style("fill", (l) => l.color);
 
       simulation.nodes(data.nodes).on("tick", ticked);
 
+      console.log(data.nodes);
       simulation.force("link").links(data.links);
 
       // const simulation = d3
