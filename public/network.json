@@ -2,7 +2,7 @@
   "nodes": [
     {
       "id": 0,
-      "name": "Input 1",
+      "name": "CO2 Supplier 1",
       "properties": {
         "pressure": 10,
         "temperature": 50,
@@ -11,7 +11,7 @@
     },
     {
       "id": 1,
-      "name": "Input 2",
+      "name": "CO2 Supplier 2",
       "properties": {
         "pressure": 15,
         "temperature": 60,
@@ -20,7 +20,7 @@
     },
     {
       "id": 2,
-      "name": "Input 3",
+      "name": "CO2 Supplier 3",
       "properties": {
         "pressure": 5,
         "temperature": 30,
