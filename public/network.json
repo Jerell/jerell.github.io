@@ -86,7 +86,7 @@
     },
     {
       "id": 9,
-      "name": "Input 4",
+      "name": "CO2 Supplier 4",
       "properties": {
         "pressure": 8,
         "temperature": 40,

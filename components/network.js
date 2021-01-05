@@ -78,7 +78,11 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
         .data(data.links)
         .enter()
         .append("line")
-        .style("stroke", settings.color.pipe.onshore)
+        .style("stroke", (d) => {
+          const shore = data.nodes[d.target].onshore ? "onshore" : "offshore";
+
+          return settings.color.pipe[shore];
+        })
         .attr("class", networkStyles.path)
         .attr("stroke-width", settings.lineThickness);
 
