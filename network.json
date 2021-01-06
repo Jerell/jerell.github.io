@@ -100,7 +100,8 @@
         "temperature": 35,
         "flow rate": 0
       },
-      "onshore": true
+      "onshore": true,
+      "icon": "\uf21a"
     }
   ],
   "links": [
