@@ -1,9 +1,11 @@
+<p className="mb-2">modify node</p>;
 import Head from "next/head";
 import Demo from "../components/demo";
 import utilStyles from "../styles/utils.module.css";
 import Horizon from "../components/horizon";
 import SimulationForm from "../components/simulationForm";
 import ModifyNode from "../components/modifyNode";
+import CaseSelection from "../components/caseSelection";
 import Gauge from "../components/gauge";
 import Network from "../components/network";
 import { useState } from "react";
@@ -96,11 +98,12 @@ export default function Fams() {
           <div className="rounded-md flex items-center justify-center text-green-500 text-2xl font-extrabold flex-grow col-span-2">
             graphs
           </div>
-          <div className="rounded-md flex items-center justify-center text-green-500 text-2xl font-extrabold flex-grow col-span-2">
-            case selection
+          <div className="rounded-md flex-col items-center justify-center text-green-500 text-2xl font-extrabold flex-grow col-span-2">
+            <p className="mb-2">Case selection</p>
+            <CaseSelection></CaseSelection>
           </div>
           <div className="rounded-md flex flex-col items-center justify-center text-green-500 text-2xl font-extrabold flex-grow col-span-2">
-            <p className="mb-2">modify node</p>
+            <p className="mb-2">Modify node</p>
             <ModifyNode></ModifyNode>
           </div>
           <div className="rounded-md flex items-center justify-center text-green-500 text-2xl font-extrabold flex-grow col-span-2">
