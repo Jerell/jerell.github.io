@@ -7,6 +7,7 @@ import ModifyNode from "../components/modifyNode";
 import Gauge from "../components/gauge";
 import Network from "../components/network";
 import { useState } from "react";
+import { units } from "../public/utils";
 
 // import network from "../public/network.json";
 
@@ -16,16 +17,7 @@ function nodeData(node) {
   if (!node || !node.properties) {
     return;
   }
-  const units = {
-    pressure: "bara",
-    flowrate: "MTPA",
-    temperature: "°C",
-    outlettemperature: "°C",
-    composition: "%",
-    length: "km",
-    diameter: '"',
-    power: "W",
-  };
+
   function getUnit(prop) {
     return units[prop] ? units[prop] : "";
   }
@@ -33,7 +25,7 @@ function nodeData(node) {
   let dataStrings = Object.keys(node.properties).map((prop) => {
     let unit = getUnit(prop.replace(" ", ""));
     let value = node.properties[prop];
-    return `${prop.charAt(0).toUpperCase() + prop.slice(1)}: ${value} ${unit}`;
+    return `${prop.charAt(0).toUpperCase() + prop.slice(1)}: ${value}${unit}`;
   });
   return dataStrings ? dataStrings : [];
 }
