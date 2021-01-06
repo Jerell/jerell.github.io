@@ -100,7 +100,7 @@ export default function Fams() {
             case selection
           </div>
           <div className="rounded-md flex flex-col items-center justify-center text-green-500 text-2xl font-extrabold flex-grow col-span-2">
-            modify node
+            <p className="mb-2">modify node</p>
             <ModifyNode></ModifyNode>
           </div>
           <div className="rounded-md flex items-center justify-center text-green-500 text-2xl font-extrabold flex-grow col-span-2">
