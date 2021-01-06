@@ -21,7 +21,7 @@ function Row({ node, selected }) {
           {node.properties.pressure}
         </span>
       </td>
-      <td className="text-gray-500">2</td>
+      <td className="text-gray-500">{node.properties["flow rate"]}</td>
       <td className="text-center font-medium">
         <a href="#" className="text-indigo-600 hover:text-indigo-900">
           <i className="fas fa-edit"></i> Edit
