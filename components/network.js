@@ -123,6 +123,7 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
 
       node.on("mouseover touchmove", (e, d) => handleMouseOverNode(e, d));
 
+      // Node label
       node
         .append("text")
         .attr("dx", (d) => {
@@ -139,8 +140,18 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
           }
           return "end";
         })
-        .text((d) => d.name)
-        .style("fill", "#1F2937");
+        .text((d) => d.name);
+      // Icon
+      node
+        .filter((d) => d.icon)
+        .append("text")
+        .attr("class", "fa")
+        .attr("font-family", "Font Awesome 5 Free")
+        .text((d) => d.icon)
+        .attr("dx", -(2 * settings.nodeRadius))
+        .attr("dy", 0.8 * settings.nodeRadius);
+      // .attr("height", 50)
+      // .html('<i class="fas fa-ship"></i>');
 
       const legend = svg
         .append("g")
