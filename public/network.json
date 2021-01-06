@@ -4,9 +4,9 @@
       "id": 0,
       "name": "CO2 Supplier 1",
       "properties": {
-        "pressure": 10,
+        "pressure": 36,
         "temperature": 50,
-        "flow rate": 20
+        "flow rate": 2
       },
       "onshore": true
     },
@@ -14,9 +14,9 @@
       "id": 1,
       "name": "CO2 Supplier 2",
       "properties": {
-        "pressure": 15,
+        "pressure": 36,
         "temperature": 60,
-        "flow rate": 30
+        "flow rate": 0.3
       },
       "onshore": true
     },
@@ -24,9 +24,9 @@
       "id": 2,
       "name": "CO2 Supplier 3",
       "properties": {
-        "pressure": 5,
+        "pressure": 36,
         "temperature": 30,
-        "flow rate": 10
+        "flow rate": 0
       },
       "onshore": true
     },
@@ -70,8 +70,7 @@
       "id": 7,
       "name": "Wellhead 1",
       "properties": {
-        "pressure": 1,
-        "temperature": 10
+        "pressure": 5
       },
       "onshore": false
     },
@@ -79,8 +78,7 @@
       "id": 8,
       "name": "Wellhead 2",
       "properties": {
-        "pressure": 1,
-        "temperature": 10
+        "pressure": "CLOSED"
       },
       "onshore": false
     },
@@ -88,9 +86,9 @@
       "id": 9,
       "name": "CO2 Supplier 4",
       "properties": {
-        "pressure": 8,
+        "pressure": 36,
         "temperature": 40,
-        "flow rate": 15
+        "flow rate": 0
       },
       "onshore": true
     },
@@ -98,9 +96,9 @@
       "id": 10,
       "name": "Ship import",
       "properties": {
-        "pressure": 6,
+        "pressure": 36,
         "temperature": 35,
-        "flow rate": 12
+        "flow rate": 0
       },
       "onshore": true
     }
