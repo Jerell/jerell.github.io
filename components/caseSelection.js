@@ -1,4 +1,4 @@
-function Case({ name, id, selected = false }) {
+function Case({ name = "Example case 1", id = "example_1", selected = false }) {
   return (
     <>
       <div class="flex items-center">
