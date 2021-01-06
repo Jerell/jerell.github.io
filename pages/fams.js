@@ -33,22 +33,9 @@ function nodeData(node) {
 }
 
 function NodeInfo({ name, lines = [] }) {
-  const displayNames = {
-    "Manifold A": "pipeline section 1",
-    "Manifold B": "pipeline section 2",
-    "Manifold C (offshore)": "pipeline section 3 (offshore)",
-  };
-  const getDisplayName = (n) => {
-    let name = n;
-    if (Object.keys(displayNames).includes(n)) {
-      name = displayNames[n];
-    }
-    return name.charAt(0).toUpperCase() + name.slice(1);
-  };
-
   return (
     <>
-      <p>{getDisplayName(name)}</p>
+      <p>{name}</p>
       {lines.map((l, i) => (
         <p key={i}>{l}</p>
       ))}
