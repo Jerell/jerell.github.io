@@ -26,27 +26,23 @@ function Property({ prop, value }) {
   );
 }
 
-export default function ModifyNode() {
+export default function ModifyNode({ properties = [], values = [] }) {
   return (
     <>
       <form className="w-full text-black">
         <div className="shadow rounded-md px-4 py-5 bg-white w-full grid grid-cols-6 gap-4">
-          <div className="sm:col-span-2">
-            <Property prop="pressure" value="100"></Property>
-          </div>
-          <div className="sm:col-span-2">
-            <Property prop="temperature" value="30"></Property>
-          </div>
-          <div className="sm:col-span-2">
-            <Property prop="flow rate" value="10"></Property>
-          </div>
+          {properties.map((p, i) => (
+            <div className="sm:col-span-2" key={i}>
+              <Property prop={p} value={values[i]}></Property>
+            </div>
+          ))}
           <div className="col-span-6">
             <button
               // type="submit"
               className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               onClick={(e) => e.preventDefault()}
             >
-              Submit
+              Save
             </button>
           </div>
         </div>
