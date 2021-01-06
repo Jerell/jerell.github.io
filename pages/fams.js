@@ -21,7 +21,7 @@ function nodeData(node) {
   }
 
   let dataStrings = Object.keys(node.properties).map((prop) => {
-    let unit = getUnit(prop.replace(" ", ""));
+    let unit = getUnit(prop);
     let value = node.properties[prop];
     return `${prop.charAt(0).toUpperCase() + prop.slice(1)}: ${value}${unit}`;
   });
