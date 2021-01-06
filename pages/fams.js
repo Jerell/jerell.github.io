@@ -87,11 +87,11 @@ export default function Fams() {
           <div className="rounded-md flex-col justify-center text-green-500 text-2xl font-extrabold flex-grow col-span-2">
             <PressureTable selectedNodeID={selectedNodeID}></PressureTable>
           </div>
-          <div className="rounded-md flex-col items-center justify-center text-green-500 text-2xl font-extrabold flex-grow col-span-2">
+          <div className="rounded-md flex-col text-green-500 text-2xl font-extrabold flex-grow col-span-2">
             <p className="mb-2">Case selection</p>
             <CaseSelection></CaseSelection>
           </div>
-          <div className="rounded-md flex flex-col items-center justify-center text-green-500 text-2xl font-extrabold flex-grow col-span-2">
+          <div className="rounded-md flex flex-col text-green-500 text-2xl font-extrabold flex-grow col-span-2">
             <p className="mb-2">Modify node</p>
             <ModifyNode
               name={nodeName}
