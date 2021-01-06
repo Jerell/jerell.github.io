@@ -133,7 +133,9 @@ export default function DataTable({ selectedNodeID, type, headings, data }) {
               <PipeRow
                 key={obj.id}
                 obj={obj}
-                selected={obj.id === selectedNodeID}
+                selected={
+                  obj.source === selectedNodeID || obj.target === selectedNodeID
+                }
               ></PipeRow>
             )
           )}

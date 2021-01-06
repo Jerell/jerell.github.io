@@ -33,19 +33,13 @@
     {
       "id": 3,
       "name": "Manifold A",
-      "properties": {
-        "length": 200,
-        "diameter": 2
-      },
+      "properties": {},
       "onshore": true
     },
     {
       "id": 4,
       "name": "Manifold B",
-      "properties": {
-        "length": 200,
-        "diameter": 2
-      },
+      "properties": {},
       "onshore": true
     },
     {
@@ -60,10 +54,7 @@
     {
       "id": 6,
       "name": "Manifold C",
-      "properties": {
-        "length": 200,
-        "diameter": 2
-      },
+      "properties": {},
       "onshore": false
     },
     {
