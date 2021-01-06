@@ -17,7 +17,7 @@ function Property({ prop, value }) {
           placeholder={value}
         />
         <div className="inset-y-0 right-0 flex items-center">
-          <span class="inline-flex items-center px-2 text-gray-400 font-normal text-sm">
+          <span className="inline-flex items-center px-2 text-gray-400 font-normal text-sm">
             {getUnit(prop)}
           </span>
         </div>
@@ -32,8 +32,10 @@ export default function ModifyNode({ properties = [], values = [], name }) {
       <form className="w-full text-black">
         <div className="shadow rounded-md px-4 py-5 bg-white w-full grid grid-cols-6 gap-4">
           <div className="col-span-6 text-left">
-            <legend class="text-base font-medium text-gray-900">{name}</legend>
-            <p class="text-sm font-normal text-gray-500">
+            <legend className="text-base font-medium text-gray-900">
+              {name}
+            </legend>
+            <p className="text-sm font-normal text-gray-500">
               Adjust the values below to create a new case.
             </p>
           </div>
