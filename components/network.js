@@ -40,18 +40,19 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
         "link",
         d3
           .forceLink()
-          .id(function (d) {
-            return d.id;
-          })
+          .id((d) => d.id)
           .distance((d) => pipelength(d.length))
       )
       .force("charge", d3.forceManyBody().strength(-175))
       .force("center", d3.forceCenter(settings.width / 2, settings.height / 2));
 
-    function dragstarted(e, d) {
+    const drag = d3.drag().on("start", dragstart).on("drag", dragged);
+
+    function dragstart(e, d) {
       if (!e.active) simulation.alphaTarget(0.3).restart();
       d.fx = d.x;
       d.fy = d.y;
+      d3.select(this).classed("fixed", true);
     }
 
     function dragged(e, d) {
@@ -59,10 +60,11 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
       d.fy = e.y;
     }
 
-    function dragended(e, d) {
-      if (!e.active) simulation.alphaTarget(0);
-      d.fx = null;
-      d.fy = null;
+    function click(e, d) {
+      delete d.fx;
+      delete d.fy;
+      d3.select(this).classed("fixed", false);
+      simulation.alpha(1).restart();
     }
 
     const svg = d3
@@ -117,13 +119,7 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
             : settings.color.node[shore];
         });
 
-      node.call(
-        d3
-          .drag()
-          .on("start", dragstarted)
-          .on("drag", dragged)
-          .on("end", dragended)
-      );
+      node.call(drag).on("click", click);
 
       node.on("mouseover touchmove", (e, d) => handleMouseOverNode(e, d));
 
@@ -162,30 +158,11 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
         .attr("font-size", settings.legend.fontSize)
         .style("fill", (l) => l.color);
 
-      simulation.nodes(data.nodes).on("tick", ticked);
+      simulation.nodes(data.nodes).on("tick", tick);
 
-      console.log(data.nodes);
       simulation.force("link").links(data.links);
 
-      // const simulation = d3
-      //   .forceSimulation(data.nodes) // Force algorithm is applied to data.nodes
-      //   .force(
-      //     "link",
-      //     d3
-      //       .forceLink() // This force provides links between nodes
-      //       .id(function (d) {
-      //         return d.id;
-      //       }) // This provide  the id of a node
-      //       .links(data.links) // and this the list of links
-      //   )
-      //   .force("charge", d3.forceManyBody().strength(-230)) // This adds repulsion between nodes. Play with the -400 for the repulsion strength
-      //   .force(
-      //     "center",
-      //     d3.forceCenter(settings.width / 2, settings.height / 2)
-      //   ) // This force attracts nodes to the center of the svg area
-      //   .on("end", ticked);
-
-      function ticked() {
+      function tick() {
         node
           .attr("cx", function (d) {
             return (d.x = Math.max(
