@@ -3,6 +3,7 @@ import Demo from "../components/demo";
 import utilStyles from "../styles/utils.module.css";
 import Horizon from "../components/horizon";
 import SimulationForm from "../components/simulationForm";
+import ModifyNode from "../components/modifyNode";
 import Gauge from "../components/gauge";
 import Network from "../components/network";
 import { useState } from "react";
@@ -106,6 +107,16 @@ export default function Fams() {
           </div>
           <div className="rounded-md flex items-center justify-center text-green-500 text-2xl font-extrabold flex-grow col-span-2">
             graphs
+          </div>
+          <div className="rounded-md flex items-center justify-center text-green-500 text-2xl font-extrabold flex-grow col-span-2">
+            case selection
+          </div>
+          <div className="rounded-md flex flex-col items-center justify-center text-green-500 text-2xl font-extrabold flex-grow col-span-2">
+            modify node
+            <ModifyNode></ModifyNode>
+          </div>
+          <div className="rounded-md flex items-center justify-center text-green-500 text-2xl font-extrabold flex-grow col-span-2">
+            calculated values
           </div>
           <div className="col-span-3 bg-green-500 rounded-md flex flex-col items-center text-white text-2xl font-extrabold">
             <p className="text-left pl-1">Simulate</p>
