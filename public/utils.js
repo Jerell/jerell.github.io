@@ -8,3 +8,6 @@ export const units = {
   diameter: '"',
   power: " W",
 };
+export function getUnit(prop) {
+  return units[prop] ? units[prop] : "";
+}

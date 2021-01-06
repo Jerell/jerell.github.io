@@ -1,31 +1,25 @@
-function Property({ prop, units, value }) {
+import { getUnit } from "../public/utils";
+
+function Property({ prop, value }) {
   return (
     <>
       <label htmlFor={prop} className="block text-sm font-medium text-gray-700">
         {prop.charAt(0).toUpperCase() + prop.slice(1)}
       </label>
-      <div className="mt-1 relative rounded-md border border-gray-300 bg-white shadow-sm">
+      <div className="mt-1 relative rounded-md border border-gray-300 bg-white shadow-sm flex">
         <input
           type="number"
           name={prop}
           id={prop}
-          className="my-0.5 block w-9/12 py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          className="my-0.5 flex flex-grow py-2 pl-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           min="1"
           max="1000"
           placeholder={value}
         />
-        <div className="absolute inset-y-0 right-0 flex items-center">
-          <label htmlFor="unit" className="sr-only">
-            Unit
-          </label>
-          <select
-            id="unit"
-            name="unit"
-            className="focus:ring-indigo-500 focus:outline-none focus:border-indigo-500 h-full py-0 px-1 border-transparent bg-transparent text-gray-500 sm:text-sm rounded-md"
-          >
-            <option>bara</option>
-            <option>Pa</option>
-          </select>
+        <div className="inset-y-0 right-0 flex items-center">
+          <span class="inline-flex items-center px-2 text-gray-400 font-normal text-sm">
+            {getUnit(prop)}
+          </span>
         </div>
       </div>
     </>
