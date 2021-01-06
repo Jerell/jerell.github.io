@@ -6,18 +6,18 @@ function Case({
 }) {
   return (
     <>
-      <div class="flex items-center">
+      <div className="flex items-center">
         <input
           id={id}
           name="case"
           type="radio"
-          class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
+          className="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
           defaultChecked={selected}
           disabled={disabled}
         />
         <label
           htmlFor={id}
-          class="ml-3 block text-sm font-medium text-gray-700"
+          className="ml-3 block text-sm font-medium text-gray-700"
         >
           {name}
         </label>
@@ -40,14 +40,14 @@ export default function CaseSelection() {
         <div className="shadow rounded-md px-4 py-5 bg-white w-full grid grid-cols-6 gap-4">
           <fieldset className="col-span-6 text-left">
             <div>
-              <legend class="text-base font-medium text-gray-900">
+              <legend className="text-base font-medium text-gray-900">
                 Select a case
               </legend>
-              <p class="text-sm font-normal text-gray-500">
+              <p className="text-sm font-normal text-gray-500">
                 These are example states for the system.
               </p>
             </div>
-            <div class="mt-4 space-y-4">
+            <div className="mt-4 space-y-4">
               {Object.keys(cases).map((c, i) => (
                 <Case
                   name={cases[c]}
