@@ -46,7 +46,7 @@ function NodeInfo({ name, lines = [] }) {
 export default function Fams() {
   const [selectedNode, setNode] = useState({});
   const [selectedNodeID, selectNode] = useState(0);
-  const [nodeName, setNodeName] = useState("Hover over a node for information");
+  const [nodeName, setNodeName] = useState("Select a node on the map");
 
   function handleNodeHover(node) {
     selectNode(node.id);
@@ -96,6 +96,7 @@ export default function Fams() {
           <div className="rounded-md flex flex-col items-center justify-center text-green-500 text-2xl font-extrabold flex-grow col-span-2">
             <p className="mb-2">Modify node</p>
             <ModifyNode
+              name={nodeName}
               properties={
                 selectedNode.properties
                   ? Object.keys(selectedNode.properties)

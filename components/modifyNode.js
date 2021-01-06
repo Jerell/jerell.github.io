@@ -26,11 +26,17 @@ function Property({ prop, value }) {
   );
 }
 
-export default function ModifyNode({ properties = [], values = [] }) {
+export default function ModifyNode({ properties = [], values = [], name }) {
   return (
     <>
       <form className="w-full text-black">
         <div className="shadow rounded-md px-4 py-5 bg-white w-full grid grid-cols-6 gap-4">
+          <div className="col-span-6 text-left">
+            <legend class="text-base font-medium text-gray-900">{name}</legend>
+            <p class="text-sm font-normal text-gray-500">
+              Adjust the values below to create a new case.
+            </p>
+          </div>
           {properties.map((p, i) => (
             <div className="sm:col-span-2" key={i}>
               <Property prop={p} value={values[i]}></Property>
