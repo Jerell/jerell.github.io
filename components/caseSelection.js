@@ -1,4 +1,9 @@
-function Case({ name = "Example case 1", id = "example_1", selected = false }) {
+function Case({
+  name = "Example case 1",
+  id = "example_1",
+  selected = false,
+  disabled = false,
+}) {
   return (
     <>
       <div class="flex items-center">
@@ -8,8 +13,12 @@ function Case({ name = "Example case 1", id = "example_1", selected = false }) {
           type="radio"
           class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300"
           defaultChecked={selected}
+          disabled={disabled}
         />
-        <label for={id} class="ml-3 block text-sm font-medium text-gray-700">
+        <label
+          htmlFor={id}
+          class="ml-3 block text-sm font-medium text-gray-700"
+        >
           {name}
         </label>
       </div>
@@ -22,6 +31,8 @@ export default function CaseSelection() {
     example_1: "Example case 1",
     example_2: "Example case 2",
     example_3: "Example case 3",
+    example_4: "Example case 4",
+    example_5: "Example case 5",
   };
   return (
     <>
@@ -38,7 +49,13 @@ export default function CaseSelection() {
             </div>
             <div class="mt-4 space-y-4">
               {Object.keys(cases).map((c, i) => (
-                <Case name={cases[c]} id={c} key={c} selected={i === 0}></Case>
+                <Case
+                  name={cases[c]}
+                  id={c}
+                  key={c}
+                  selected={i === 0}
+                  disabled={i > 2}
+                ></Case>
               ))}
             </div>
           </fieldset>

@@ -5,7 +5,7 @@
       "name": "CO2 Supplier 1",
       "properties": {
         "pressure": 36,
-        "temperature": 50,
+        "temperature": 10,
         "flow rate": 2
       },
       "onshore": true
@@ -15,7 +15,7 @@
       "name": "CO2 Supplier 2",
       "properties": {
         "pressure": 36,
-        "temperature": 60,
+        "temperature": 10,
         "flow rate": 0.3
       },
       "onshore": true
@@ -25,7 +25,7 @@
       "name": "CO2 Supplier 3",
       "properties": {
         "pressure": 36,
-        "temperature": 30,
+        "temperature": 10,
         "flow rate": 0
       },
       "onshore": true
@@ -52,7 +52,7 @@
       "id": 5,
       "name": "Compression station",
       "properties": {
-        "outlet temperature": 80,
+        "outlet temperature": 10,
         "power": 5
       },
       "onshore": true
@@ -87,7 +87,7 @@
       "name": "CO2 Supplier 4",
       "properties": {
         "pressure": 36,
-        "temperature": 40,
+        "temperature": 10,
         "flow rate": 0
       },
       "onshore": true
@@ -97,7 +97,7 @@
       "name": "Ship import",
       "properties": {
         "pressure": 36,
-        "temperature": 35,
+        "temperature": 10,
         "flow rate": 0
       },
       "onshore": true,
