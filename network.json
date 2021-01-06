@@ -109,12 +109,14 @@
     {
       "source": 0,
       "target": 3,
-      "length": 10
+      "length": 10,
+      "diameter": 10
     },
     {
       "source": 1,
       "target": 3,
-      "length": 5
+      "length": 5,
+      "diameter": 8
     },
     {
       "source": 2,
@@ -124,17 +126,20 @@
     {
       "source": 3,
       "target": 4,
-      "length": 50
+      "length": 50,
+      "diameter": 24
     },
     {
       "source": 4,
       "target": 5,
-      "length": 30
+      "length": 30,
+      "diameter": 24
     },
     {
       "source": 5,
       "target": 6,
-      "length": 50
+      "length": 50,
+      "diameter": 24
     },
     {
       "source": 6,
@@ -144,12 +149,14 @@
     {
       "source": 6,
       "target": 8,
-      "length": 10
+      "length": 10,
+      "diameter": 12
     },
     {
       "source": 9,
       "target": 4,
-      "length": 20
+      "length": 20,
+      "diameter": 12
     },
     {
       "source": 10,
