@@ -96,7 +96,7 @@
     },
     {
       "id": 10,
-      "name": "Input 5",
+      "name": "Ship import",
       "properties": {
         "pressure": 6,
         "temperature": 35,
