@@ -19,6 +19,10 @@ export default function Demo({ children, name }) {
           />
           <meta name="og:title" content={siteTitle} />
           <meta name="twitter:card" content="summary_large_image" />
+          <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+          />
         </Head>
         <header className={styles.header}>
           <h2 className={utilStyles.headingLg}>{name}</h2>
