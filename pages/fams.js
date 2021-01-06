@@ -10,7 +10,7 @@ import Gauge from "../components/gauge";
 import Network from "../components/network";
 import { useState } from "react";
 import { getUnit } from "../public/utils";
-import DataTable from "../components/dataTable";
+import { PressureTable, PipeTable } from "../components/dataTable";
 
 // import network from "../public/network.json";
 
@@ -84,11 +84,11 @@ export default function Fams() {
             <p className="pl-1 text-left">Network map</p>
             <Network handleNodeHover={handleNodeHover}></Network>
           </div>
-          <div className="col-span-2 bg-green-500 rounded-md flex flex-col text-white text-base font-extrabold text-left p-4 h-40">
+          {/* <div className="col-span-2 bg-green-500 rounded-md flex flex-col text-white text-base font-extrabold text-left p-4 h-40">
             <NodeInfo name={nodeName} lines={nodeData(selectedNode)}></NodeInfo>
-          </div>
+          </div> */}
           <div className="rounded-md flex-col justify-center text-green-500 text-2xl font-extrabold flex-grow col-span-2 row-span-2">
-            <DataTable selectedNodeID={selectedNodeID}></DataTable>
+            <PressureTable selectedNodeID={selectedNodeID}></PressureTable>
           </div>
           <div className="rounded-md flex-col items-center justify-center text-green-500 text-2xl font-extrabold flex-grow col-span-2">
             <p className="mb-2">Case selection</p>
@@ -109,6 +109,9 @@ export default function Fams() {
                   : []
               }
             ></ModifyNode>
+          </div>
+          <div className="rounded-md flex-col justify-center text-green-500 text-2xl font-extrabold flex-grow col-span-2 row-span-2">
+            <PipeTable selectedNodeID={selectedNodeID}></PipeTable>
           </div>
           <div className="col-span-3 bg-green-500 rounded-md flex flex-col items-center text-white text-2xl font-extrabold">
             <p className="text-left pl-1">Simulate</p>
