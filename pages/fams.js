@@ -7,7 +7,7 @@ import ModifyNode from "../components/modifyNode";
 import Gauge from "../components/gauge";
 import Network from "../components/network";
 import { useState } from "react";
-import { units } from "../public/utils";
+import { getUnit } from "../public/utils";
 
 // import network from "../public/network.json";
 
@@ -16,10 +16,6 @@ const name = "FAMS";
 function nodeData(node) {
   if (!node || !node.properties) {
     return;
-  }
-
-  function getUnit(prop) {
-    return units[prop] ? units[prop] : "";
   }
 
   let dataStrings = Object.keys(node.properties).map((prop) => {
@@ -90,7 +86,7 @@ export default function Fams() {
             <p className="pl-1 text-center">Live data stream</p>
             <Horizon></Horizon>
           </div>
-          <div className="col-span-2 row-span-2 rounded-md flex flex-col text-green-500 text-2xl font-extrabold bg-gradient-to-br from-green-50 to-green-200">
+          <div className="col-span-2 row-span-2 rounded-md flex flex-col text-green-500 text-2xl font-extrabold bg-gradient-to-br from-transparent to-green-200">
             <p className="pl-1 text-left">Network map</p>
             <Network handleNodeHover={handleNodeHover}></Network>
           </div>
