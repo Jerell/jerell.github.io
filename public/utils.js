@@ -9,6 +9,6 @@ export const units = {
   power: " W",
 };
 export function getUnit(prop = "") {
-  prop = prop.replaceAll(" ", "");
+  prop = prop.split(" ").join("");
   return units[prop] ? units[prop] : "";
 }
