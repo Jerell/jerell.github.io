@@ -14,7 +14,7 @@ export function getUnit(prop = "") {
   return units[prop] ? units[prop] : "";
 }
 
-export function pressureDrop({ length, diameter, flowrate = 1 }) {
+export function pressureDrop({ length, diameter, flowrate }) {
   length = length * 1000; // km to m
   const area = (diameter / 2) ** 2 * Math.PI;
   const density = 1.976;

@@ -69,7 +69,10 @@ function PipeRow({ obj, selected }) {
       </td>
       <td className="text-gray-500">{obj.diameter}</td>
       <td className="text-center font-medium text-gray-900">
-        {pressureDrop({ ...obj, flowrate: 2 })}
+        {pressureDrop({
+          ...obj,
+          flowrate: network.nodes[obj.source].properties["flow rate"],
+        })}
       </td>
     </tr>
   );
