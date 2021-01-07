@@ -1,6 +1,24 @@
 import network from "../public/network.json";
 import { pressureDrop } from "../public/utils.js";
 
+const flowNet = flowThroughNetwork();
+
+function flowThroughNetwork() {
+  let net = network;
+  for (let pipe of net.links) {
+    let inflow = net.nodes[pipe.source].properties["flow rate"];
+    if (!inflow) continue;
+    console.log(`${inflow} from ${net.nodes[pipe.source].name}`);
+
+    if (!net.nodes[pipe.target].properties["flow rate"])
+      net.nodes[pipe.target].properties["flow rate"] = 0;
+
+    console.log(`to ${net.nodes[pipe.target].name}`);
+    net.nodes[pipe.target].properties["flow rate"] += parseFloat(inflow);
+  }
+  return net;
+}
+
 function PressureNodeRow({ obj, selected }) {
   const pressureColor = obj.properties.pressure > 30 ? "green" : "yellow";
   return (
@@ -34,7 +52,7 @@ function PressureNodeRow({ obj, selected }) {
 
 export function PressureTable({ selectedNodeID }) {
   const headings = ["Node", "Temp (°C)", "Pressure (bara)", "Flow rate (MTPA)"];
-  const data = network.nodes.filter((n) => n.properties.pressure);
+  const data = flowNet.nodes.filter((n) => n.properties.pressure);
   return (
     <DataTable
       type="Nodes"
@@ -52,13 +70,13 @@ function PipeRow({ obj, selected }) {
         <div className="flex items-center">
           <div className="ml-2">
             <div className="font-medium text-gray-900">
-              {network.nodes[obj.source].name}
+              {flowNet.nodes[obj.source].name}
             </div>
           </div>
         </div>
       </td>
       <td>
-        <div className="text-gray-900">{network.nodes[obj.target].name}</div>
+        <div className="text-gray-900">{flowNet.nodes[obj.target].name}</div>
       </td>
       <td className="py-1">
         <span
@@ -71,7 +89,7 @@ function PipeRow({ obj, selected }) {
       <td className="text-center font-medium text-gray-900">
         {pressureDrop({
           ...obj,
-          flowrate: network.nodes[obj.source].properties["flow rate"],
+          flowrate: flowNet.nodes[obj.source].properties["flow rate"],
         })}
       </td>
     </tr>
@@ -86,7 +104,7 @@ export function PipeTable({ selectedNodeID }) {
     'Diameter (")',
     "Pressure drop (bara)",
   ];
-  const data = network.links;
+  const data = flowNet.links;
   return (
     <DataTable
       type="Pipes"
