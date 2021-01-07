@@ -159,6 +159,8 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
       // .attr("height", 50)
       // .html('<i class="fas fa-ship"></i>');
 
+      node.attr("opacity", (d) => (d.properties["flow rate"] === 0 ? 0.75 : 1));
+
       const legend = svg
         .append("g")
         .selectAll("text")
