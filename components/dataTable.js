@@ -10,24 +10,48 @@ function flowThroughNetwork() {
     if (!inflow) continue;
     console.log(`${inflow} from ${net.nodes[pipe.source].name}`);
 
-    if (!net.nodes[pipe.target].properties["flow rate"])
+    if (!net.nodes[pipe.target].properties["flow rate"]) {
       net.nodes[pipe.target].properties["flow rate"] = 0;
+    }
 
-    if (typeof net.nodes[pipe.target].properties.pressure !== "string") {
+    let targetPressure = net.nodes[pipe.target].properties.pressure;
+    if (!targetPressure) targetPressure = [];
+    if (typeof targetPressure[0] !== "string") {
       net.nodes[pipe.target].properties["flow rate"] += parseFloat(inflow);
       console.log(`to ${net.nodes[pipe.target].name}`);
+    } else {
+      console.log(`no flow to ${net.nodes[pipe.target].name}`);
     }
   }
   return net;
 }
 
 function PressureNodeRow({ obj, selected }) {
-  const pressureColor = obj.properties.pressure > 30 ? "green" : "yellow";
+  const pressureColor = obj.properties.pressure[0] > 30 ? "green" : "yellow";
 
   const pressure = () => {
-    return typeof obj.properties.pressure === "string"
-      ? obj.properties.pressure
-      : parseFloat(obj.properties.pressure).toFixed(1);
+    let p = obj.properties.pressure;
+    const decimals = 1;
+    if (typeof p[0] === "string") {
+      return p[0];
+    }
+    if (p[0] - p[1]) {
+      return `${p[0].toFixed(decimals)} in, ${p[1].toFixed(decimals)} out`;
+    }
+    return `${p[0].toFixed(decimals)}`;
+  };
+
+  const temperature = () => {
+    let t = obj.properties.temperature;
+    if (!t) return;
+    const decimals = 1;
+    if (typeof t[0] === "string") {
+      return t[0];
+    }
+    if (t[0] - t[1]) {
+      return `${t[0].toFixed(decimals)} in, ${t[1].toFixed(decimals)} out`;
+    }
+    return `${t[0].toFixed(decimals)}`;
   };
 
   return (
@@ -40,7 +64,7 @@ function PressureNodeRow({ obj, selected }) {
         </div>
       </td>
       <td>
-        <div className="text-gray-900">{obj.properties.temperature}</div>
+        <div className="text-gray-900">{temperature()}</div>
       </td>
       <td className="py-1">
         <span

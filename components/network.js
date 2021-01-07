@@ -154,10 +154,7 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
         .attr("class", "fa")
         .attr("font-family", "Font Awesome 5 Free")
         .text((d) => d.icon)
-        // .attr("dx", -(5 * settings.nodeRadius))
         .attr("dy", -1.5 * settings.nodeRadius);
-      // .attr("height", 50)
-      // .html('<i class="fas fa-ship"></i>');
 
       node.attr("opacity", (d) => (d.properties["flow rate"] === 0 ? 0.75 : 1));
 
