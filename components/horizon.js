@@ -15,7 +15,11 @@ export default function Horizon() {
 
     d3.json("network.json").then(function (network) {
       const nodesToMonitor = network.nodes.filter(
-        (n) => n.properties && n.properties.pressure
+        (n) =>
+          n.properties &&
+          n.properties.pressure &&
+          typeof n.properties.pressure !== "string" &&
+          n.properties.pressure[0]
       );
 
       function walk(v) {
