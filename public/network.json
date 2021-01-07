@@ -4,7 +4,7 @@
       "id": 0,
       "name": "CO2 Supplier 1",
       "properties": {
-        "pressure": 36,
+        "pressure": [36, 36],
         "temperature": 10,
         "flow rate": 2
       },
@@ -14,7 +14,7 @@
       "id": 1,
       "name": "CO2 Supplier 2",
       "properties": {
-        "pressure": 36,
+        "pressure": [36, 36],
         "temperature": 10,
         "flow rate": 0.3
       },
@@ -24,7 +24,7 @@
       "id": 2,
       "name": "CO2 Supplier 3",
       "properties": {
-        "pressure": 36,
+        "pressure": [36, 36],
         "temperature": 10,
         "flow rate": 0
       },
@@ -46,7 +46,8 @@
       "id": 5,
       "name": "Compression station",
       "properties": {
-        "outlet temperature": 10,
+        "temperature": 10,
+        "pressure": [0, 0],
         "power": 5
       },
       "onshore": true
@@ -61,7 +62,7 @@
       "id": 7,
       "name": "Wellhead 1",
       "properties": {
-        "pressure": 5
+        "pressure": [5, 5]
       },
       "onshore": false
     },
@@ -69,7 +70,7 @@
       "id": 8,
       "name": "Wellhead 2",
       "properties": {
-        "pressure": "CLOSED"
+        "pressure": ["CLOSED"]
       },
       "onshore": false
     },
@@ -77,7 +78,7 @@
       "id": 9,
       "name": "CO2 Supplier 4",
       "properties": {
-        "pressure": 36,
+        "pressure": [36, 36],
         "temperature": 10,
         "flow rate": 0
       },
@@ -87,7 +88,7 @@
       "id": 10,
       "name": "Ship import",
       "properties": {
-        "pressure": 36,
+        "pressure": [36, 36],
         "temperature": 10,
         "flow rate": 0
       },
