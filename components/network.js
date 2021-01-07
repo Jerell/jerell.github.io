@@ -119,7 +119,12 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
         )
         .style("fill", (d) => {
           const shore = d.onshore ? "onshore" : "offshore";
-          if (d.properties["flow rate"] === 0) return settings.color.node.off;
+          if (
+            (d.properties.pressure &&
+              typeof d.properties.pressure[0] === "string") ||
+            d.properties["flow rate"] === 0
+          )
+            return settings.color.node.off;
           return d.name.startsWith("Manifold")
             ? settings.color.pipe[shore]
             : settings.color.node[shore];
@@ -156,7 +161,13 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
         .text((d) => d.icon)
         .attr("dy", -1.5 * settings.nodeRadius);
 
-      node.attr("opacity", (d) => (d.properties["flow rate"] === 0 ? 0.75 : 1));
+      node.attr("opacity", (d) =>
+        (d.properties.pressure &&
+          typeof d.properties.pressure[0] === "string") ||
+        d.properties["flow rate"] === 0
+          ? 0.75
+          : 1
+      );
 
       const legend = svg
         .append("g")
