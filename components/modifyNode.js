@@ -1,6 +1,9 @@
 import { getUnit } from "../public/utils";
 
 function Property({ prop, value }) {
+  if (typeof value !== "number") {
+    value = value[1];
+  }
   return (
     <>
       <label htmlFor={prop} className="block text-sm font-medium text-gray-700">
