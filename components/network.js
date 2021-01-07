@@ -20,6 +20,7 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
         node: {
           onshore: "#22C55E",
           offshore: "#0D9488",
+          off: "#64748B",
         },
         pipe: {
           onshore: "#86EFAC",
@@ -27,7 +28,7 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
         },
       },
       legend: {
-        offset: { top: 240 },
+        offset: { top: 200 },
         fontSize: 20,
       },
     };
@@ -87,6 +88,10 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
         text: "Offshore",
         color: settings.color.node.offshore,
       },
+      {
+        text: "Closed",
+        color: settings.color.node.off,
+      },
     ];
 
     d3.json("network.json").then(function (data) {
@@ -114,6 +119,7 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
         )
         .style("fill", (d) => {
           const shore = d.onshore ? "onshore" : "offshore";
+          if (d.properties["flow rate"] === 0) return settings.color.node.off;
           return d.name.startsWith("Manifold")
             ? settings.color.pipe[shore]
             : settings.color.node[shore];
