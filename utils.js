@@ -31,6 +31,6 @@ export function pressureDrop({ length, diameter, flowrate }) {
   const velocity = mtpaToM3ps(flowrate) / area;
 
   const drop = ((4 * density * velocity ** 2 * f) / (2 * diameter)) * length;
-  const paToBar = (pa) => pa * 10 ** 5;
+  const paToBar = (pa) => pa / 10 ** 5;
   return drop ? paToBar(drop) : "-";
 }
