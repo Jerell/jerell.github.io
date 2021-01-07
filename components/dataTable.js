@@ -122,16 +122,16 @@ export default function DataTable({ selectedNodeID, type, headings, data }) {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {data.map((obj) =>
+          {data.map((obj, i) =>
             type === "Nodes" ? (
               <PressureNodeRow
-                key={obj.id}
+                key={i}
                 obj={obj}
                 selected={obj.id === selectedNodeID}
               ></PressureNodeRow>
             ) : (
               <PipeRow
-                key={obj.id}
+                key={i}
                 obj={obj}
                 selected={
                   obj.source === selectedNodeID || obj.target === selectedNodeID
