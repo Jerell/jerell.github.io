@@ -13,14 +13,23 @@ function flowThroughNetwork() {
     if (!net.nodes[pipe.target].properties["flow rate"])
       net.nodes[pipe.target].properties["flow rate"] = 0;
 
-    console.log(`to ${net.nodes[pipe.target].name}`);
-    net.nodes[pipe.target].properties["flow rate"] += parseFloat(inflow);
+    if (typeof net.nodes[pipe.target].properties.pressure !== "string") {
+      net.nodes[pipe.target].properties["flow rate"] += parseFloat(inflow);
+      console.log(`to ${net.nodes[pipe.target].name}`);
+    }
   }
   return net;
 }
 
 function PressureNodeRow({ obj, selected }) {
   const pressureColor = obj.properties.pressure > 30 ? "green" : "yellow";
+
+  const pressure = () => {
+    return typeof obj.properties.pressure === "string"
+      ? obj.properties.pressure
+      : parseFloat(obj.properties.pressure).toFixed(1);
+  };
+
   return (
     <tr className={`text-center ${selected ? "bg-green-100" : ""}`}>
       <td className="text-left">
@@ -37,7 +46,7 @@ function PressureNodeRow({ obj, selected }) {
         <span
           className={`py-0.5 px-1 inline-flex leading-5 font-semibold rounded-full bg-${pressureColor}-100 text-green-800`}
         >
-          {obj.properties.pressure}
+          {pressure()}
         </span>
       </td>
       <td className="text-gray-500">{obj.properties["flow rate"]}</td>
@@ -102,7 +111,7 @@ export function PipeTable({ selectedNodeID }) {
     "Target",
     "Length (km)",
     'Diameter (")',
-    "Pressure drop (bara)",
+    "Pressure drop (bar)",
   ];
   const data = flowNet.links;
   return (
