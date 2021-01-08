@@ -30,9 +30,9 @@ export function pressureDrop({
   const area = (diameter / 2) ** 2 * Math.PI;
   const density = 92.92;
   // const f = 0.013615299; // Darcy friction factor
-  const f = 0.0119;
   const molarMass = 44;
   const r = 0.0821;
+  const viscosity = 0.0000150941;
 
   const mtpaToM3ps = (mtpa) => {
     const secondsInAYear = 60 * 60 * 24 * 365.25;
@@ -50,6 +50,15 @@ export function pressureDrop({
     return result;
   };
   const velocity = mtpaToM3ps(flowrate) / area;
+  console.log({ velocity });
+  const re = (density * velocity * length) / viscosity;
+  console.log({ re });
+  const e = 0.00025;
+  let f =
+    re > 5000
+      ? 1.325 / Math.log(e / (3.7 * diameter) + 5.74 / re ** 0.9) ** 2
+      : 0.0119;
+
   console.log({ velocity });
   const drop = ((density * velocity ** 2 * f) / (2 * diameter)) * length;
   const paToBar = (pa) => pa / 10 ** 5;
