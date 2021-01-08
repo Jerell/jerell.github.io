@@ -58,6 +58,7 @@ export function pressureDrop({
     re > 5000
       ? 1.325 / Math.log(e / (3.7 * diameter) + 5.74 / re ** 0.9) ** 2
       : 0.0119;
+  console.log({ re, f });
 
   console.log({ velocity });
   const drop = ((density * velocity ** 2 * f) / (2 * diameter)) * length;
