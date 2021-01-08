@@ -29,7 +29,8 @@ export function pressureDrop({
   diameter = diameter * 0.0254; // inches to m
   const area = (diameter / 2) ** 2 * Math.PI;
   const density = 92.92;
-  const f = 0.013615299; // Darcy friction factor
+  // const f = 0.013615299; // Darcy friction factor
+  const f = 0.0119;
   const molarMass = 44;
   const r = 0.0821;
 
