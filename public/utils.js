@@ -27,6 +27,7 @@ export function pressureDrop({
   const area = (diameter / 2) ** 2 * Math.PI;
   const density = 92.92;
   const f = 0.013615299; // Darcy friction factor
+  const molarMass = 44;
 
   const mtpaToM3ps = (mtpa) => {
     const secondsInAYear = 60 * 60 * 24 * 365.25;
@@ -35,7 +36,7 @@ export function pressureDrop({
 
     const kgpa = tpa * 1000;
     const kgps = kgpa / secondsInAYear;
-
+    const molesps = kgps / molarMass;
     const m3pa = kgpa / density;
 
     const r = m3pa / secondsInAYear;
