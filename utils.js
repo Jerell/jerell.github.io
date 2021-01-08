@@ -53,7 +53,7 @@ export function pressureDrop({
   console.log({ velocity });
   const re = (density * velocity * length) / viscosity;
   console.log({ re });
-  const e = 0.00025;
+  const e = 0.000025;
   let f =
     re > 5000
       ? 1.325 / Math.log(e / (3.7 * diameter) + 5.74 / re ** 0.9) ** 2
