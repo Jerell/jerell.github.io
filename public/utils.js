@@ -42,7 +42,7 @@ export function pressureDrop({
     const kgps = kgpa / secondsInAYear;
     const molesps = kgps / molarMass;
     console.log({ molesps });
-    const m3ps = (molesps * r * temperature[0]) / pressure[0];
+    const m3ps = (molesps * r * (temperature[0] + 273)) / pressure[0];
 
     const result = m3ps;
     console.log(result);
