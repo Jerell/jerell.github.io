@@ -14,18 +14,31 @@ export function getUnit(prop = "") {
   return units[prop] ? units[prop] : "";
 }
 
-export function pressureDrop({ length, diameter, flowrate }) {
+export function pressureDrop({
+  length,
+  diameter,
+  flowrate,
+  temperature,
+  pressure,
+}) {
+  console.log({ length, diameter, flowrate, temperature, pressure });
   length = length * 1000; // km to m
   diameter = diameter * 0.0254; // inches to m
   const area = (diameter / 2) ** 2 * Math.PI;
   const density = 92.92;
   const f = 0.013615299; // Darcy friction factor
+  const molarMass = 44;
 
   const mtpaToM3ps = (mtpa) => {
-    const tpa = mtpa * 10 ** 6;
-    const kgpa = tpa * 1000;
-    const m3pa = kgpa / density;
     const secondsInAYear = 60 * 60 * 24 * 365.25;
+
+    const tpa = mtpa * 10 ** 6;
+
+    const kgpa = tpa * 1000;
+    const kgps = kgpa / secondsInAYear;
+    const molesps = kgps / molarMass;
+    const m3pa = kgpa / density;
+
     const r = m3pa / secondsInAYear;
     console.log(r);
     return r;
