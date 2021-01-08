@@ -123,6 +123,7 @@ function PipeRow({ obj, selected }) {
         {pressureDrop({
           ...obj,
           flowrate: flowNet.nodes[obj.source].properties["flow rate"],
+          ...flowNet.nodes[obj.source].properties,
         })}
       </td>
     </tr>
