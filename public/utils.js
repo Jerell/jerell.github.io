@@ -73,7 +73,7 @@ export function pressureDrop2({
   temperature = [10, 10],
   pressure,
 }) {
-  console.log({ length, diameter, flowrate, temperature, pressure });
+  // console.log({ length, diameter, flowrate, temperature, pressure });
   if (!pressure) {
     return "-";
   }
@@ -118,7 +118,7 @@ export function pressureDrop2({
 
   const compressibilityFactor =
     (pressure[0] * mtpaToM3ps(flowrate)) / (moles * r * tempKelvin);
-  console.log({ compressibilityFactor });
+  // console.log({ compressibilityFactor });
 
   const temperatureStandard = 273;
   const pressureStandard = barToMPa(1.0132);
@@ -129,7 +129,7 @@ export function pressureDrop2({
       (temperatureStandard / tempKelvin) *
       barToMPa(pressure[0])) /
     pressureStandard;
-  console.log({ flowrateStandard });
+  // console.log({ flowrateStandard });
 
   const drop =
     (barToMPa(pressure[0]) -
@@ -145,8 +145,8 @@ export function pressureDrop2({
     10 ** 6; // MPa
 
   const paToBar = (pa) => pa / 10 ** 5;
-  console.log({ drop }, "Pa");
+  // console.log({ drop }, "Pa");
 
-  console.log("END\n");
+  // console.log("END\n");
   return drop ? paToBar(drop) : "-";
 }

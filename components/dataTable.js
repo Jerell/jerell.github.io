@@ -1,7 +1,7 @@
 import network from "../public/network.json";
 import { pressureDrop2 } from "../public/utils.js";
 
-const flowNet = flowThroughNetwork();
+const flowNet = pressureThroughNetwork();
 
 function flowThroughNetwork() {
   let net = network;
@@ -22,6 +22,40 @@ function flowThroughNetwork() {
     } else {
       console.log(`no flow to ${net.nodes[pipe.target].name}`);
     }
+  }
+  return net;
+}
+
+function pressureThroughNetwork() {
+  let net = flowThroughNetwork();
+  for (let pipe of net.links) {
+    console.log({ pipe });
+    let drop = pressureDrop2({
+      ...pipe,
+      flowrate: net.nodes[pipe.source].properties["flow rate"],
+      ...net.nodes[pipe.source].properties,
+    });
+    console.log({ drop });
+
+    let resultingPressure =
+      net.nodes[pipe.source].properties.pressure[1] - drop;
+    let pressureArray = [resultingPressure, resultingPressure];
+
+    if (!net.nodes[pipe.target].properties.pressure) {
+      net.nodes[pipe.target].properties.pressure = [];
+    }
+
+    for (let i in pressureArray) {
+      if (!net.nodes[pipe.target].properties.pressure[i]) {
+        net.nodes[pipe.target].properties.pressure[i] = pressureArray[i];
+      }
+    }
+
+    // console.log(net.nodes[pipe.target].properties);
+    // net.nodes[pipe.target].properties.pressure[0] =
+    //   net.nodes[pipe.source].properties.pressure[1] - drop;
+    // net.nodes[pipe.target].properties.pressure[1] =
+    //   net.nodes[pipe.source].properties.pressure[1] - drop;
   }
   return net;
 }
