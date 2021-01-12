@@ -1,5 +1,5 @@
 import network from "../public/network.json";
-import { pressureDrop } from "../public/utils.js";
+import { pressureDrop2 } from "../public/utils.js";
 
 const flowNet = flowThroughNetwork();
 
@@ -120,7 +120,7 @@ function PipeRow({ obj, selected }) {
       </td>
       <td className="text-gray-500">{obj.diameter}</td>
       <td className="text-center font-medium text-gray-900">
-        {pressureDrop({
+        {pressureDrop2({
           ...obj,
           flowrate: flowNet.nodes[obj.source].properties["flow rate"],
           ...flowNet.nodes[obj.source].properties,
