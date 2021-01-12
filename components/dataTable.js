@@ -48,7 +48,9 @@ function pressureThroughNetwork() {
     for (let i in pressureArray) {
       if (!net.nodes[pipe.target].properties.pressure[i]) {
         net.nodes[pipe.target].properties.pressure[i] = pressureArray[i];
-      } else {
+      } else if (
+        typeof net.nodes[pipe.target].properties.pressure[i] === "number"
+      ) {
         net.nodes[pipe.target].properties.pressure[i] = Math.min(
           pressureArray[i],
           net.nodes[pipe.target].properties.pressure[i]
