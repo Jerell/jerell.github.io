@@ -142,10 +142,10 @@ export function pressureDrop2({
             flowrateStandard ** 5) /
             (diameter * 1000) ** 3
       )) *
-    10 ** 6;
+    10 ** 6; // MPa
 
   const paToBar = (pa) => pa / 10 ** 5;
-  console.log({ drop });
+  console.log({ drop }, "Pa");
 
   console.log("END\n");
   return drop ? paToBar(drop) : "-";
