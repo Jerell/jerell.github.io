@@ -48,14 +48,13 @@ function pressureThroughNetwork() {
     for (let i in pressureArray) {
       if (!net.nodes[pipe.target].properties.pressure[i]) {
         net.nodes[pipe.target].properties.pressure[i] = pressureArray[i];
+      } else {
+        net.nodes[pipe.target].properties.pressure[i] = Math.min(
+          pressureArray[i],
+          net.nodes[pipe.target].properties.pressure[i]
+        );
       }
     }
-
-    // console.log(net.nodes[pipe.target].properties);
-    // net.nodes[pipe.target].properties.pressure[0] =
-    //   net.nodes[pipe.source].properties.pressure[1] - drop;
-    // net.nodes[pipe.target].properties.pressure[1] =
-    //   net.nodes[pipe.source].properties.pressure[1] - drop;
   }
   return net;
 }
