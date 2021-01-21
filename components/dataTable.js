@@ -159,7 +159,7 @@ function PipeRow({ obj, selected }) {
           ...obj,
           flowrate: flowNet.nodes[obj.source].properties["flow rate"],
           ...flowNet.nodes[obj.source].properties,
-        })}
+        }).toFixed(1)}
       </td>
     </tr>
   );

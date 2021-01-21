@@ -144,6 +144,5 @@ export function pressureDrop2({
 
   const paToBar = (pa) => pa / 10 ** 5;
 
-  console.log("END\n");
   return drop ? paToBar(drop) : 0;
 }
