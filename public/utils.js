@@ -43,7 +43,7 @@ export function pressureDrop({
     const kgps = kgpa / secondsInAYear;
     const molesps = kgps / molarMass;
     console.log({ molesps });
-    const m3ps = (molesps * r * (temperature[0] + 273)) / pressure[0];
+    const m3ps = (molesps * r * (temperature[0] + 273)) / pressure[1];
 
     const result = m3ps;
     console.log(result);
@@ -99,7 +99,7 @@ export function pressureDrop2({
     const molesps = kgps / molarMass;
     moles = molesps;
     // console.log({ molesps });
-    const m3ps = (molesps * r * tempKelvin) / pressure[0];
+    const m3ps = (molesps * r * tempKelvin) / pressure[1];
 
     return m3ps;
   };
@@ -117,7 +117,7 @@ export function pressureDrop2({
       : 0.0119;
 
   const compressibilityFactor =
-    (pressure[0] * mtpaToM3ps(flowrate)) / (moles * r * tempKelvin);
+    (pressure[1] * mtpaToM3ps(flowrate)) / (moles * r * tempKelvin);
 
   const temperatureStandard = 273;
   const pressureStandard = barToMPa(1.0132);
@@ -126,13 +126,13 @@ export function pressureDrop2({
   const flowrateStandard =
     ((mtpaToM3ps(flowrate) / compressibilityFactor) *
       (temperatureStandard / tempKelvin) *
-      barToMPa(pressure[0])) /
+      barToMPa(pressure[1])) /
     pressureStandard;
 
   const drop =
-    (barToMPa(pressure[0]) -
+    (barToMPa(pressure[1]) -
       Math.sqrt(
-        barToMPa(pressure[0]) ** 2 -
+        barToMPa(pressure[1]) ** 2 -
           (((5.7 * 10 ** -4 * f * length) / 1000) *
             compressibilityFactor *
             tempKelvin *
