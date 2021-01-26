@@ -73,6 +73,11 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
       .append("svg")
       .attr("width", settings.width)
       .attr("height", settings.height)
+      .call(
+        d3.zoom().on("zoom", function (event) {
+          svg.attr("transform", event.transform);
+        })
+      )
       .append("g")
       .attr(
         "transform",
