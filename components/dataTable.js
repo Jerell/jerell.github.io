@@ -1,64 +1,119 @@
 import network from "../public/network.json";
-import { pressureDrop2 } from "../public/utils.js";
+import {
+  multiPipePressureSeek,
+  outletPressureSeek,
+  pressureDrop2,
+} from "../public/utils.js";
 
 const flowNet = pressureThroughNetwork();
 
-function flowThroughNetwork() {
-  let net = network;
-  for (let pipe of net.links) {
-    let inflow = net.nodes[pipe.source].properties["flow rate"];
-    if (!inflow) continue;
-    console.log(`${inflow} from ${net.nodes[pipe.source].name}`);
+function processFlow() {
+  for (let pipe of network.links) {
+    const sourceNode = network.nodes[pipe.source];
+    const targetNode = network.nodes[pipe.target];
 
-    if (!net.nodes[pipe.target].properties["flow rate"]) {
-      net.nodes[pipe.target].properties["flow rate"] = 0;
+    const inflow = sourceNode.properties["flow rate"];
+    if (!inflow) continue;
+
+    if (!targetNode.properties["flow rate"]) {
+      targetNode.properties["flow rate"] = 0;
     }
 
-    let targetPressure = net.nodes[pipe.target].properties.pressure;
-    if (!targetPressure) targetPressure = [];
-    if (typeof targetPressure[0] !== "string") {
-      net.nodes[pipe.target].properties["flow rate"] += parseFloat(inflow);
-      console.log(`to ${net.nodes[pipe.target].name}`);
+    if (!targetNode.properties.pressure) targetNode.properties.pressure = [];
+
+    if (typeof targetNode.properties.pressure === "string") {
+      console.log(`${targetNode.name}, PRESSURE: ${targetNode.pressure}`);
     } else {
-      console.log(`no flow to ${net.nodes[pipe.target].name}`);
+      targetNode.properties["flow rate"] += parseFloat(inflow);
     }
   }
-  return net;
 }
 
+function flowThroughNetwork() {
+  for (let pipe of network.links) {
+    let inflow = network.nodes[pipe.source].properties["flow rate"];
+    if (!inflow) continue;
+    // console.log(`${inflow} from ${net.nodes[pipe.source].name}`);
+
+    if (!network.nodes[pipe.target].properties["flow rate"]) {
+      network.nodes[pipe.target].properties["flow rate"] = 0;
+    }
+
+    let targetPressure = network.nodes[pipe.target].properties.pressure;
+    if (!targetPressure) targetPressure = [];
+    if (typeof targetPressure[0] !== "string") {
+      network.nodes[pipe.target].properties["flow rate"] += parseFloat(inflow);
+      // console.log(`to ${net.nodes[pipe.target].name}`);
+    } else {
+      // console.log(`no flow to ${net.nodes[pipe.target].name}`);
+    }
+  }
+  return network;
+}
+
+function calcPressureThroughNetwork() {
+  let wok = flowThroughNetwork();
+  for (let pipe of wok.links) {
+    const sourceNode = wok.nodes[pipe.source];
+    const targetNode = wok.nodes[pipe.target];
+    if (
+      sourceNode.id === 5 &&
+      targetNode.properties["flow rate"] &&
+      targetNode.properties.pressure[0]
+    ) {
+      // console.log({ sourceNode, targetNode, pipe });
+      // console.log(pipe);
+      // let p_outlet = outletPressureSeek({
+      //   sourceNode,
+      //   pipe,
+      //   targetPressure: 5,
+      //   precision: 2,
+      //   // targetPressure: targetNode.properties.pressure[0],
+      // });
+      // console.log(p_outlet);
+
+      let p_multi = multiPipePressureSeek({
+        nodes: [wok.nodes[5], wok.nodes[6], wok.nodes[7]],
+        pipes: [wok.links[5], wok.links[6]],
+      });
+      console.log({ p_multi });
+    }
+  }
+}
+calcPressureThroughNetwork();
+
 function pressureThroughNetwork() {
-  let net = flowThroughNetwork();
-  for (let pipe of net.links) {
-    console.log({ pipe });
+  for (let pipe of network.links) {
+    // console.log({ pipe });
     let drop = pressureDrop2({
       ...pipe,
-      flowrate: net.nodes[pipe.source].properties["flow rate"],
-      ...net.nodes[pipe.source].properties,
+      flowrate: network.nodes[pipe.source].properties["flow rate"],
+      ...network.nodes[pipe.source].properties,
     });
-    console.log({ drop });
+    // console.log({ drop });
 
     let resultingPressure =
-      net.nodes[pipe.source].properties.pressure[1] - drop;
+      network.nodes[pipe.source].properties.pressure[1] - drop;
     let pressureArray = [resultingPressure, resultingPressure];
 
-    if (!net.nodes[pipe.target].properties.pressure) {
-      net.nodes[pipe.target].properties.pressure = [];
+    if (!network.nodes[pipe.target].properties.pressure) {
+      network.nodes[pipe.target].properties.pressure = [];
     }
 
     for (let i in pressureArray) {
-      if (!net.nodes[pipe.target].properties.pressure[i]) {
-        net.nodes[pipe.target].properties.pressure[i] = pressureArray[i];
+      if (!network.nodes[pipe.target].properties.pressure[i]) {
+        network.nodes[pipe.target].properties.pressure[i] = pressureArray[i];
       } else if (
-        typeof net.nodes[pipe.target].properties.pressure[i] === "number"
+        typeof network.nodes[pipe.target].properties.pressure[i] === "number"
       ) {
-        net.nodes[pipe.target].properties.pressure[i] = Math.min(
+        network.nodes[pipe.target].properties.pressure[i] = Math.min(
           pressureArray[i],
-          net.nodes[pipe.target].properties.pressure[i]
+          network.nodes[pipe.target].properties.pressure[i]
         );
       }
     }
   }
-  return net;
+  return network;
 }
 
 function PressureNodeRow({ obj, selected }) {

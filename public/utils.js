@@ -75,7 +75,7 @@ export function pressureDrop2({
 }) {
   // console.log({ length, diameter, flowrate, temperature, pressure });
   if (!pressure) {
-    return "-";
+    return 0;
   }
   length = length * 1000; // km to m
   diameter = diameter * 0.0254; // inches to m
@@ -143,6 +143,102 @@ export function pressureDrop2({
     10 ** 6; // MPa
 
   const paToBar = (pa) => pa / 10 ** 5;
-
   return drop ? paToBar(drop) : 0;
+}
+
+export function outletPressureSeek({
+  sourceNode,
+  pipe,
+  targetPressure,
+  precision = 1,
+  calc = pressureDrop2,
+}) {
+  targetPressure = +targetPressure.toFixed(precision);
+
+  const drop = () =>
+    calc({
+      ...pipe,
+      flowrate: sourceNode.properties["flow rate"],
+      ...sourceNode.properties,
+    });
+
+  const resultingPressure = (dropAmt = 0) => {
+    return +(sourceNode.properties.pressure[1] - dropAmt).toFixed(precision);
+  };
+
+  let high = 50;
+  let low = 0;
+
+  let guesses = 0;
+
+  while (guesses <= 30 && low <= high) {
+    if (!pipe.length) {
+      sourceNode.properties.pressure[0] = sourceNode.properties.pressure[1] = Number(targetPressure.toFixed(
+        precision)
+      );
+      return { outletPressure: targetPressure, drop: 0 };
+    }
+    let mid = (high + low) / 2;
+    sourceNode.properties.pressure[1] = mid;
+    let dropAmt = drop();
+    let result = resultingPressure(dropAmt);
+
+    if (result === targetPressure) {
+      return { outletPressure: mid, drop: dropAmt };
+    }
+
+    if (result > targetPressure) {
+      high = mid;
+    } else {
+      low = mid;
+    }
+  }
+  return -1;
+}
+
+export function multiPipePressureSeek({
+  nodes = [],
+  pipes = [],
+  precision = 1,
+  seek = outletPressureSeek,
+}) {
+  const firstNode = nodes[0];
+  const finalNode = nodes[nodes.length - 1];
+
+  const targetPressure = [finalNode.properties.pressure[0]];
+  if (!targetPressure) return -1;
+  // console.group("input data");
+  // console.table(nodes);
+  // console.table(pipes);
+  // console.groupEnd();
+
+  let sr;
+  for (let p in pipes) {
+    console.group(`pass ${p}`);
+    console.table(targetPressure);
+    let n = nodes.length - 2 - p;
+    console.log(n, nodes[n], pipes[n]);
+
+    console.log("Source");
+    console.table(nodes[n].properties);
+
+    const seekResult = seek({
+      sourceNode: nodes[n],
+      pipe: pipes[n],
+      targetPressure: targetPressure[0],
+    });
+    sr = seekResult;
+    console.log(seekResult);
+
+    const nodePressure = seekResult.outletPressure;
+
+    if (nodes[n + 1]) {
+      nodes[n + 1].properties.pressure[0] = nodePressure - seekResult.drop;
+    }
+
+    targetPressure.unshift(nodePressure);
+    console.groupEnd();
+  }
+
+  return sr;
 }
