@@ -1,126 +1,22 @@
-import network from "../public/network.json";
 import {
   multiPipePressureSeek,
   outletPressureSeek,
   pressureDrop2,
 } from "../public/utils.js";
-
-const flowNet = pressureThroughNetwork();
-
-function processFlow() {
-  for (let pipe of network.links) {
-    const sourceNode = network.nodes[pipe.source];
-    const targetNode = network.nodes[pipe.target];
-
-    const inflow = sourceNode.properties["flow rate"];
-    if (!inflow) continue;
-
-    if (!targetNode.properties["flow rate"]) {
-      targetNode.properties["flow rate"] = 0;
-    }
-
-    if (!targetNode.properties.pressure) targetNode.properties.pressure = [];
-
-    if (typeof targetNode.properties.pressure === "string") {
-      console.log(`${targetNode.name}, PRESSURE: ${targetNode.pressure}`);
-    } else {
-      targetNode.properties["flow rate"] += parseFloat(inflow);
-    }
-  }
-}
-
-function flowThroughNetwork() {
-  for (let pipe of network.links) {
-    let inflow = network.nodes[pipe.source].properties["flow rate"];
-    if (!inflow) continue;
-    // console.log(`${inflow} from ${net.nodes[pipe.source].name}`);
-
-    if (!network.nodes[pipe.target].properties["flow rate"]) {
-      network.nodes[pipe.target].properties["flow rate"] = 0;
-    }
-
-    let targetPressure = network.nodes[pipe.target].properties.pressure;
-    if (!targetPressure) targetPressure = [];
-    if (typeof targetPressure[0] !== "string") {
-      network.nodes[pipe.target].properties["flow rate"] += parseFloat(inflow);
-      // console.log(`to ${net.nodes[pipe.target].name}`);
-    } else {
-      // console.log(`no flow to ${net.nodes[pipe.target].name}`);
-    }
-  }
-  return network;
-}
-
-function calcPressureThroughNetwork() {
-  let wok = flowThroughNetwork();
-  for (let pipe of wok.links) {
-    const sourceNode = wok.nodes[pipe.source];
-    const targetNode = wok.nodes[pipe.target];
-    if (
-      sourceNode.id === 5 &&
-      targetNode.properties["flow rate"] &&
-      targetNode.properties.pressure[0]
-    ) {
-      // console.log({ sourceNode, targetNode, pipe });
-      // console.log(pipe);
-      // let p_outlet = outletPressureSeek({
-      //   sourceNode,
-      //   pipe,
-      //   targetPressure: 5,
-      //   precision: 2,
-      //   // targetPressure: targetNode.properties.pressure[0],
-      // });
-      // console.log(p_outlet);
-
-      let p_multi = multiPipePressureSeek({
-        nodes: [wok.nodes[5], wok.nodes[6], wok.nodes[7]],
-        pipes: [wok.links[5], wok.links[6]],
-      });
-      console.log({ p_multi });
-    }
-  }
-}
-calcPressureThroughNetwork();
-
-function pressureThroughNetwork() {
-  for (let pipe of network.links) {
-    // console.log({ pipe });
-    let drop = pressureDrop2({
-      ...pipe,
-      flowrate: network.nodes[pipe.source].properties["flow rate"],
-      ...network.nodes[pipe.source].properties,
-    });
-    // console.log({ drop });
-
-    let resultingPressure =
-      network.nodes[pipe.source].properties.pressure[1] - drop;
-    let pressureArray = [resultingPressure, resultingPressure];
-
-    if (!network.nodes[pipe.target].properties.pressure) {
-      network.nodes[pipe.target].properties.pressure = [];
-    }
-
-    for (let i in pressureArray) {
-      if (!network.nodes[pipe.target].properties.pressure[i]) {
-        network.nodes[pipe.target].properties.pressure[i] = pressureArray[i];
-      } else if (
-        typeof network.nodes[pipe.target].properties.pressure[i] === "number"
-      ) {
-        network.nodes[pipe.target].properties.pressure[i] = Math.min(
-          pressureArray[i],
-          network.nodes[pipe.target].properties.pressure[i]
-        );
-      }
-    }
-  }
-  return network;
-}
+import { useEffect } from "react";
 
 function PressureNodeRow({ obj, selected }) {
-  const pressureColor = obj.properties.pressure[0] > 30 ? "green" : "yellow";
+  const pressureColor =
+    obj.properties.pressure && obj.properties.pressure[0] > 30
+      ? "green"
+      : "yellow";
 
   const pressure = () => {
     let p = obj.properties.pressure;
+    if (!p) {
+      return 0;
+    }
+
     const decimals = 1;
     if (typeof p[0] === "string") {
       return p[0];
@@ -173,33 +69,34 @@ function PressureNodeRow({ obj, selected }) {
   );
 }
 
-export function PressureTable({ selectedNodeID }) {
+export function PressureTable({ selectedNodeID, systemCase }) {
   const headings = ["Node", "Temp (°C)", "Pressure (bara)", "Flow rate (MTPA)"];
-  const data = flowNet.nodes.filter((n) => n.properties.pressure);
+  // const data = systemCase.nodes.filter((n) => n.properties.pressure);
   return (
     <DataTable
       type="Nodes"
       selectedNodeID={selectedNodeID}
       headings={headings}
-      data={data}
+      data={systemCase.nodes}
+      systemCase={systemCase}
     ></DataTable>
   );
 }
 
-function PipeRow({ obj, selected }) {
+function PipeRow({ obj, selected, systemCase }) {
   return (
     <tr className={`text-center ${selected ? "bg-green-100" : ""}`}>
       <td className="text-left">
         <div className="flex items-center">
           <div className="ml-2">
             <div className="font-medium text-gray-900">
-              {flowNet.nodes[obj.source].name}
+              {systemCase.nodes[obj.source].name}
             </div>
           </div>
         </div>
       </td>
       <td>
-        <div className="text-gray-900">{flowNet.nodes[obj.target].name}</div>
+        <div className="text-gray-900">{systemCase.nodes[obj.target].name}</div>
       </td>
       <td className="py-1">
         <span
@@ -212,15 +109,15 @@ function PipeRow({ obj, selected }) {
       <td className="text-center font-medium text-gray-900">
         {pressureDrop2({
           ...obj,
-          flowrate: flowNet.nodes[obj.source].properties["flow rate"],
-          ...flowNet.nodes[obj.source].properties,
+          flowrate: systemCase.nodes[obj.source].properties["flow rate"],
+          ...systemCase.nodes[obj.source].properties,
         }).toFixed(1)}
       </td>
     </tr>
   );
 }
 
-export function PipeTable({ selectedNodeID }) {
+export function PipeTable({ selectedNodeID, systemCase }) {
   const headings = [
     "Source",
     "Target",
@@ -228,18 +125,29 @@ export function PipeTable({ selectedNodeID }) {
     'Diameter (")',
     "Pressure drop (bar)",
   ];
-  const data = flowNet.links;
+  const data = systemCase.links;
   return (
     <DataTable
       type="Pipes"
       selectedNodeID={selectedNodeID}
       headings={headings}
       data={data}
+      systemCase={systemCase}
     ></DataTable>
   );
 }
 
-export default function DataTable({ selectedNodeID, type, headings, data }) {
+export default function DataTable({
+  selectedNodeID,
+  type,
+  headings,
+  data,
+  systemCase,
+}) {
+  // useEffect(() => {
+  //   calcPressureThroughNetwork(systemCase);
+  // }, [systemCase]);
+
   const heading = (h, i) => (
     <th
       key={i}
@@ -273,6 +181,7 @@ export default function DataTable({ selectedNodeID, type, headings, data }) {
                 key={i}
                 obj={obj}
                 selected={obj.id === selectedNodeID}
+                systemCase={systemCase}
               ></PressureNodeRow>
             ) : (
               <PipeRow
@@ -281,6 +190,7 @@ export default function DataTable({ selectedNodeID, type, headings, data }) {
                 selected={
                   obj.source === selectedNodeID || obj.target === selectedNodeID
                 }
+                systemCase={systemCase}
               ></PipeRow>
             )
           )}

@@ -12,7 +12,7 @@ import { useState } from "react";
 import { getUnit } from "../public/utils";
 import { PressureTable, PipeTable } from "../components/dataTable";
 
-// import network from "../public/network.json";
+import Case from "../components/case";
 
 const name = "FAMS";
 
@@ -78,14 +78,20 @@ export default function Fams() {
         <div className="grid grid-cols-6 gap-4 text-center rounded-t-xl overflow-hidden bg-gradient-to-r from-green-50 to-green-100 bg-white p-8">
           <div className="col-span-2 rounded-md flex flex-col justify-start 2xl:items-center text-green-500 text-2xl font-extrabold overflow-hidden">
             <p className="pl-1 text-center">Live data stream</p>
-            <Horizon></Horizon>
+            <Case>
+              <Horizon></Horizon>
+            </Case>
           </div>
           <div className="col-span-2 rounded-md flex flex-col text-green-500 text-2xl font-extrabold bg-gradient-to-br from-transparent to-green-200">
             <p className="pl-1 text-left">Network map</p>
-            <Network handleNodeHover={handleNodeHover}></Network>
+            <Case>
+              <Network handleNodeHover={handleNodeHover}></Network>
+            </Case>
           </div>
           <div className="rounded-md flex-col justify-center text-green-500 text-2xl font-extrabold flex-grow col-span-2">
-            <PressureTable selectedNodeID={selectedNodeID}></PressureTable>
+            <Case>
+              <PressureTable selectedNodeID={selectedNodeID}></PressureTable>
+            </Case>
           </div>
           <div className="rounded-md flex-col text-green-500 text-2xl font-extrabold flex-grow col-span-2">
             <p className="mb-2">Case selection</p>
@@ -93,22 +99,26 @@ export default function Fams() {
           </div>
           <div className="rounded-md flex flex-col text-green-500 text-2xl font-extrabold flex-grow col-span-2">
             <p className="mb-2">Modify node</p>
-            <ModifyNode
-              name={nodeName}
-              properties={
-                selectedNode.properties
-                  ? Object.keys(selectedNode.properties)
-                  : []
-              }
-              values={
-                selectedNode.properties
-                  ? Object.values(selectedNode.properties)
-                  : []
-              }
-            ></ModifyNode>
+            <Case>
+              <ModifyNode
+                name={nodeName}
+                properties={
+                  selectedNode.properties
+                    ? Object.keys(selectedNode.properties)
+                    : []
+                }
+                values={
+                  selectedNode.properties
+                    ? Object.values(selectedNode.properties)
+                    : []
+                }
+              ></ModifyNode>
+            </Case>
           </div>
           <div className="rounded-md flex-col justify-center text-green-500 text-2xl font-extrabold flex-grow col-span-2">
-            <PipeTable selectedNodeID={selectedNodeID}></PipeTable>
+            <Case>
+              <PipeTable selectedNodeID={selectedNodeID}></PipeTable>
+            </Case>
           </div>
           <div className="col-span-3 bg-green-500 rounded-md flex flex-col items-center text-white text-2xl font-extrabold">
             <p className="text-left pl-1">Simulate</p>
