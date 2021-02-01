@@ -173,8 +173,8 @@ export function outletPressureSeek({
 
   while (guesses <= 30 && low <= high) {
     if (!pipe.length) {
-      sourceNode.properties.pressure[0] = sourceNode.properties.pressure[1] = Number(targetPressure.toFixed(
-        precision)
+      sourceNode.properties.pressure[0] = sourceNode.properties.pressure[1] = Number(
+        targetPressure.toFixed(precision)
       );
       return { outletPressure: targetPressure, drop: 0 };
     }
@@ -214,13 +214,13 @@ export function multiPipePressureSeek({
 
   let sr;
   for (let p in pipes) {
-    console.group(`pass ${p}`);
-    console.table(targetPressure);
+    // console.group(`pass ${p}`);
+    // console.table(targetPressure);
     let n = nodes.length - 2 - p;
-    console.log(n, nodes[n], pipes[n]);
+    // console.log(n, nodes[n], pipes[n]);
 
-    console.log("Source");
-    console.table(nodes[n].properties);
+    // console.log("Source");
+    // console.table(nodes[n].properties);
 
     const seekResult = seek({
       sourceNode: nodes[n],
@@ -228,7 +228,7 @@ export function multiPipePressureSeek({
       targetPressure: targetPressure[0],
     });
     sr = seekResult;
-    console.log(seekResult);
+    // console.log(seekResult);
 
     const nodePressure = seekResult.outletPressure;
 
@@ -237,8 +237,9 @@ export function multiPipePressureSeek({
     }
 
     targetPressure.unshift(nodePressure);
-    console.groupEnd();
+    // console.groupEnd();
   }
+  console.log(nodes);
 
   return sr;
 }
