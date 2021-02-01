@@ -121,12 +121,6 @@
       "diameter": 24
     },
     {
-      "source": 9,
-      "target": 4,
-      "length": 20,
-      "diameter": 12
-    },
-    {
       "source": 4,
       "target": 5,
       "length": 30,
@@ -147,6 +141,12 @@
       "source": 6,
       "target": 8,
       "length": 10,
+      "diameter": 12
+    },
+    {
+      "source": 9,
+      "target": 4,
+      "length": 20,
       "diameter": 12
     },
     {
