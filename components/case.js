@@ -59,7 +59,7 @@ function press(net) {
   // compressor station goal seek
   multiPipePressureSeek({
     nodes: [pressed.nodes[5], pressed.nodes[6], pressed.nodes[7]],
-    pipes: [pressed.links[5], pressed.links[6]],
+    pipes: [pressed.links[6], pressed.links[7]],
   });
 
   return pressed;
