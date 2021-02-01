@@ -62,7 +62,7 @@
       "id": 7,
       "name": "Wellhead 1",
       "properties": {
-        "pressure": [5, 5]
+        "pressure": [12, 12]
       },
       "onshore": false
     },
@@ -70,7 +70,7 @@
       "id": 8,
       "name": "Wellhead 2",
       "properties": {
-        "pressure": ["CLOSED"]
+        "pressure": [5, 5]
       },
       "onshore": false
     },
