@@ -1,4 +1,4 @@
-function Case({
+function CaseOption({
   name = "Example case 1",
   id = "example_1",
   selected = false,
@@ -26,14 +26,21 @@ function Case({
   );
 }
 
-export default function CaseSelection() {
+export default function CaseSelection({ cb }) {
   const cases = {
-    example_1: "Example case 1",
-    example_2: "Example case 2",
-    example_3: "Example case 3",
-    example_4: "Example case 4",
-    example_5: "Example case 5",
+    case_1: "Example case 1",
+    case_2: "Example case 2",
+    case_3: "Example case 3",
+    case_4: "Example case 4",
+    case_5: "Example case 5",
   };
+  function handleChange(e) {
+    console.log(e.target.id);
+    if (cb) {
+      const index = e.target.id.split("_")[1] - 1;
+      cb(index);
+    }
+  }
   return (
     <>
       <form className="w-full text-black">
@@ -47,15 +54,15 @@ export default function CaseSelection() {
                 These are example states for the system.
               </p>
             </div>
-            <div className="mt-4 space-y-4">
+            <div className="mt-4 space-y-4" onChange={handleChange}>
               {Object.keys(cases).map((c, i) => (
-                <Case
+                <CaseOption
                   name={cases[c]}
                   id={c}
                   key={c}
                   selected={i === 0}
-                  disabled={i > 2}
-                ></Case>
+                  disabled={i >= 2}
+                ></CaseOption>
               ))}
             </div>
           </fieldset>

@@ -1,6 +1,9 @@
-import network from "../public/network.json";
 import { multiPipePressureSeek, pressureDrop2 } from "../public/utils";
-import { useEffect } from "react";
+
+import case1 from "../public/fams cases/case1.json";
+import case2 from "../public/fams cases/case2.json";
+
+const cases = [case1, case2];
 
 function flow(net) {
   const flowed = Object.create(net);
@@ -62,13 +65,11 @@ function press(net) {
   return pressed;
 }
 
-export default function Case({ children }) {
-  // useEffect(() => {}, [])
-
+export default function Case({ children, selected }) {
   const childrenWithProps = React.Children.map(children, (child) => {
     if (React.isValidElement(child)) {
       return React.cloneElement(child, {
-        systemCase: press(JSON.parse(JSON.stringify(network))),
+        systemCase: press(JSON.parse(JSON.stringify(cases[selected]))),
       });
     }
     return child;

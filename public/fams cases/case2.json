@@ -16,7 +16,7 @@
       "properties": {
         "pressure": [36, 36],
         "temperature": [10, 10],
-        "flow rate": 0.3
+        "flow rate": 3.3
       },
       "onshore": true
     },
@@ -26,7 +26,7 @@
       "properties": {
         "pressure": [36, 36],
         "temperature": [10, 10],
-        "flow rate": 0
+        "flow rate": 0.2
       },
       "onshore": true
     },
@@ -80,7 +80,7 @@
       "properties": {
         "pressure": [36, 36],
         "temperature": [10, 10],
-        "flow rate": 0
+        "flow rate": 0.4
       },
       "onshore": true
     },
