@@ -152,7 +152,7 @@ export default function DataTable({
     <th
       key={i}
       scope="col"
-      className={`px-2 py-1$ ${
+      className={`px-2 py-1 ${
         !i ? "text-left " : ""
       }font-medium text-gray-500 uppercase tracking-wider`}
     >
