@@ -18,3 +18,5 @@ I'm responsible for the development of web applications used internally. These a
 - I created an application that generates PDFs in a custom format using JSON data retreieved with the _Google Drive API_.
 
 I also used `Azure Serverless Function Apps` with the _Slack API_ to distribute files, send notifications and regular status updates.
+
+I'm currently working on the design of a Flow Assurance Management System ([FAMS](/fams)) that will be used to monitor a CO2 pipeline.
