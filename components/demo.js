@@ -3,7 +3,7 @@ import styles from "./layout.module.css";
 import utilStyles from "../styles/utils.module.css";
 import Link from "next/link";
 
-export default function Demo({ children, name }) {
+export default function Demo({ children, name, header = true }) {
   const siteTitle = `${name} | Demo`;
   return (
     <>
@@ -24,9 +24,11 @@ export default function Demo({ children, name }) {
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
           />
         </Head>
-        <header className={styles.header}>
-          <h2 className={utilStyles.headingLg}>{name}</h2>
-        </header>
+        {header && (
+          <header className={styles.header}>
+            <h2 className={utilStyles.headingLg}>{name}</h2>
+          </header>
+        )}
         <main>{children}</main>
         <div className={styles.backToHome}>
           <Link href="/">
