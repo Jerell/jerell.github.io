@@ -1,6 +1,5 @@
 .container {
-  @apply flex flex-col justify-evenly pb-16 items-center;
-  background: #edecf0;
+  @apply flex flex-col justify-evenly pb-16 items-center bg-blue-900;
 }
 
 .logo {

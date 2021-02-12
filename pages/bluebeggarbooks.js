@@ -13,7 +13,7 @@ export default function Bbb() {
         </Head>
         <div className={styles.container}>
           <div>
-            <img src="/images/bbbtext.jpg" className={styles.logo} />
+            <img src="/images/logo.png" className={styles.logo} />
           </div>
           <button className={styles.button}>Continue</button>
         </div>
