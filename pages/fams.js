@@ -11,6 +11,7 @@ import Network from "../components/network";
 import { useState } from "react";
 import { getUnit } from "../public/utils";
 import { PressureTable, PipeTable } from "../components/dataTable";
+import LineChart from "../components/lineChart";
 
 import Case from "../components/case";
 
@@ -45,7 +46,10 @@ function NodeInfo({ name, lines = [] }) {
 }
 
 export default function Fams() {
-  const [selectedNode, setNode] = useState({});
+  const [selectedNode, setNode] = useState({
+    name: "placeholder",
+    properties: { pressure: [36, 36] },
+  });
   const [selectedNodeID, selectNode] = useState(0);
   const [nodeName, setNodeName] = useState("Select a node on the map");
   const [selectedCase, selectCase] = useState(0);
@@ -80,7 +84,8 @@ export default function Fams() {
           <div className="col-span-2 rounded-md flex flex-col justify-start 2xl:items-center text-green-500 text-2xl font-extrabold overflow-hidden">
             <p className="pl-1 text-center">Live data stream</p>
             <Case selected={selectedCase}>
-              <Horizon></Horizon>
+              <LineChart />
+              {/* <Horizon></Horizon> */}
             </Case>
           </div>
           <div className="col-span-2 rounded-md flex flex-col text-green-500 text-2xl font-extrabold bg-gradient-to-br from-transparent to-green-200">
