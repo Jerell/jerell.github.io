@@ -96,7 +96,10 @@ export default function lineChart({ systemCase, selectedNode }) {
     // function update() {
     const lg = frame
       .selectAll("g.line")
-      .data(data, (d) => d.id)
+      .data(
+        data.filter((d) => y(d.properties[property][0])),
+        (d) => d.id
+      )
       .enter()
       .append("g")
       .attr("class", "line");
