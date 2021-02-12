@@ -11,7 +11,7 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
 
   function init() {
     const settings = {
-      width: 586,
+      width: ref.current.clientWidth,
       height: 424,
       margin: { top: 10, right: 30, bottom: 30, left: 40 },
       nodeRadius: 10,
@@ -71,7 +71,7 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
     const svg = d3
       .select(ref.current)
       .append("svg")
-      .attr("width", settings.width)
+      .attr("width", "100%")
       .attr("height", settings.height)
       .call(
         d3.zoom().on("zoom", function (event) {
@@ -198,14 +198,14 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
         node
           .attr("cx", function (d) {
             return (d.x = Math.max(
-              settings.nodeRadius,
+              2 * settings.nodeRadius,
               Math.min(settings.width - settings.nodeRadius, d.x)
             ));
           })
           .attr("cy", function (d) {
             return (d.y = Math.max(
-              settings.nodeRadius,
-              Math.min(settings.height - settings.nodeRadius, d.y)
+              2 * settings.nodeRadius,
+              Math.min(settings.height - 2 * settings.nodeRadius, d.y)
             ));
           });
 
@@ -231,7 +231,10 @@ export default function Network({ selectNode, setNodeName, handleNodeHover }) {
   useEffect(init, []);
   return (
     <>
-      <div className="network relative overflow-hidden" ref={ref}></div>
+      <div
+        className="network relative overflow-hidden w-full h-full"
+        ref={ref}
+      ></div>
     </>
   );
 }

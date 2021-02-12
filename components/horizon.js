@@ -6,7 +6,7 @@ export default function Horizon() {
 
   function init() {
     const settings = {
-      width: 586,
+      width: ref.current.clientWidth,
       height: 40,
       margin: { top: 30, right: 10, bottom: 0, left: 10 },
       overlap: 7,
