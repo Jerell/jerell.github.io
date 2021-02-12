@@ -98,6 +98,7 @@ export default function Horizon() {
           )
           .call((g) => g.select(".domain").remove());
 
+      ref.current.innerHTML = "";
       const canvas = d3
         .select(ref.current)
         .selectAll("canvas")
@@ -184,7 +185,7 @@ export default function Horizon() {
   useEffect(init, []);
   return (
     <>
-      <div className="horizon relative overflow-hidden" ref={ref}></div>
+      <div className="horizon relative overflow-hidden w-full" ref={ref}></div>
     </>
   );
 }
