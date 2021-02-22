@@ -1,3 +1,11 @@
 .lineChart {
   @apply w-full;
 }
+
+.hide {
+  @apply hidden;
+}
+
+.inactive {
+  @apply font-normal;
+}

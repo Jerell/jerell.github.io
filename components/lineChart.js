@@ -11,11 +11,13 @@ export default function lineChart({ systemCase, selectedNode }) {
   const [property, setProperty] = useState("pressure");
 
   function init() {
-    const margin = { top: 20, right: 80, bottom: 20, left: 70 },
+    const margin = { top: 20, right: 80, bottom: 20, left: 150 },
       width = ref.current.clientWidth - margin.left - margin.right,
       height = 424 - margin.top - margin.bottom,
       tickLabelSize = 14,
-      tickHours = 6;
+      tickHours = 6,
+      legendFontSize = 13,
+      legendLineHeight = 16;
 
     ref.current.innerHTML = "";
 
@@ -29,10 +31,34 @@ export default function lineChart({ systemCase, selectedNode }) {
       Object.keys(n.properties).includes(property)
     );
 
+    const legendData = data.map((n) => ({ name: n.name, display: true }));
+    function toggleItem(e, d) {
+      const { name } = d;
+      const i = legendData.findIndex((l) => l.name === name);
+      if (i < 0) return;
+
+      legendData[i].display = !legendData[i].display;
+
+      console.log(legendData);
+      for (let l of lg) {
+        if (l.innerHTML.match(`>${name}</`)) {
+          if (!legendData[i].display) {
+            l.classList.add(styles.hide);
+            this.classList.add(styles.inactive);
+          } else {
+            l.classList.remove(styles.hide);
+            this.classList.remove(styles.inactive);
+          }
+          console.log(l, this);
+          return;
+        }
+      }
+    }
+
     const xVal = (d) => d.id;
 
     const yVal = (d) => {
-      console.log(d);
+      // console.log(d);
       if (typeof d.properties[property] === "number")
         return d.properties[property];
       try {
@@ -123,6 +149,19 @@ export default function lineChart({ systemCase, selectedNode }) {
       .attr("y2", (d) => y(d.properties[property][0]))
       .transition()
       .duration(100);
+
+    const legend = svg
+      .append("g")
+      .selectAll("text")
+      .data(legendData)
+      .enter()
+      .append("text")
+      .attr("dx", 0)
+      .attr("dy", (l, i) => margin.top + legendLineHeight * i)
+      .text((l) => l.name)
+      .attr("font-size", legendFontSize)
+      .attr("font-weight", (l) => (l.display ? "bold" : "normal"))
+      .on("click", toggleItem);
 
     // l.attr("x1", margin.left)
     //   .attr("x2", width + margin.left)
