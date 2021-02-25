@@ -184,7 +184,7 @@ export default function lineChart({ systemCase, selectedNode }) {
     // const repeat = setInterval(update, period);
   }
 
-  useEffect(init, [selectedNode]);
+  useEffect(init, [selectedNode, systemCase]);
 
   return (
     <>
