@@ -8,7 +8,7 @@ export default function lineChart({ systemCase, selectedNode }) {
   const ref = useRef();
   const nodes = selectedNode ? [selectedNode] : systemCase.nodes;
   const properties = Object.keys(nodes[0].properties);
-  const [property, setProperty] = useState("pressure");
+  const [property, setProperty] = useState("flow rate");
 
   function handlePropertySelect(e) {
     setProperty(e.target.innerText.trim());
@@ -66,7 +66,11 @@ export default function lineChart({ systemCase, selectedNode }) {
       if (typeof d.properties[property] === "number")
         return d.properties[property];
       try {
-        return parseFloat(d.properties[property][0]);
+        return parseFloat(
+          d.properties[property][0]
+            ? d.properties[property][0]
+            : d.properties[property]
+        );
       } catch {
         return 0;
       }
@@ -127,7 +131,13 @@ export default function lineChart({ systemCase, selectedNode }) {
     const lg = frame
       .selectAll("g.line")
       .data(
-        data.filter((d) => y(d.properties[property][0])),
+        data.filter((d) =>
+          y(
+            d.properties[property][0]
+              ? d.properties[property][0]
+              : d.properties[property]
+          )
+        ),
         (d) => d.id
       )
       .enter()
@@ -137,7 +147,15 @@ export default function lineChart({ systemCase, selectedNode }) {
       .text((d) => d.name)
       .attr("class", "text-sm font-normal italic")
       .attr("dx", width)
-      .attr("dy", (d) => y(d.properties[property][0]) - 3)
+      .attr(
+        "dy",
+        (d) =>
+          y(
+            d.properties[property][0]
+              ? d.properties[property][0]
+              : d.properties[property]
+          ) - 3
+      )
       .attr("text-anchor", "end");
 
     const l = lg
@@ -149,8 +167,20 @@ export default function lineChart({ systemCase, selectedNode }) {
 
     l.attr("x1", 0)
       .attr("x2", width)
-      .attr("y1", (d) => y(d.properties[property][0]))
-      .attr("y2", (d) => y(d.properties[property][0]))
+      .attr("y1", (d) =>
+        y(
+          d.properties[property][0]
+            ? d.properties[property][0]
+            : d.properties[property]
+        )
+      )
+      .attr("y2", (d) =>
+        y(
+          d.properties[property][0]
+            ? d.properties[property][0]
+            : d.properties[property]
+        )
+      )
       .transition()
       .duration(100);
 
