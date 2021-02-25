@@ -10,6 +10,10 @@ export default function lineChart({ systemCase, selectedNode }) {
   const properties = Object.keys(nodes[0].properties);
   const [property, setProperty] = useState("pressure");
 
+  function handlePropertySelect(e) {
+    setProperty(e.target.innerText.trim());
+  }
+
   function init() {
     const margin = { top: 20, right: 80, bottom: 20, left: 150 },
       width = ref.current.clientWidth - margin.left - margin.right,
@@ -184,10 +188,15 @@ export default function lineChart({ systemCase, selectedNode }) {
     // const repeat = setInterval(update, period);
   }
 
-  useEffect(init, [selectedNode, systemCase]);
+  useEffect(init, [selectedNode, systemCase, property]);
 
   return (
     <>
+      <h2 className="text-sm ">
+        {properties.map((p, i) => (
+          <span key={i} onClick={handlePropertySelect}>{`${p} `}</span>
+        ))}
+      </h2>
       <h2 className="text-sm ">{property}</h2>
       <div className={styles.lineChart} ref={ref}></div>
     </>
