@@ -1,42 +1,7 @@
-import "../styles/global.scss";
-import { parseISO, format } from "date-fns";
-import { name } from "../components/layout";
+import '../styles/globals.css'
 
-const links = [
-  { text: "GitHub", url: "https://github.com/jerell" },
-  {
-    text: "LinkedIn",
-    url: "https://www.linkedin.com/in/jerell-james-831b12158/",
-  },
-];
-
-const FootLink = ({ text, url }) => {
-  return (
-    <>
-      <a href={url} target="_">
-        {text}
-      </a>{" "}
-    </>
-  );
-};
-
-export default function App({ Component, pageProps }) {
-  const date = new Date("2020-01-01");
-
-  return (
-    <>
-      <Component {...pageProps} />
-      <footer className="bg-gray-100 w-full text-center" key="foot">
-        {links.map((l, i) => (
-          <FootLink {...l} key={i}></FootLink>
-        ))}
-        <p>
-          &#169;{" "}
-          <time dateTime={date}>
-            {format(date, "yyyy")} {name}
-          </time>{" "}
-        </p>
-      </footer>
-    </>
-  );
+function MyApp({ Component, pageProps }) {
+  return <Component {...pageProps} />
 }
+
+export default MyApp
