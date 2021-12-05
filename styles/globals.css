@@ -2,12 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .text-gradient {
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+.montserrat {
+  font-family: 'Montserrat', sans-serif;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: Montserrat, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  @apply bg-yellow-50 text-j-dark;
 }
 
 a {
@@ -17,4 +29,24 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+a p,
+a span {
+  @apply relative;
+  display: inline-block;
+  --bar-height: 0.2em;
+}
+a p:hover,
+a span:hover {
+  --bar-height: 0.3em;
+}
+a p::after,
+a span::after {
+  @apply transition-all w-full bg-j-yellowred opacity-60;
+  content: '';
+  height: var(--bar-height);
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
