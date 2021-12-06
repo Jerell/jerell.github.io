@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import Header from './header';
 
 interface Props {
   title?: string;
@@ -13,8 +12,6 @@ const Page = ({ title, children }: Props) => (
         <title>Jerell James | {title}</title>
       </Head>
     ) : null}
-
-    {/* <Header /> */}
 
     <main className='mx-auto'>
       <div className='flex flex-col h-screen px-2'>{children}</div>

@@ -9,8 +9,8 @@ const Item = ({
 }) => {
   return (
     <div
-      className={`py-4 flex flex-col${reverse ? '-reverse' : ''} lg:flex-row${
-        reverse ? '-reverse' : ''
+      className={`py-4 flex ${reverse ? 'flex-col-reverse' : 'flex-col'} ${
+        reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'
       } center`}
     >
       <div className='flex primary max-w-prose'>{children[0]}</div>
