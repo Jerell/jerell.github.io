@@ -141,7 +141,7 @@ const Job = ({ job }: { job: IJobContent }) => {
   return (
     <Item>
       <div className='flex space-x-8'>
-        <DisplayText small>{job.company}</DisplayText>
+        <DisplayText>{job.company}</DisplayText>
       </div>
       <div className='m-4 mt-1 flex flex-col space-y-4'>
         <p className='text-xl'>
@@ -158,7 +158,7 @@ const CV = () => {
   return (
     <div className='flex flex-col'>
       <div className='border-b-4 border-j-yellowred border-dotted'>
-        <DisplayText small>Experience</DisplayText>
+        <DisplayText>Experience</DisplayText>
       </div>
       {jobs.map((j, i) => (
         <Job job={j} key={i} />
