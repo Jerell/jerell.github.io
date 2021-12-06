@@ -9,7 +9,9 @@ export const DisplayText = ({
 }) => {
   return (
     <div
-      className={`text-gradient font-extralight italic font-sans bg-gradient-to-r from-j-blue to-j-magenta text-${
+      className={`text-gradient ${
+        small ? 'font-light' : 'font-extralight'
+      } italic font-sans bg-gradient-to-r from-j-blue to-j-magenta text-${
         small ? 4 : 6
       }xl`}
     >
