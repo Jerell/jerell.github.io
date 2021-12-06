@@ -107,8 +107,8 @@ const Job = ({ job }: { job: IJobContent }) => {
       ) : (
         <ul className='list-disc flex flex-col space-y-2 text-sm'>
           {subsection.content.map((subContentItem, i) => (
-            <li>
-              <p key={i}>{subContentItem}</p>
+            <li key={i}>
+              <p>{subContentItem}</p>
             </li>
           ))}
         </ul>
