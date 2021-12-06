@@ -61,7 +61,7 @@ const jobs: IJobContent[] = [
         tags: ['JavaScript', 'React'],
       },
       {
-        heading: 'Icthys PNG Phase 2a FEED',
+        heading: 'Icthys LNG Phase 2a FEED',
         content:
           'Optimization of subsea design using an evolutionary algorithm.',
         tags: [],
