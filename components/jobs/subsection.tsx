@@ -8,40 +8,41 @@ export interface ISubsection {
   link?: string;
 }
 
-export default function getSubsection(subsection: ISubsection) {
-  const content =
-    typeof subsection.content === 'string' ? (
-      <p className='text-sm'>{subsection.content}</p>
-    ) : (
-      <ul className='list-disc flex flex-col space-y-2 text-sm'>
-        {subsection.content.map((subContentItem, i) => (
-          <li key={i}>
-            <p>{subContentItem}</p>
-          </li>
-        ))}
-      </ul>
-    );
-
+export default function JobSubsection({
+  heading,
+  content,
+  tags,
+  link,
+}: ISubsection) {
   return (
-    <div className='subsection' key={subsection.heading}>
-      <p className='text-lg'>
-        {subsection.link ? (
-          <Link href={subsection.link}>
-            <a>
-              <span>{subsection.heading}</span>
-            </a>
-          </Link>
-        ) : (
-          subsection.heading
-        )}
-        {subsection.tags.length ? (
-          <>
-            {' - '}
-            <span className='text-sm'>{subsection.tags.join(', ')}</span>
-          </>
+    <div className='subsection' key={heading}>
+      <div className='flex flex-row gap-1 items-center'>
+        <p className='text-lg'>
+          {link ? (
+            <Link href={link}>
+              <a>
+                <span>{heading}</span>
+              </a>
+            </Link>
+          ) : (
+            heading
+          )}
+        </p>
+        {tags.length ? (
+          <p className='text-xs italic pt-1'>{tags.join(', ')}</p>
         ) : null}
-      </p>
-      {content}
+      </div>
+      {typeof content === 'string' ? (
+        <p className='text-sm'>{content}</p>
+      ) : (
+        <ul className='list-disc flex flex-col space-y-2 text-sm'>
+          {content.map((subContentItem, i) => (
+            <li key={i}>
+              <p>{subContentItem}</p>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { DisplayText } from '../DisplayText';
 import Item from '../item';
 import { IJobContent } from './content';
-import getSubsection from './subsection';
+import JobSubsection from './subsection';
 
 export default function Job({ job }: { job: IJobContent }) {
   return (
@@ -14,7 +14,9 @@ export default function Job({ job }: { job: IJobContent }) {
           {job.title} | <span className='italic text-sm'>{job.year}</span>
         </p>
         <p>{job.description}</p>
-        {job.subsections.map((s) => getSubsection(s))}
+        {job.subsections.map((s, i) => (
+          <JobSubsection key={i} {...s} />
+        ))}
       </div>
     </Item>
   );
