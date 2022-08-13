@@ -12,13 +12,14 @@ function Star({
   click: (n: number) => void;
 }) {
   return (
-    <div
-      className={`bg-j-yellowred h-8 w-8 cursor-pointer ${
+    <input
+      type='radio'
+      className={`bg-j-yellowred h-8 w-8 cursor-pointer appearance-none ${
         selectedRating >= value ? 'opacity-1' : 'opacity-50'
       }`}
       onMouseOver={() => hover(value)}
       onClick={() => click(value)}
-    ></div>
+    />
   );
 }
 
@@ -54,7 +55,7 @@ export default function Rating({
   };
 
   return (
-    <div className='flex flex-row items-center gap-1'>
+    <fieldset className='flex flex-row items-center gap-1'>
       <div
         className='grid grid-cols-5 gap-1'
         onMouseEnter={toggleDisplayHover}
@@ -71,6 +72,6 @@ export default function Rating({
         ))}
       </div>
       <p>{displayText()}</p>
-    </div>
+    </fieldset>
   );
 }
