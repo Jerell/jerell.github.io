@@ -50,3 +50,8 @@ a span::after {
   bottom: 0;
   left: 0;
 }
+
+textarea,
+input {
+  @apply focus:outline-none border-2 border-transparent focus:border-j-magenta p-2 text-j-blue;
+}
