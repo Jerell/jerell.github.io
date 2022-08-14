@@ -1,15 +1,20 @@
 export default function SubmitButton({
   submit,
   disabled,
+  submitted,
 }: {
   submit: () => void;
   disabled: boolean;
+  submitted: boolean;
 }) {
   function handleClick(e: any) {
     e.preventDefault();
     if (disabled) return;
     submit();
   }
+
+  const displayText = submitted ? 'Submission received' : 'Submit';
+
   return (
     <button
       onClick={(e) => handleClick(e)}
@@ -20,7 +25,7 @@ export default function SubmitButton({
       }`}
       disabled={disabled}
     >
-      Submit
+      {displayText}
     </button>
   );
 }

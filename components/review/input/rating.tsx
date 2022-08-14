@@ -23,11 +23,7 @@ function Star({
   );
 }
 
-export default function Rating({
-  update,
-}: {
-  update: Dispatch<SetStateAction<number>>;
-}) {
+export default function Rating({ update }: { update: (n: number) => void }) {
   const [rating, setRating] = useState<number>(-1);
   const [hover, setHover] = useState<number>(10);
   const [displayHovered, setDisplayHovered] = useState<boolean>(false);

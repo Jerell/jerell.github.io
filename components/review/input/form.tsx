@@ -12,6 +12,7 @@ export default function Form({ refresh }: { refresh: () => Promise<void> }) {
   const invalid = review.length === 0 || rating < 0;
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [submitted, setSubmitted] = useState<boolean>(false);
 
   async function submit() {
     setLoading(true);
@@ -26,6 +27,22 @@ export default function Form({ refresh }: { refresh: () => Promise<void> }) {
     await addReview(body);
     await refresh();
     setLoading(false);
+    setSubmitted(true);
+  }
+
+  function updateRating(n: number) {
+    setRating(n);
+    setSubmitted(false);
+  }
+
+  function updateReview(e) {
+    setReview(e.target.value);
+    setSubmitted(false);
+  }
+
+  function updateName(e) {
+    setName(e.target.value);
+    setSubmitted(false);
   }
 
   return (
@@ -34,14 +51,14 @@ export default function Form({ refresh }: { refresh: () => Promise<void> }) {
         loading ? 'opacity-80' : 'opacity-100'
       }`}
     >
-      <Rating update={setRating} />
+      <Rating update={updateRating} />
       <textarea
         name='review'
         id='review'
         cols={30}
         rows={10}
         placeholder={reviewPlaceholder}
-        onChange={(e) => setReview(e.target.value)}
+        onChange={updateReview}
         disabled={loading}
       ></textarea>
       <input
@@ -50,10 +67,15 @@ export default function Form({ refresh }: { refresh: () => Promise<void> }) {
         id='name'
         autoComplete='name'
         placeholder='name (optional)'
-        onChange={(e) => setName(e.target.value)}
+        onChange={updateName}
         disabled={loading}
       />
-      <SubmitButton submit={submit} disabled={invalid || loading} />
+      <SubmitButton
+        submit={submit}
+        disabled={invalid || loading || submitted}
+        submitted={submitted}
+      />
+      {submitted && <p>Thank you for submitting a review.</p>}
     </form>
   );
 }
