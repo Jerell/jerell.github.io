@@ -1,4 +1,5 @@
 import { formatRelative } from 'date-fns';
+import { enGB } from 'date-fns/locale';
 
 export default function ReviewDisplay({
   rating,
@@ -9,8 +10,9 @@ export default function ReviewDisplay({
   rating: number;
   review: string;
   name: string;
-  date: string;
+  date: { nanoseconds: number; seconds: number };
 }) {
+  const d = new Date(date.seconds * 1000);
   return (
     <div className='border-t py-2 mb-2'>
       <p className='text-j-dodger'>{rating} / 5</p>
@@ -19,7 +21,7 @@ export default function ReviewDisplay({
       </p>
       <p className='text-right'>{name}</p>
       <p className='text-right text-xs'>
-        {formatRelative(new Date(date), new Date())}
+        {formatRelative(d, new Date(), { locale: enGB })}
       </p>
     </div>
   );

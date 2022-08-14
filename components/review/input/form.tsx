@@ -1,3 +1,5 @@
+import addReview from '@/lib/firebase/reviews/addReview';
+import IReview from '@/lib/firebase/reviews/IReview';
 import { useState } from 'react';
 import Rating from './rating';
 import SubmitButton from './SubmitButton';
@@ -10,10 +12,15 @@ export default function Form() {
   const invalid = review.length === 0 || rating < 0;
 
   function submit() {
-    const body = { rating: rating + 1, review, name };
-    console.log(body);
+    const body: IReview = {
+      rating: rating + 1,
+      review,
+      name,
+      date: new Date(),
+      approved: false,
+    };
     if (invalid) return;
-    console.log('valid');
+    addReview(body);
   }
 
   return (
