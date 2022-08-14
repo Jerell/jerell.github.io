@@ -14,7 +14,7 @@ function Star({
   return (
     <input
       type='radio'
-      className={`bg-j-yellowred h-8 w-8 cursor-pointer appearance-none ${
+      className={`bg-j-yellowred rounded-full h-8 w-8 cursor-pointer appearance-none ${
         selectedRating >= value ? 'opacity-1' : 'opacity-50'
       }`}
       onMouseOver={() => hover(value)}
