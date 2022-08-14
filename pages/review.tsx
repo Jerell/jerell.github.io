@@ -3,8 +3,19 @@ import { DisplayText } from '@/components/DisplayText';
 import Form from '@/components/review/input/form';
 import IntroCard from '@/components/introCard';
 import ReviewList from '@/components/review/display/list';
+import { IReviewData } from '@/lib/firebase/reviews/IReview';
+import readReviews from '@/lib/firebase/reviews/readReviews';
+import { useState, useEffect } from 'react';
 
-export default function Home() {
+export default function Review() {
+  const [data, setData] = useState<IReviewData[]>([]);
+  async function update() {
+    setData(await readReviews());
+  }
+  useEffect(() => {
+    update();
+  }, []);
+
   return (
     <>
       <Page title='Leave a review' hideNamePrefix>
@@ -23,10 +34,10 @@ export default function Home() {
               </div>
             </section>
             <section className='flex flex-col gap-1'>
-              <Form />
+              <Form refresh={update} />
             </section>
             <section className='mt-8'>
-              <ReviewList />
+              <ReviewList reviews={data} />
             </section>
           </div>
         </div>
