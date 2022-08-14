@@ -4,14 +4,17 @@ import { useState } from 'react';
 import Rating from './rating';
 import SubmitButton from './SubmitButton';
 
-export default function Form() {
+export default function Form({ refresh }: { refresh: () => Promise<void> }) {
   const [rating, setRating] = useState<number>(-1);
   const [review, setReview] = useState<string>('');
   const [name, setName] = useState<string>('Anonymous');
   const reviewPlaceholder = 'he was very gentle and kind and rubbed my tummy';
   const invalid = review.length === 0 || rating < 0;
 
-  function submit() {
+  const [loading, setLoading] = useState<boolean>(false);
+
+  async function submit() {
+    setLoading(true);
     const body: IReview = {
       rating: rating + 1,
       review,
@@ -20,11 +23,17 @@ export default function Form() {
       approved: false,
     };
     if (invalid) return;
-    addReview(body);
+    await addReview(body);
+    await refresh();
+    setLoading(false);
   }
 
   return (
-    <form className='flex flex-col gap-2'>
+    <form
+      className={`flex flex-col gap-2 ${
+        loading ? 'opacity-80' : 'opacity-100'
+      }`}
+    >
       <Rating update={setRating} />
       <textarea
         name='review'
@@ -33,6 +42,7 @@ export default function Form() {
         rows={10}
         placeholder={reviewPlaceholder}
         onChange={(e) => setReview(e.target.value)}
+        disabled={loading}
       ></textarea>
       <input
         type='text'
@@ -41,8 +51,9 @@ export default function Form() {
         autoComplete='name'
         placeholder='name (optional)'
         onChange={(e) => setName(e.target.value)}
+        disabled={loading}
       />
-      <SubmitButton submit={submit} disabled={invalid} />
+      <SubmitButton submit={submit} disabled={invalid || loading} />
     </form>
   );
 }

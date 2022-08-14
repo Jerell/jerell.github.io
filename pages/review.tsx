@@ -34,7 +34,7 @@ export default function Review() {
               </div>
             </section>
             <section className='flex flex-col gap-1'>
-              <Form />
+              <Form refresh={update} />
             </section>
             <section className='mt-8'>
               <ReviewList reviews={data} />
