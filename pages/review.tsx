@@ -28,7 +28,7 @@ export default function Review() {
                 anything here u choose homie
               </p>
             </section>
-            <section className='mt-16'>
+            <section className='mt-8'>
               <div className='my-2 text-center'>
                 <DisplayText>Leave a review</DisplayText>
               </div>
