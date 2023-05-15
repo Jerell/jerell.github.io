@@ -17,7 +17,7 @@ export default function Header() {
     <header className='flex flex-col items-center p-1 w-full' id='header'>
       <p className='text-xs self-start'>© {new Date().getFullYear()}</p>
 
-      <div className='flex flex-row 2xl:max-w-2xl w-full gap-2'>
+      <div className='flex flex-row items-center 2xl:max-w-2xl w-full gap-2'>
         <CircleImg />
         <div className='grow'>
           <UnstyledLink href='/'>
