@@ -1,8 +1,4 @@
-const isProd = process.env.NODE_ENV === 'production';
+/** @type {import('next').NextConfig} */
+const nextConfig = {}
 
-module.exports = {
-  // Use the CDN in production and localhost for development.
-  assetPrefix: '.',
-  swcMinify: false, // it should be false by default
-  // distDir: "build",
-};
+module.exports = nextConfig

@@ -1,7 +1,0 @@
-{
-  // extend plugin:storybook/<configuration>, such as:
-  "extends": ["plugin:storybook/recommended"],
-  "rules": {
-    "@next/next/no-img-element": "off"
-  }
-}
