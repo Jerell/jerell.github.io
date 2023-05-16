@@ -1,0 +1,18 @@
+.job {
+  @apply flex flex-col gap-4;
+}
+
+.job ul {
+  @apply list-disc;
+  li {
+    @apply mb-4;
+  }
+}
+
+.job h3 {
+  @apply m-0;
+}
+
+.job .tags {
+  @apply text-xs text-gray-700 italic;
+}

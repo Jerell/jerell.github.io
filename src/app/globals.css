@@ -83,6 +83,10 @@ a,
 a h1 {
   @apply hover:text-brand-tea active:text-dark;
 }
+p a,
+h4 a {
+  @apply underline;
+}
 
 h3 {
   @apply uppercase text-center my-2;
@@ -134,4 +138,14 @@ input {
 
 .grid-line {
   stroke: #faedcd;
+}
+
+ul {
+  @apply list-inside;
+}
+li {
+  @apply whitespace-nowrap;
+  .inline-flex {
+    @apply whitespace-normal max-w-full pr-6;
+  }
 }
