@@ -14,5 +14,5 @@
 }
 
 .job .tags {
-  @apply text-xs text-gray-700 italic;
+  @apply text-xs text-gray-700 italic mt-1;
 }
