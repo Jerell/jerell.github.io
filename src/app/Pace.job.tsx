@@ -31,8 +31,8 @@ export default function PaceJob() {
             <div className='flex flex-row items-center gap-2'>
               <h4>Digital Twin</h4>
               <p className={styles.tags}>
-                Julia, TypeScript, React, Azure, C# .Net Core, Docker,
-                Terraform, CI/CD, GitHub Actions, ZMQ
+                Julia, TypeScript, React, Azure, C# .Net, Docker, Terraform,
+                CI/CD, GitHub Actions, ZMQ
               </p>
             </div>
             <p>
