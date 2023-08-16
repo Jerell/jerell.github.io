@@ -1,5 +1,5 @@
 import Header from '@/components/Header';
-import './globals.css';
+import '../globals.css';
 import { Charis_SIL } from 'next/font/google';
 import clsxm from '@/lib/clsxm';
 
