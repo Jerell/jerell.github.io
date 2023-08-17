@@ -12,13 +12,21 @@ export default function BalloonScene() {
   const removeBalloon = () => setNumBallons((prev) => Math.max(0, prev - 1));
 
   const scale = 3;
-  const spacingX = scale * 2.1;
-
+  const spacingX = scale * 1.8;
   const getBalloonPosX = (i: number) =>
-    spacingX * (i - Math.floor(numBalloons / 2));
+    5 * Math.sin(spacingX * (i - Math.floor(numBalloons / 2)));
+
+  const peak = 5;
+  const drop = 1.1;
+  const getBalloonPosY = (i: number) =>
+    peak - drop * Math.abs(i - Math.floor(numBalloons / 2));
 
   const balloons = Array.from({ length: numBalloons }, (_, i) => (
-    <Balloon position={[getBalloonPosX(i), 2, 2]} scale={scale} key={i} />
+    <Balloon
+      position={[getBalloonPosX(i), getBalloonPosY(i), getBalloonPosY(i)]}
+      scale={scale}
+      key={i}
+    />
   ));
 
   return (
@@ -33,7 +41,7 @@ export default function BalloonScene() {
       </div>
       <Canvas camera={{ fov: 45, near: 0.1, far: 1000, position: [0, 0, 30] }}>
         <ambientLight />
-        <CirclingLight position={[0, 5, 0]} radius={5} offsetZ={10} />
+        <CirclingLight position={[0, 10, 0]} radius={5} offsetZ={10} />
 
         {balloons}
       </Canvas>
@@ -47,6 +55,8 @@ function Balloon(props: ThreeElements['mesh']) {
   const [hovered, setHover] = useState(false);
   const [active, setActive] = useState(false);
 
+  const color = hovered || active ? '#00fff5' : '#7dce82';
+
   useFrame((state, delta) => (mesh.current.rotation.y += delta));
 
   const position = props.position as [number, number, number];
@@ -55,6 +65,14 @@ function Balloon(props: ThreeElements['mesh']) {
     position[1] - (props.scale as number),
     position[2],
   ];
+
+  const stringThickness = 0.01 * (props.scale as number);
+  const string = (
+    <mesh position={new Vector3(...tiePosition)}>
+      <cylinderGeometry args={[stringThickness, stringThickness, 10, 3]} />
+      <meshStandardMaterial color='#0e1c36' />
+    </mesh>
+  );
 
   return (
     <>
@@ -66,10 +84,7 @@ function Balloon(props: ThreeElements['mesh']) {
         onPointerOut={(event) => setHover(false)}
       >
         <sphereGeometry args={[1, 32, 16]} />
-        <meshStandardMaterial
-          visible
-          color={hovered || active ? '#00fff5' : '#7dce82'}
-        />
+        <meshStandardMaterial visible color={color} />
       </mesh>
       <mesh position={new Vector3(...tiePosition)}>
         <coneGeometry
@@ -79,11 +94,9 @@ function Balloon(props: ThreeElements['mesh']) {
             5,
           ]}
         />
-        <meshStandardMaterial
-          visible
-          color={hovered || active ? '#00fff5' : '#7dce82'}
-        />
+        <meshStandardMaterial visible color={color} />
       </mesh>
+      {string}
     </>
   );
 }
