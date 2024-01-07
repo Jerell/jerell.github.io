@@ -6,8 +6,8 @@ export default function PaceJob() {
   return (
     <Job company='Pace CCS' title='Software engineer' date='2018 - date'>
       <p>
-        Leading research and development of a modular fluid dynamics simulator
-        and analysis tool.
+        Research and development of a modular fluid dynamics simulation and
+        analysis tool.
       </p>
 
       <ul>
@@ -38,12 +38,13 @@ export default function PaceJob() {
             <p>
               Development of a generalized software model for the CCS industry,
               used to investigate the behaviour and evolution of CO2 pipelines
-              over time in response to user defined conditions.
+              over time using numerical methods to solve partial differential
+              equations.
             </p>
             <p>
-              Published{' '}
-              <Link href='https://www.npmjs.com/package/ccs-sim'>ccs-sim</Link>,
-              an npm package for simulating the behaviour of fluid in pipelines.
+              Heavy use of D3.js to create interactive visualisations of the
+              pipeline network, the initial and boundary conditions of the
+              system, and the results of the simulation.
             </p>
           </div>
         </li>
@@ -91,7 +92,8 @@ export default function PaceJob() {
             </div>
             <p>
               Used Azure Serverless Function Apps to monitor the activity of
-              virtual machines and send alerts through Slack.
+              virtual machines and send alerts through Slack when a VM had been
+              left idle for some time.
             </p>
           </div>
         </li>
