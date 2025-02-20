@@ -24,15 +24,17 @@ export const defaultContentPageLayout: PageLayout = {
     Component.Search(),
     Component.Darkmode(),
     // Component.Explorer({ title: "Discover", filterFn: (node) => node.name !== "work-history" }),
-    Component.RecentNotes({
-      title: "Work history",
-      limit: 3,
-      filter: (f) =>
-        f.slug!.startsWith("work-history/") &&
-        f.slug! !== "work-history/index" &&
-        !f.frontmatter?.noindex,
-      linkToMore: "work-history/" as SimpleSlug,
-    }),
+    Component.DesktopOnly(
+      Component.RecentNotes({
+        title: "Work history",
+        limit: 3,
+        filter: (f) =>
+          f.slug!.startsWith("work-history/") &&
+          f.slug! !== "work-history/index" &&
+          !f.frontmatter?.noindex,
+        linkToMore: "work-history/" as SimpleSlug,
+      }),
+    ),
   ],
   right: [
     Component.Graph(),
@@ -50,15 +52,17 @@ export const defaultListPageLayout: PageLayout = {
     Component.Search(),
     Component.Darkmode(),
     // Component.Explorer({ title: "Discover", filterFn: (node) => node.name !== "work-history" }),
-    Component.RecentNotes({
-      title: "Work history",
-      limit: 3,
-      filter: (f) =>
-        f.slug!.startsWith("work-history/") &&
-        f.slug! !== "work-history/index" &&
-        !f.frontmatter?.noindex,
-      linkToMore: "work-history/" as SimpleSlug,
-    }),
+    Component.DesktopOnly(
+      Component.RecentNotes({
+        title: "Work history",
+        limit: 3,
+        filter: (f) =>
+          f.slug!.startsWith("work-history/") &&
+          f.slug! !== "work-history/index" &&
+          !f.frontmatter?.noindex,
+        linkToMore: "work-history/" as SimpleSlug,
+      }),
+    ),
   ],
   right: [],
 }
