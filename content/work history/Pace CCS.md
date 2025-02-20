@@ -19,7 +19,7 @@ Used #d3js and #webgl to create interactive visualisations of the pipeline netwo
 
 Project management web application used by all employees to track time spent on different projects. Automated the creation of progress reports showing metrics such as planned and actual costs and hours.
 
-Hosted on an #azure virtual machine using #terraform, #ansible, and #github-actions
+Hosted on an #azure virtual machine using #terraform, #ansible, and #github-actions. Built with #nestjs using #cqrs and #eventsourcing with #redis.
 
 ### cvgen
 #golang
