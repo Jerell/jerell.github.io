@@ -1,17 +1,13 @@
 import { PageLayout, SharedLayout } from "./quartz/cfg"
 import * as Component from "./quartz/components"
+import { SimpleSlug } from "./quartz/util/path"
 
 // components shared across all pages
 export const sharedPageComponents: SharedLayout = {
   head: Component.Head(),
   header: [],
   afterBody: [],
-  footer: Component.Footer({
-    links: {
-      GitHub: "https://github.com/jackyzha0/quartz",
-      "Discord Community": "https://discord.gg/cRFFHYye7t",
-    },
-  }),
+  footer: Component.Footer({ links: { GitHub: "https://github.com/jerell" } }),
 }
 
 // components for pages that display a single page (e.g. a single note)
@@ -27,7 +23,16 @@ export const defaultContentPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.Darkmode(),
-    Component.Explorer(),
+    // Component.Explorer({ title: "Discover", filterFn: (node) => node.name !== "work-history" }),
+    Component.RecentNotes({
+      title: "Work history",
+      limit: 3,
+      filter: (f) =>
+        f.slug!.startsWith("work-history/") &&
+        f.slug! !== "work-history/index" &&
+        !f.frontmatter?.noindex,
+      linkToMore: "work-history/" as SimpleSlug,
+    }),
   ],
   right: [
     Component.Graph(),
@@ -44,7 +49,16 @@ export const defaultListPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.Darkmode(),
-    Component.Explorer(),
+    // Component.Explorer({ title: "Discover", filterFn: (node) => node.name !== "work-history" }),
+    Component.RecentNotes({
+      title: "Work history",
+      limit: 3,
+      filter: (f) =>
+        f.slug!.startsWith("work-history/") &&
+        f.slug! !== "work-history/index" &&
+        !f.frontmatter?.noindex,
+      linkToMore: "work-history/" as SimpleSlug,
+    }),
   ],
   right: [],
 }

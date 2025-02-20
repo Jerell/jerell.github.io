@@ -494,6 +494,10 @@ p {
   }
 }
 
+h1 + .table-container table {
+  margin: 0;
+}
+
 th {
   text-align: left;
   padding: 0.4rem 0.7rem;

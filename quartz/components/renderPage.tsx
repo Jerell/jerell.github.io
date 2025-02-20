@@ -34,12 +34,7 @@ export function pageResources(
   const contentIndexScript = `const fetchData = fetch("${contentIndexPath}").then(data => data.json())`
 
   const resources: StaticResources = {
-    css: [
-      {
-        content: joinSegments(baseDir, "index.css"),
-      },
-      ...staticResources.css,
-    ],
+    css: [{ content: joinSegments(baseDir, "index.css") }, ...staticResources.css],
     js: [
       {
         src: joinSegments(baseDir, "prescript.js"),
@@ -107,12 +102,7 @@ export function renderPage(
           let blockNode = page.blocks?.[blockRef]
           if (blockNode) {
             if (blockNode.tagName === "li") {
-              blockNode = {
-                type: "element",
-                tagName: "ul",
-                properties: {},
-                children: [blockNode],
-              }
+              blockNode = { type: "element", tagName: "ul", properties: {}, children: [blockNode] }
             }
 
             node.children = [
@@ -252,9 +242,8 @@ export function renderPage(
                   ))}
                 </Header>
                 <div class="popover-hint">
-                  {beforeBody.map((BodyComponent) => (
-                    <BodyComponent {...componentData} />
-                  ))}
+                  {slug !== "index" &&
+                    beforeBody.map((BodyComponent) => <BodyComponent {...componentData} />)}
                 </div>
               </div>
               <Content {...componentData} />
