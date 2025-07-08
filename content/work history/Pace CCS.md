@@ -6,6 +6,9 @@ tags: []
 ## Software engineer
 
 Development of internal tools for [Pace](https://paceccs.com) and engineering software products for clients.
+### Piper
+#nextjs #webgpu #wasm #rust
+A WebGPU based tool for thermodynamic analysis and steady state pipeline simulation. Used compute shaders to map the entire space of input conditions for fluid entering a pipeline network to a set of outputs, aiming to identify the feasible region for the system.
 
 ### Digital Twin
 #typescript #julia #nextjs #docker #csharp 
