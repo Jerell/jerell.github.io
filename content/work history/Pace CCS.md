@@ -26,6 +26,6 @@ Project management web application used by all employees to track time spent on 
 Hosted on an #azure virtual machine using #terraform, #ansible, and #github-actions. Built with #nestjs using #cqrs and #eventsourcing with #redis.
 
 ### cvgen
-#golang
+#typst
 
 A command line tool that generates PDFs in a custom template using YAML input files that describe a person's work history.
