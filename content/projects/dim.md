@@ -29,4 +29,4 @@ Knowing that an area has a dimension of `L=2` and a length has `L=1` means you c
 
 This means that you don't need to explicitly write code for each operation on two quantities: a distance divided by a time will produce a speed; a force divided by an area will produce a pressure.
 
-And every possible combination of units works. I don't need to know the distance in meters and the time in seconds so I can use the `Speed` constructor with the `SpeedUnits.MetersPerSecond` enum. I can create a speed by using the unit string "yd/h" if I need to.
+And every possible combination of units works. I don't need to know the distance in meters and the time in seconds so I can use the `Speed` constructor with the `SpeedUnits.MetersPerSecond` enum. I can create a speed by using the unit string `"yd/h"` if I need to.
