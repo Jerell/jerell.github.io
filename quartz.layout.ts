@@ -26,6 +26,17 @@ export const defaultContentPageLayout: PageLayout = {
     // Component.Explorer({ title: "Discover", filterFn: (node) => node.name !== "work-history" }),
     Component.DesktopOnly(
       Component.RecentNotes({
+        title: "Projects",
+        limit: 3,
+        filter: (f) =>
+          f.slug!.startsWith("projects/") &&
+          f.slug! !== "projects/index" &&
+          !f.frontmatter?.noindex,
+        linkToMore: "projects/" as SimpleSlug,
+      }),
+    ),
+    Component.DesktopOnly(
+      Component.RecentNotes({
         title: "Work history",
         limit: 3,
         filter: (f) =>
