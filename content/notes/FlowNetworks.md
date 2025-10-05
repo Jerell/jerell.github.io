@@ -21,7 +21,7 @@ Going counter clockwise, I will call these boundary nodes A, B, C, D, and E.
 
 As a user interface, this illustration method has some pitfalls, some with more obvious solutions than others.
 
-If a branch differs meaningfully across its length (e.g. elevation profile), you need to introduce a concept of orientation to each one. In my model, I used a triangle to turn each branch into a kind of arrow.
+If a the properties of a branch change meaningfully across its length (e.g. elevation profile), you need to introduce a concept of orientation to each one. In my model, I used a triangle to turn each branch into a kind of arrow.
 
 If your calculation simply takes a set of fluid properties at the inlet of a pipe and passes it into a function that returns the outlet properties, and orientation is significant, you must know in advance which direction the fluid flows through the pipe. You could try to infer this by which end is connected to an inlet and which is connected to an outlet, but this becomes more difficult when you move past the simplest network shapes.
 
