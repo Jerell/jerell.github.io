@@ -41,7 +41,7 @@ The "fixed orientation" approach could look something like this, where each bran
 
 ![[prototyper fixed orientation.png]]
 
-The property fields (diameter, roughness) in each box are more illustrative than necessary. Each branch would have its own set of properties that may or may not vary across its length. If you really wanted to rotate these, that could be possible, but the important thing is to know whether you're connecting to Port A or Port B. Because the elevation at ports A and B may differ.
+The property fields (diameter, roughness) in each box are more illustrative than necessary. Each branch would have its own set of properties that may or may not vary across its length. If you really wanted to rotate these, that could be possible, but the important thing is to know whether you're connecting to Port A or Port B. Because the elevation at ports A and B may differ. The expectation though is that things flow from left to right, Port A to Port B.
 
 Here is a more refined version of the concept, where a branch may be composed of multiple components, rather than just being a length of pipe.
 
@@ -70,3 +70,5 @@ You don't even get to entertain the idea of a network that splits because that m
 These things should be an indication that this is not a good way to represent flow networks.
 ## Directed graph
 The most natural way to represent these networks is as a directed graph of branches where each branch has an ordered list of components.
+
+Each branch is a node in the directed graph and the links just represent connections. And it is still possible to align these nodes on a grid, but that would be a choice. You could quite easily imagine each branch in the images above filling a grid cell.
