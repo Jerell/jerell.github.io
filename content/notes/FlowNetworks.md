@@ -71,4 +71,4 @@ These things should be an indication that this is not a good way to represent fl
 ## Directed graph
 The most natural way to represent these networks is as a directed graph of branches where each branch has an ordered list of components.
 
-Each branch is a node in the directed graph and the links just represent connections. And it is still possible to align these nodes on a grid, but that would be a choice. You could quite easily imagine each branch in the images above filling a grid cell.
+Each branch is a node in the directed graph and the links just represent connections. And it is still possible to align these nodes on a grid, but that would be a choice. You could quite easily imagine each branch (or even each module within a branch) in the images above filling a grid cell.
