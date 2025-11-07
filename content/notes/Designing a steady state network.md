@@ -70,7 +70,9 @@ It has been mentioned that some impurities don't produce significant differences
 
 Alternatively we would need a service to provide thermodynamic data. Tab files are a useful format because they are already a standard and we have a parser, so even if we don't use Multiflash to produce these files directly it would be good if our service provided data in the tab file format.
 ### Point evaluation
-We can calculate the output of a set of components given a specific input fluid. 
+We can calculate the output of a set of components given a specific input fluid. This is exactly what you would expect for the forward pass calculations of the network elements. We pass an input to a function and get an output.
+
+If the user has specific inputs they want to evaluate, these can be defined at the source blocks and passed downstream.
 ### Parallelism
 It is possible to process a whole range of inputs in parallel with WebGPU compute shaders. The thermodynamic data for a composition would be packed in to RGBA storage textures and component parameters would be passed as uniforms to the shaders.
 ![[piper network.png]]
