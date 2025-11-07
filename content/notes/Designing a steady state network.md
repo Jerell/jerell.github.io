@@ -38,7 +38,7 @@ Groups are a labeled container for branches. They can have their own properties 
 ### Map windows and anchors
 We can display elements overlaid on a map by having placeable map elements on the user interface. An anchor is the one that sets the position and scale of the map. A window is a moveable island that provides a view of the same map in a different location.
 ## Contexts and inherited values
-We often say that we don't want default values for any of our properties but this is only really true if you're strictly talking about values the user had no say in or values that may quietly hide a misconfiguration. But some properties are defined globally or for groups of components. Some are determined by their position in the network. It is not the case that the user should be made to manually enter every value for every property.
+We often say that we don't want default values for any of our properties but this is only really true if you're strictly talking about values the user had no say in or values that may quietly hide a misconfiguration. But some properties are defined globally or for groups of components. Some are determined by their position in the network. The user should not be made to manually enter every value for every property.
 
 Consider mass flow: the total mass flow into Branch 2 in the above image is the sum of the flow from Branch 1 and Branch 4. The mass flow into Branch 3 and Branch 5 is determined by the mass flow and split ratio from Branch 2. A component within these destination branches may make use of the mass flow value, but you would not expect to need to enter it manually. Mass flow is clearly a branch-level property.
 
