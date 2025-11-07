@@ -9,7 +9,7 @@ title: Designing a steady state network
 
 A flow network is made of components that receive a fluid as input and produce a fluid as output. In a steady state network, these can be seen as a directed graph. Each component performs some operation on the incoming fluid to produce an output fluid which is passed on to any downstream components.
 
-The component operation is impacted by variables which can be defined at multiple levels: Ambient temperature may affect temperature change, so it should be known but not defined at the level of the individual component, but the efficiency of a compressor should be defined at the component level.
+The component operation is impacted by variables which can be defined at multiple levels: Ambient temperature may affect temperature change, so it should be known but not defined at the level of the individual component, but the efficiency of a compressor should be defined at the component level if not given a default by a definition in a broader scope.
 
 ## Elements of a network
 
