@@ -30,13 +30,21 @@ Multiples of the same block may exist in parallel, and this is represented by ve
 
 ![[example branch.png|300]]
 *An example branch with a block sequence of one source, four capture units, a pipe, two compressors, and another pipe*
-We can add to block sequences by extending them at the end or inserting blocks in the middle, much like you would add rows to an excel data sheet, with the option to add a new block before or after a selected one. To add a block just before the two compressors, the user would click the blue area.
+We can add to block sequences by extending them at the end or inserting blocks in the middle, much like you would add rows to an Excel data sheet, with the option to add a new block before or after a selected one. To add a block just before the two compressors, the user would click the blue area.
 #### Terminal blocks
 A source block is where the composition and flow rate of a fluid stream are defined. This fluid is passed along to the next block in the sequence. A sink block is where a fluid stream terminates. One must be placed at the end of a branch if the branch is not connected to another.
 ### Groups
 Groups are a labeled container for branches. They can have their own properties which are accessible by the branches and blocks within. This is useful for defining conditions that apply to multiple branches but not all of them.
 ### Map windows and anchors
 We can display elements overlaid on a map by having placeable map elements on the user interface. An anchor is the one that sets the position and scale of the map. A window is a moveable island that provides a view of the same map in a different location.
+## Contexts and inherited values
+We often say that we don't want default values for any of our properties but this is only really true if you're strictly talking about values the user had no say in or values that may quietly hide a misconfiguration. But some properties are defined globally or for groups of components. Some are determined by their position in the network. It is not the case that the user should be made to manually enter every value for every property.
+
+Consider mass flow: the total mass flow into Branch 2 in the above image is the sum of the flow from Branch 1 and Branch 4. The mass flow into Branch 3 and Branch 5 is determined by the mass flow and split ratio from Branch 2. A component within these destination branches may make use of the mass flow value, but you would not expect to need to enter it manually. Mass flow is clearly a branch-level property.
+
+For some properties, it may be useful to define them at the group level. Ambient temperature is one example. Perhaps something like compressor efficiency too. In every case (barring fluid properties like mass flow, which is specifically branch-level only), I think it makes sense to allow properties to be defined in broader contexts and overridden by definitions in narrower contexts. Components should inherit the property values from the contexts they exist within.
+
+This would allow the user to say "every pipe in this group has a U-value of X, but I will override this specific one with a U-value of Y" without any difficulty, by setting the group level property to be X and the value within a specific component to be Y.
 ## Costing
 For cost calculations, we define modules that contain cost items, each with their own properties, and group these into assets. As a cost item is the smallest unit, they should map onto blocks well. However we may also use a block to represent multiple cost items and should do so when they are indivisible.
 
@@ -50,7 +58,7 @@ We already group these into "modules," which roughly correspond to what I call "
 
 A cost library should define the mapping between cost items and blocks. The goal would be to have a set of unchanging blocks to describe the network that you could assess with different cost libraries. We might say a network has a `compressor` block and a cost library would map that on to `Item 013` or `Item 015`, depending on the version, or even present the user with a choice of multiple cost items. But I think it's important that this is a separate layer.
 ## Modelling
-Describing the network in this way allows you to model each branch independently and see if they each produce the desired output. This is important when you have an incomplete network or you are working to meet constraints in multiple places. It allows you to ask the question "given that the fluid entering Branch 2 is X, what is its output pressure?" And that's a question that our existing primary model is not designed for.
+Describing the network as a directed graph of branches allows you to model each branch independently and see if they each produce the desired output. This is important when you have an incomplete network or you are working to meet constraints in multiple places. It allows you to ask the question "given that the fluid entering Branch 2 is X, what is its output pressure?" And that's a question that our existing primary model is not designed for.
 
 If you can do thermodynamic modelling of the fluid in each branch, you can use the calculated properties for costing too, for example where enthalpy change might be connected to a compressor's duty.
 
@@ -61,7 +69,8 @@ We can use tab files for thermodynamics but each one can only contain data for a
 It has been mentioned that some impurities don't produce significant differences in the thermodynamic data, so it might be possible to dramatically reduce the number of tab files used if we can ignore some of the differences in compositions and still get a reasonably accurate result.
 
 Alternatively we would need a service to provide thermodynamic data. Tab files are a useful format because they are already a standard and we have a parser, so even if we don't use Multiflash to produce these files directly it would be good if our service provided data in the tab file format.
-
+### Point evaluation
+We can calculate the output of a set of components given a specific input fluid. 
 ### Parallelism
 It is possible to process a whole range of inputs in parallel with WebGPU compute shaders. The thermodynamic data for a composition would be packed in to RGBA storage textures and component parameters would be passed as uniforms to the shaders.
 ![[piper network.png]]
