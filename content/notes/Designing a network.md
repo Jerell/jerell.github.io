@@ -4,6 +4,7 @@ tags:
   - fluid
   - flow
   - network
+  - simulation
 title: Designing a network
 ---
 
@@ -83,6 +84,6 @@ This approach tells you exactly where in your network a trajectory of fluid prop
 
 These transformations and constraints on the input fluid properties can be completely arbitrary. It's possible to define a reservoir that accepts fluid only within a certain pressure range, or have a compressor reject fluids that require a duty above a certain value (perhaps even setting the threshold based on cost).
 
-This parallel modelling approach is similar to the genetic algorithm we used to evaluate different permutations of a network years ago. It involves creating and pruning a large number of candidate solutions. The goal is not to "draw your network on the phase diagram". The phase diagram is just the space that can be used to define candidate solutions, which you necessarily are doing every time you describe the properties of a fluid. The network would be built using an interface designed for that purpose, and can then be used to evaluate points in the phase diagram.
+This parallel modelling approach is similar to the genetic algorithm we used to evaluate different permutations of a network years ago. It involves creating and pruning a large number of candidate solutions. The goal is not to "draw your network on the phase diagram". The phase diagram is just the space that can be used to define candidate solutions (See [[Modelling in increments]]), which you necessarily are doing every time you describe the properties of a fluid. The network would be built using an interface designed for that purpose, and can then be used to evaluate points in the phase diagram.
 
 Every time we do a binary search to find a snapshot result, we are attempting to find a valid trajectory whether or not we describe it that way. We just also end up making the additional claim that this particular result is "the state of the network" when really it is just one of however many satisfy the constraints we set. We're doing something that approximates this in a less rigorous and transparent way and presenting the outcome as something it isn't.
