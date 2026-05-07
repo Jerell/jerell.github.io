@@ -2,8 +2,10 @@
 title: jerell.me
 ---
 
-Hi, I'm Jerell. I haven't decided which of my notes to publish so there's not much here yet.
+Hi, I'm Jerell.
 
-I'm a software engineer with [[/work history/index|experience]] using a variety of languages, including TypeScript, Julia, C#, Rust, Go, and Python.
+I'm a software engineer building scientific and engineering software for carbon capture, thermodynamics, geospatial network modelling, and internal business tools.
 
-I've recently started writing shaders and learning zig. I'm currently reading a book on compilers.
+Recently I've been working with Zig, TypeScript, WebAssembly, WebGPU, ONNX, and React.
+
+You can read more about my [[/work history/index|work history]] or download my [CV](/CV.pdf).

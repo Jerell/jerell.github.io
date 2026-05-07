@@ -13,7 +13,10 @@ export const sharedPageComponents: SharedLayout = {
 // components for pages that display a single page (e.g. a single note)
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
-    Component.Breadcrumbs(),
+    Component.ConditionalRender({
+      component: Component.Breadcrumbs(),
+      condition: (page) => page.fileData.slug !== "index",
+    }),
     Component.ArticleTitle(),
     Component.ContentMeta(),
     Component.TagList(),
@@ -24,15 +27,37 @@ export const defaultContentPageLayout: PageLayout = {
     Component.Search(),
     Component.Darkmode(),
     // Component.Explorer({ title: "Discover", filterFn: (node) => node.name !== "work-history" }),
-    Component.RecentNotes({
-      title: "Work history",
-      limit: 3,
-      filter: (f) =>
-        f.slug!.startsWith("work-history/") &&
-        f.slug! !== "work-history/index" &&
-        !f.frontmatter?.noindex,
-      linkToMore: "work-history/" as SimpleSlug,
-    }),
+    Component.DesktopOnly(
+      Component.RecentNotes({
+        title: "Projects",
+        limit: 3,
+        filter: (f) =>
+          f.slug!.startsWith("projects/") &&
+          f.slug! !== "projects/index" &&
+          !f.frontmatter?.noindex,
+        linkToMore: "projects/" as SimpleSlug,
+      }),
+    ),
+    Component.DesktopOnly(
+      Component.RecentNotes({
+        title: "Notes",
+        limit: 3,
+        filter: (f) =>
+          f.slug!.startsWith("notes/") && f.slug! !== "notes/index" && !f.frontmatter?.noindex,
+        linkToMore: "notes/" as SimpleSlug,
+      }),
+    ),
+    Component.DesktopOnly(
+      Component.RecentNotes({
+        title: "Work history",
+        limit: 3,
+        filter: (f) =>
+          f.slug!.startsWith("work-history/") &&
+          f.slug! !== "work-history/index" &&
+          !f.frontmatter?.noindex,
+        linkToMore: "work-history/" as SimpleSlug,
+      }),
+    ),
   ],
   right: [
     Component.Graph(),
@@ -50,15 +75,17 @@ export const defaultListPageLayout: PageLayout = {
     Component.Search(),
     Component.Darkmode(),
     // Component.Explorer({ title: "Discover", filterFn: (node) => node.name !== "work-history" }),
-    Component.RecentNotes({
-      title: "Work history",
-      limit: 3,
-      filter: (f) =>
-        f.slug!.startsWith("work-history/") &&
-        f.slug! !== "work-history/index" &&
-        !f.frontmatter?.noindex,
-      linkToMore: "work-history/" as SimpleSlug,
-    }),
+    Component.DesktopOnly(
+      Component.RecentNotes({
+        title: "Work history",
+        limit: 3,
+        filter: (f) =>
+          f.slug!.startsWith("work-history/") &&
+          f.slug! !== "work-history/index" &&
+          !f.frontmatter?.noindex,
+        linkToMore: "work-history/" as SimpleSlug,
+      }),
+    ),
   ],
   right: [],
 }
