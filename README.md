@@ -1,17 +1,16 @@
-# Quartz v4
+# jerell.me
 
-> “[One] who works with the door open gets all kinds of interruptions, but [they] also occasionally gets clues as to what the world is and what might be important.” — Richard Hamming
+Personal website built with [Quartz](https://quartz.jzhao.xyz/).
 
-Quartz is a set of tools that helps you publish your [digital garden](https://jzhao.xyz/posts/networked-thought) and notes as a website for free.
+## Development
 
-🔗 Read the documentation and get started: https://quartz.jzhao.xyz/
+```sh
+npm install
+npx quartz build --serve
+```
 
-[Join the Discord Community](https://discord.gg/cRFFHYye7t)
+## Update Quartz
 
-## Sponsors
-
-<p align="center">
-  <a href="https://github.com/sponsors/jackyzha0">
-    <img src="https://cdn.jsdelivr.net/gh/jackyzha0/jackyzha0/sponsorkit/sponsors.svg" />
-  </a>
-</p>
+```sh
+npx quartz update
+```
