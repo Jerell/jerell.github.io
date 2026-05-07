@@ -13,7 +13,10 @@ export const sharedPageComponents: SharedLayout = {
 // components for pages that display a single page (e.g. a single note)
 export const defaultContentPageLayout: PageLayout = {
   beforeBody: [
-    Component.Breadcrumbs(),
+    Component.ConditionalRender({
+      component: Component.Breadcrumbs(),
+      condition: (page) => page.fileData.slug !== "index",
+    }),
     Component.ArticleTitle(),
     Component.ContentMeta(),
     Component.TagList(),
@@ -40,9 +43,7 @@ export const defaultContentPageLayout: PageLayout = {
         title: "Notes",
         limit: 3,
         filter: (f) =>
-          f.slug!.startsWith("notes/") &&
-          f.slug! !== "notes/index" &&
-          !f.frontmatter?.noindex,
+          f.slug!.startsWith("notes/") && f.slug! !== "notes/index" && !f.frontmatter?.noindex,
         linkToMore: "notes/" as SimpleSlug,
       }),
     ),

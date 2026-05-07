@@ -6,6 +6,7 @@ tags:
   - network
 title: Flow networks
 ---
+
 Networks of fluid flow can be described as a series of connected branches.
 
 A branch is a linear sequence of connected components through which the fluid flows. A branch may be connected at its ends to zero, one, or many branches.
@@ -17,6 +18,7 @@ In this diagram, the internal nodes are hollow and the boundary nodes are filled
 ![[flow network.png]]
 
 Going counter clockwise, I will call these boundary nodes A, B, C, D, and E.
+
 ## User interface
 
 As a user interface, this illustration method has some pitfalls, some with more obvious solutions than others.
@@ -56,11 +58,13 @@ Each component in the branch applies a transformation or constraint to the incom
 Reservoirs are examples of components that may mark a fluid trajectory as invalid. In the above network, branch 3 uses a Reservoir component to mark as invalid any trajectory that ends above the allowed pressure limit.
 
 ## Assets
+
 It is useful to be able to group a series of connected components as an asset that may be named or moved to another location, or swapped with another asset for comparison.
 
 In my network model, those are easily represented as branches. There is no requirement to have branches of a certain size, so you could easily have a "branch" that represents an asset within one larger leg of the network.
 
 ## Grids
+
 There is a temptation to place these elements on a grid but it should be considered whether grid position is a meaningful part of the data model. One iteration produced at work involved a grid where each row was a branch, each branch starts from the left of the grid, and everything flowed from left to right.
 
 If you stop to consider the shapes a network might have, it becomes clear that this is not flexible enough: two merging branches may not have the same length. The merging branches may not occupy neighbouring rows in the grid. Now you have to draw lines to distant cells and you start questioning why things are on the grid to begin with.
@@ -68,7 +72,9 @@ If you stop to consider the shapes a network might have, it becomes clear that t
 You don't even get to entertain the idea of a network that splits because that means modules in the same row are not necessarily part of the same branch.
 
 These things should be an indication that this is not a good way to represent flow networks.
+
 ## Directed graph
+
 The most natural way to represent these networks is as a directed graph of branches where each branch has an ordered list of components.
 
 Each branch is a node in the directed graph and the links just represent connections. And it is still possible to align these nodes on a grid, but that would be a choice. You could quite easily imagine each branch (or even each module within a branch) in the images above filling a grid cell.

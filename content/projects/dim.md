@@ -1,4 +1,3 @@
-
 ---
 date: 2025-09-08
 tags: [zig]
@@ -16,10 +15,10 @@ I was inspired by the syntax used in Julia by Unitful and DynamicQuantities, whe
 This felt much better than an approach I had used at work, where we had to use the constructor for the type of quantity we want to create and then also specify the unit
 
 ```js
-new Speed(0.2, SpeedUnits.MetersPerSecond);
+new Speed(0.2, SpeedUnits.MetersPerSecond)
 ```
 
-It *is* useful to know the type of quantity, so you can make sure you only do valid operations with your values, but that can be determined by the unit string.
+It _is_ useful to know the type of quantity, so you can make sure you only do valid operations with your values, but that can be determined by the unit string.
 
 Having a constructor for every type of quantity and an enum for all the units for that quantity feels bad.
 
