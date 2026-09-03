@@ -1,10 +1,10 @@
 ---
 date: 2025-09-08
-tags: [zig]
+tags: [rust, zig]
 title: dim - Dimensional analysis
 ---
 
-[dim](https://github.com/Jerell/dim) is a dimensional analysis and unit conversion library for Zig, with an optional CLI tool for quick calculations.
+[dim](https://github.com/Jerell/dim) is a dimensional analysis and unit conversion library for Zig, with an optional CLI tool for quick calculations. A newer Rust implementation, `flower-dim`, carries the same idea into flōwer's Rust/WebAssembly network core.
 
 I was inspired by the syntax used in Julia by Unitful and DynamicQuantities, where you can define a quantity by simply writing the value and its unit string.
 

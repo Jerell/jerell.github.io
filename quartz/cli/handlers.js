@@ -27,6 +27,7 @@ import {
   UPSTREAM_NAME,
   QUARTZ_SOURCE_BRANCH,
   ORIGIN_NAME,
+  ORIGIN_BRANCH,
   version,
   fp,
   cacheFile,
@@ -593,7 +594,7 @@ export async function handleSync(argv) {
       "Pulling updates from your repository. You may need to resolve some `git` conflicts if you've made changes to components or plugins.",
     )
     try {
-      gitPull(ORIGIN_NAME, QUARTZ_SOURCE_BRANCH)
+      gitPull(ORIGIN_NAME, ORIGIN_BRANCH)
     } catch {
       console.log(styleText("red", "An error occurred above while pulling updates."))
       await popContentFolder(contentFolder)
