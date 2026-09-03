@@ -11,6 +11,9 @@ npm ci
 npx quartz build --serve
 ```
 
+The site deploys from `main`. `npx quartz sync` pulls from `origin/main`; Quartz
+updates still come from `upstream/v4`.
+
 ## Update Quartz
 
 ```sh
